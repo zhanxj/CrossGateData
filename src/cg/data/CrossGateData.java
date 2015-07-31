@@ -1,5 +1,7 @@
 package cg.data;
 
+import java.net.URI;
+
 import cg.base.CrossGateBase;
 import cg.base.LoadCall;
 import cg.base.animation.AnimationReader;
@@ -57,6 +59,8 @@ public class CrossGateData extends CrossGateBase {
 	
 	protected static MapReader mapReader;
 	
+	protected static URI serverFilePath;
+	
 	protected abstract static class DataLoader extends Loader {
 		
 		private AnimationReaderCreator animationReaderCreator;
@@ -68,6 +72,12 @@ public class CrossGateData extends CrossGateBase {
 		@Override
 		protected void createSimpleObject() {
 			super.createSimpleObject();
+			try {
+				serverFilePath = loadServerFilePath();
+			} catch (Exception e) {
+				log.error(getClass().getName(), e);
+				exit();
+			}
 			model = getModel();
 			reloadManager = createReloadManager();
 			animationReaderCreator = createAnimationReaderCreator();
@@ -158,6 +168,8 @@ public class CrossGateData extends CrossGateBase {
 		protected abstract WarpManager createWarpManager();
 		
 		protected abstract MapReader createMapReader();
+		
+		protected abstract URI loadServerFilePath() throws Exception;
 
 		@Override
 		protected AnimationReader createAnimationReader() {

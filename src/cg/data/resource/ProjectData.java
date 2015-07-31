@@ -2,7 +2,9 @@ package cg.data.resource;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,9 +15,15 @@ import jxl.Workbook;
 import org.jdom.Document;
 
 import cg.base.log.Log;
-import cg.data.resource.InputStreamHandler.DataInfo;
+import cg.data.resource.inputStream.ExcelInputStreamHandler;
+import cg.data.resource.inputStream.InputStreamHandler;
+import cg.data.resource.inputStream.TextInputStreamHandler;
+import cg.data.resource.inputStream.XmlInputStreamHandler;
+import cg.data.resource.inputStream.InputStreamHandler.DataInfo;
+import cg.data.resource.serverResource.ServerResourceLoader;
+import cg.data.resource.serverResource.ServerResourceLoader.SingleResourceLoader;
 
-public abstract class ProjectData implements Reloadable {
+public class ProjectData implements Reloadable, SingleResourceLoader {
 	
 	public static final String FILE_TYPE_TEXT = "txt";
 	
@@ -33,12 +41,12 @@ public abstract class ProjectData implements Reloadable {
 	
 	protected Log log;
 	
-	protected String clientPath;
+	protected String serverPath;
 	
 	@SuppressWarnings("rawtypes")
-	public ProjectData(Log log, String clientPath) {
+	public ProjectData(Log log, String serverPath, ServerResourceLoader serverResourceLoader) throws Exception {
 		this.log = log;
-		this.clientPath = clientPath;
+		this.serverPath = serverPath;
 		objectReaders = new HashMap<String, ObjectReader>();
 		listeners = new LinkedList<ProjectDataListener>();
 		inputStreamHandlers = new HashMap<Class, InputStreamHandler>();
@@ -46,10 +54,22 @@ public abstract class ProjectData implements Reloadable {
 		inputStreamHandlers.put(Document.class, new XmlInputStreamHandler(FILE_TYPE_XML, log));
 		inputStreamHandlers.put(Workbook.class, new ExcelInputStreamHandler(FILE_TYPE_EXCEL, log));
 		
-		initBase();
+		serverResourceLoader.load(serverPath, this);
 	}
 	
-	protected abstract void initBase();
+	@Override
+	public void load(URI uri) {
+		String path = uri.getPath();
+		if (path.endsWith(FILE_TYPE_TEXT)) {
+			inputStreamHandlers.get(String[].class).addURI(uri);
+		} else if (path.endsWith(FILE_TYPE_EXCEL)) {
+			inputStreamHandlers.get(Workbook.class).addURI(uri);
+		} else if (path.endsWith(FILE_TYPE_XML)) {
+			inputStreamHandlers.get(Document.class).addURI(uri);
+		} else {
+			// This is a map.
+		}
+	}
 	
 	protected void clearResource() {
 		for (@SuppressWarnings("rawtypes") InputStreamHandler inputStreamHandler : inputStreamHandlers.values()) {
@@ -119,13 +139,11 @@ public abstract class ProjectData implements Reloadable {
 	@SuppressWarnings("unchecked")
 	public List<DataInfo> getFileList() {
 		int size = 0;
-		for (@SuppressWarnings("rawtypes") InputStreamHandler inputStreamHandler : inputStreamHandlers.values()) {
-			size += inputStreamHandler.getDataInfos().size();
-		}
-		
 		List<DataInfo> list = new ArrayList<DataInfo>(size);
 		for (@SuppressWarnings("rawtypes") InputStreamHandler inputStreamHandler : inputStreamHandlers.values()) {
-			list.addAll(inputStreamHandler.getDataInfos());
+			Collection<DataInfo> dataInfos = inputStreamHandler.getDataInfos();
+			size += dataInfos.size();
+			list.addAll(dataInfos);
 		}
 		return list;
 	}
@@ -138,8 +156,8 @@ public abstract class ProjectData implements Reloadable {
 		listeners.remove(listener);
 	}
 	
-	public String getClientPath() {
-		return clientPath;
+	public String getServerPath() {
+		return serverPath;
 	}
 
 }

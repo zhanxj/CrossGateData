@@ -39,7 +39,7 @@ public class CMapReader implements MapReader {
 	}
 	
 	private void init() throws IOException {
-		File file = new File(CrossGateData.getProjectData().getClientPath());
+		File file = new File(CrossGateData.getProjectData().getServerPath());
 		file = new File(file, "server/map");
 		File[] mapFiles = file.listFiles();
 		for (File mapFile : mapFiles) {
@@ -84,7 +84,7 @@ public class CMapReader implements MapReader {
 			name = mapMemo.getName();
 			mapId = mapMemo.getMapId();
 			warpIds = new HashMap<Integer, Integer>();
-			File file = new File(CrossGateData.getProjectData().getClientPath());
+			File file = new File(CrossGateData.getProjectData().getServerPath());
 			file = new File(file, "server/map/" + mapMemo.getFileName());
 			FileInputStream fis = new FileInputStream(file);
 			byte[] datas = new byte[24];

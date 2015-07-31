@@ -42,7 +42,7 @@ public class CFileMapReader implements MapReader {
 
 	@Override
 	public MapInfo[] load() {
-		File file = new File(projectData.getClientPath());
+		File file = new File(projectData.getServerPath());
 		file = new File(file, pathName);
 		File[] mapFiles = file.listFiles();
 		MapInfo[] mapInfos = new MapInfo[mapFiles.length];
