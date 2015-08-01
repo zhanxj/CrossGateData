@@ -2,6 +2,8 @@ package cg.data.resource;
 
 import java.io.InputStream;
 import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
 
 import cg.base.util.URLHandler;
 
@@ -17,6 +19,7 @@ import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public class AWSS3 {
 	
@@ -69,8 +72,21 @@ public class AWSS3 {
 		is.close();
 	}
 	
-	public static ObjectListing listObjects(String bucket, String prefix) {
-		return AWSS3.getInstance().s3.listObjects(new ListObjectsRequest().withBucketName(bucket).withPrefix(prefix));
+	public static List<S3ObjectSummary> listObjects(String bucket, String prefix) {
+		List<S3ObjectSummary> objectSummaries = new LinkedList<S3ObjectSummary>();
+		String marker = null;
+		ObjectListing objectListing;
+		do {
+			objectListing = listObjects(bucket, prefix, marker);
+			objectSummaries.addAll(objectListing.getObjectSummaries());
+		} while ((marker = objectListing.getNextMarker()) != null);
+		return objectSummaries;
+	}
+	
+	public static ObjectListing listObjects(String bucket, String prefix, String marker) {
+		ListObjectsRequest request = new ListObjectsRequest().withBucketName(bucket).withPrefix(prefix);
+		request.setMarker(marker);
+		return AWSS3.getInstance().s3.listObjects(request);
 	}
 
 }
