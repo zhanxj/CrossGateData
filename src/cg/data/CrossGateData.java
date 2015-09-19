@@ -84,13 +84,6 @@ public class CrossGateData extends CrossGateBase {
 		}
 
 		@Override
-		public void run() {
-			super.run();
-			warpManager = createWarpManager();
-			mapReader = createMapReader();
-		}
-
-		@Override
 		protected void load() {
 			try {
 				projectData = createProjectData();
@@ -104,6 +97,8 @@ public class CrossGateData extends CrossGateBase {
 				log.error(getClass().getName() + "::run() : " + e.getMessage(), e);
 				exit();
 			}
+			warpManager = createWarpManager();
+			mapReader = createMapReader();
 		}
 		
 		protected void registerReload() throws Exception {
