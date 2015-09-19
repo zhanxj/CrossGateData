@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileFilter;
 
 public class FileExtensionFilter implements FileFilter {
+	
 	private String[] extension;
+	
 	private boolean allowDir;
 	
 	/**
@@ -16,6 +18,7 @@ public class FileExtensionFilter implements FileFilter {
 		this.allowDir = allowDir;
 	}
 	
+	@Override
 	public boolean accept(File pathname) {
 		if(pathname.isHidden()){
 			return false;
@@ -29,5 +32,6 @@ public class FileExtensionFilter implements FileFilter {
 			}
 		}
 		return false;
-	}	
+	}
+	
 }
