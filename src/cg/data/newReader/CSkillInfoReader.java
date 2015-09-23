@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.jdom.Document;
-import org.jdom.Element;
+import org.jdom2.Document;
+import org.jdom2.Element;
 
 import cg.base.sprite.AttributeCell;
 import cg.base.util.MathUtil;
@@ -35,7 +35,6 @@ public class CSkillInfoReader implements ObjectReader<SkillInfo> {
 		Document doc = projectData.getXmlResource("skills");
 		if (doc != null) {
 			Element root = doc.getRootElement();
-			@SuppressWarnings("unchecked")
 			List<Element> list = root.getChildren("skill");
 			List<SkillInfo> ret = new ArrayList<SkillInfo>(list.size());
 			for (int i = 0;i < list.size();i++) {
@@ -52,7 +51,6 @@ public class CSkillInfoReader implements ObjectReader<SkillInfo> {
 		
 		private Map<Integer, SkillLevelData> skillLevelDatas;
 		
-		@SuppressWarnings("unchecked")
 		private CSkillInfo(Element element, MessageManager messageManager) {
 			super(messageManager);
 			
@@ -108,7 +106,6 @@ public class CSkillInfoReader implements ObjectReader<SkillInfo> {
 		
 		protected int beginAnimation, attachAnimation, hitAnimation, backAnimation, trackAnimation;
 		
-		@SuppressWarnings("unchecked")
 		private CSkillLevelData(Element element, short skillId, MessageManager messageManager) {
 			super(messageManager);
 			name = element.getAttributeValue("name");

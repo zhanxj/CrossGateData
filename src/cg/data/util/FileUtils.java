@@ -1,14 +1,35 @@
 package cg.data.util;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URI;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import org.jdom.*;
-import org.jdom.input.*;
-import org.jdom.output.*;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.input.sax.XMLReaders;
+import org.jdom2.output.XMLOutputter;
 
 /**
  * @author 	com.pip
@@ -16,7 +37,7 @@ import org.jdom.output.*;
 public class FileUtils {
 	
     /**
-     * ¿½±´Ô´ÎÄ¼þµ½Ä¿±êÎÄ¼þ¡£
+     * ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
      */
     public static void copyFile(File src, File dest) throws IOException{
         FileInputStream fis = null;
@@ -51,10 +72,10 @@ public class FileUtils {
     }
     
     /**
-	 * ÕÒ³öÒ»¸öÄ¿Â¼ÖÐµÄËùÓÐÎÄ¼þ£¨°üÀ¨Ä¿Â¼×Ô¼º£©¡£
-	 * @param dir ¸ùÄ¿Â¼
-	 * @param suffix À©Õ¹Ãû£¬´ø.·ûºÅ£¬±ØÐëÐ¡Ð´£»null±íÊ¾²»¹ýÂË
-	 * @param saveSet ±£´æÕÒ³öµÄÎÄ¼þÂ·¾¶
+	 * ï¿½Ò³ï¿½Ò»ï¿½ï¿½Ä¿Â¼ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Â¼ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param dir ï¿½ï¿½Ä¿Â¼
+	 * @param suffix ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Ð´ï¿½ï¿½nullï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param saveSet ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
 	 */
 	public static void findFilesInDir(File dir, String suffix, Set<String> saveSet) {
 		if (suffix == null) {
@@ -74,10 +95,10 @@ public class FileUtils {
 	
 
     /**
-	 * ÕÒ³öÒ»¸öÄ¿Â¼ÖÐµÄËùÓÐÎÄ¼þµÄÎÄ¼þÃû£¨²»ËÑË÷×ÓÄ¿Â¼£©¡£
-	 * @param dir ¸ùÄ¿Â¼
-	 * @param suffix À©Õ¹Ãû£¬²»´ø.·ûºÅ£¬±ØÐëÐ¡Ð´
-	 * @return ÕÒµ½µÄÎÄ¼þµÄÃû³Æ£¨²»ÊÇÈ«Â·¾¶£©¡£
+	 * ï¿½Ò³ï¿½Ò»ï¿½ï¿½Ä¿Â¼ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Â¼ï¿½ï¿½ï¿½ï¿½
+	 * @param dir ï¿½ï¿½Ä¿Â¼
+	 * @param suffix ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Ð´
+	 * @return ï¿½Òµï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½È«Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public static String[] listFile(File dir, String suffix) {
 		File[] files = dir.listFiles(new FileExtensionFilter(new String[] { suffix }, false));
@@ -119,7 +140,7 @@ public class FileUtils {
     }
 
     /**
-     * ÔØÈëÎÄ¼þÄÚÈÝµ½×Ö·ûÊý×é¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½é¡£
      */
     public static byte[] loadFileData(File src) throws IOException{
         FileInputStream fis = null;
@@ -149,7 +170,7 @@ public class FileUtils {
     }
 
     /**
-     * ÔØÈëÎÄ¼þÄÚÈÝµ½×Ö·û´®£¬²ÉÓÃGBK±àÂë¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½GBKï¿½ï¿½ï¿½ë¡£
      */
     public static String loadFileContent(File src) throws IOException {
     	return loadFileContent(src, "GBK");
@@ -159,7 +180,7 @@ public class FileUtils {
         FileInputStream fis = null;
         try{
             fis = new FileInputStream(src);
-            // ´¦ÀíBOM
+            // ï¿½ï¿½ï¿½ï¿½BOM
         	if ("UTF-8BOM".equals(encoding)) {
         		fis.skip(3);
         		encoding = "UTF-8";
@@ -194,7 +215,7 @@ public class FileUtils {
     }
 
     /**
-     * ±£´æÊý¾Ýµ½ÎÄ¼þ¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
      */
     public static void saveFileData(File dest, byte[] data) throws IOException{
         FileOutputStream fos = null;
@@ -214,7 +235,7 @@ public class FileUtils {
     }
 
     /**
-     * ±£´æ×Ö·û´®µ½ÎÄ¼þ£¬²ÉÓÃGBK±àÂë¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½GBKï¿½ï¿½ï¿½ë¡£
      */
     public static void saveFileContent(File dest, String content) throws IOException{
     	saveFileContent(dest, content, "GBK");
@@ -224,7 +245,7 @@ public class FileUtils {
         FileOutputStream fos = null;
         try{
             fos = new FileOutputStream(dest);
-            // ´¦ÀíBOM
+            // ï¿½ï¿½ï¿½ï¿½BOM
         	if ("UTF-8BOM".equals(encoding)) {
         		fos.write(0xEF);
         		fos.write(0xBB);
@@ -253,7 +274,7 @@ public class FileUtils {
     }
 
     /**
-     * ×ª»»×Ö·û´®µ½UTF¸ñÊ½¡£
+     * ×ªï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½UTFï¿½ï¿½Ê½ï¿½ï¿½
      */
     public static byte[] toUTF(String s){
         try{
@@ -268,7 +289,7 @@ public class FileUtils {
     }
 
     /**
-     * ¼ÆËãCRC¡£Ã¿Á½×Ö½ÚÒ»×é½øÐÐÒì»ò¡£
+     * ï¿½ï¿½ï¿½ï¿½CRCï¿½ï¿½Ã¿ï¿½ï¿½ï¿½Ö½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static short CRC(byte[] data){
         byte byte1 = 0, byte2 = 0;
@@ -284,7 +305,7 @@ public class FileUtils {
     }
 
     /**
-     * Ö´ÐÐÒ»¸öÃüÁî£¬²¢°Ñ±ê×¼Êä³öºÍ±ê×¼´íÎóµÄÄÚÈÝ±£´æµ½×Ö·û´®ÖÐ·µ»Ø¡£
+     * Ö´ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½î£¬ï¿½ï¿½ï¿½Ñ±ï¿½×¼ï¿½ï¿½ï¿½ï¿½Í±ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý±ï¿½ï¿½æµ½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½Ø¡ï¿½
      */
     public static String executeCommand(String cmd, File dir) throws IOException{
         Process p = Runtime.getRuntime().exec(cmd, null, dir);
@@ -305,7 +326,7 @@ public class FileUtils {
     }
 
     /**
-     * Ö´ÐÐÒ»¸öÃüÁî¡£
+     * Ö´ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½î¡£
      */
     public static void executeCommand(String cmd, String arg, File dir) throws IOException{
         Runtime.getRuntime().exec("\"" + cmd + "\" " + arg, null, dir);
@@ -335,7 +356,7 @@ public class FileUtils {
     }
 
     /**
-     * É¾³ýÒ»¸öÄ¿Â¼ÒÔ¼°¸ÃÄ¿Â¼ÏÂµÄËùÓÐÎÄ¼þ¡£
+     * É¾ï¿½ï¿½Ò»ï¿½ï¿½Ä¿Â¼ï¿½Ô¼ï¿½ï¿½ï¿½Ä¿Â¼ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
      */
     public static void deleteDir(File dir){
     	if (dir.exists()) {
@@ -352,7 +373,7 @@ public class FileUtils {
     }
 
     /**
-     * °ÑÒ»¸öÒì³£×ª»»Îª×Ö·û´®¡£
+     * ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ì³£×ªï¿½ï¿½Îªï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static String toString(Throwable e){
         StringWriter sw = new StringWriter();
@@ -362,7 +383,7 @@ public class FileUtils {
     }
     
     /**
-     * °ÑÒ»¸ö×Ö·û´®°æ±¾ºÅ×ª»»ÎªÕûÊý¡£
+     * ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½æ±¾ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static int parseVersionString(String str) {
     	String[] secs = str.split("\\.");
@@ -370,7 +391,7 @@ public class FileUtils {
     }
     
     /**
-     * °ÑÒ»¸öÕûÊý°æ±¾ºÅ×ª»»Îª×Ö·û´®¡£
+     * ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ±¾ï¿½ï¿½×ªï¿½ï¿½Îªï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static String versionToString(int version) {
     	int v1 = version / 10000;
@@ -380,7 +401,7 @@ public class FileUtils {
     }
     
     /**
-     * ±£´æÎÄ±¾
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½
      */
     public static void saveText(String text, File file) throws Exception {
         FileOutputStream fos = null;
@@ -392,7 +413,7 @@ public class FileUtils {
         try{
         	fos = new FileOutputStream(file);
         	BufferedOutputStream bos = new BufferedOutputStream(fos);
-        	// Ð´Èë±àÂëÇ°×º
+        	// Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ç°×º
         	// unicode litte-endian: FF FE
         	// unicode big-endian: FE FF
         	// utf8: EF BB BF
@@ -424,7 +445,7 @@ public class FileUtils {
     }
     
     /**
-     * ±£´æÒ»¸ötxtÎÄ¼þ¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½txtï¿½Ä¼ï¿½ï¿½ï¿½
      */
     public static void saveText(String text, OutputStream os) throws Exception{
         String encoding = System.getProperty("pip_xml_encoding");
@@ -433,7 +454,7 @@ public class FileUtils {
         }        
         try{
         	BufferedOutputStream bos = new BufferedOutputStream(os);
-        	// Ð´Èë±àÂëÇ°×º
+        	// Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ç°×º
         	// unicode litte-endian: FF FE
         	// unicode big-endian: FE FF
         	// utf8: EF BB BF
@@ -457,7 +478,7 @@ public class FileUtils {
     }
     
     /**
-     * »ñÈ¡ÎÄ±¾ÎÄ¼þ
+     * ï¿½ï¿½È¡ï¿½Ä±ï¿½ï¿½Ä¼ï¿½
      */
     public static String loadText(File file) throws Exception{
         FileInputStream fis = null;
@@ -466,7 +487,7 @@ public class FileUtils {
             fis = new FileInputStream(file);
             new DataInputStream(fis).readFully(buf);
             
-            // ¸ù¾ÝÇ°×º×Ô¶¯ÅÐ¶Ï±àÂë£¬Èç¹ûÃ»ÓÐÖ¸¶¨Ôò²ÉÓÃÈ±Ê¡GBK
+            // ï¿½ï¿½ï¿½ï¿½Ç°×ºï¿½Ô¶ï¿½ï¿½Ð¶Ï±ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È±Ê¡GBK
             // unicode litte-endian: FF FE
         	// unicode big-endian: FE FF
         	// utf8: EF BB BF
@@ -501,27 +522,27 @@ public class FileUtils {
     }
 
     /**
-     * ½âÎöÒ»¸öXMLÎÄ¼þ£¬Éú³ÉJDOMÄ£ÐÍ¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½XMLï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½JDOMÄ£ï¿½Í¡ï¿½
      */
     public static Document loadDOM(File file) throws Exception {
         SAXBuilder sb = new SAXBuilder();
-        sb.setValidation(false);
+        sb.setXMLReaderFactory(XMLReaders.NONVALIDATING);
         Document doc = sb.build(file);
         return doc;
     }
 
     /**
-     * ½âÎöÒ»¸öXMLÎÄ¼þ£¬Éú³ÉJDOMÄ£ÐÍ¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½XMLï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½JDOMÄ£ï¿½Í¡ï¿½
      */
     public static Document loadDOM(InputStream is) throws Exception {
         SAXBuilder sb = new SAXBuilder();
-        sb.setValidation(false);
+        sb.setXMLReaderFactory(XMLReaders.NONVALIDATING);
         Document doc = sb.build(is);
         return doc;
     }
     
     /**
-     * °ÑÒ»¸öJDOMÄ£ÐÍ±£´æµ½XMLÎÄ¼þÖÐ¡£
+     * ï¿½ï¿½Ò»ï¿½ï¿½JDOMÄ£ï¿½Í±ï¿½ï¿½æµ½XMLï¿½Ä¼ï¿½ï¿½Ð¡ï¿½
      */
     public static void saveDOM(Document doc, File file) throws Exception{
     	saveDOM(doc, file, true);
@@ -537,14 +558,14 @@ public class FileUtils {
         try{
             XMLOutputter out;
             if (!addSpace) {
-            	// É¾³ýËùÓÐÎÞÓÃµÄ¿Õ¸ñ
+            	// É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÃµÄ¿Õ¸ï¿½
             	ArrayList stack = new ArrayList();
             	stack.add(doc.getRootElement());
             	while (stack.size() > 0) {
             		Object obj = stack.remove(0);
             		if (obj instanceof Element) {
             			Element element = (Element)obj;
-            			List list = element.getMixedContent();
+            			List list = element.getContent();
             			for (int i = 0; i < list.size(); i++) {
             				Object child = list.get(i);
             				if (child instanceof String && ((String)child).trim().isEmpty()) {
@@ -557,7 +578,8 @@ public class FileUtils {
             		}
             	}
             }
-            out = new XMLOutputter("    ", true, encoding);
+//            out = new XMLOutputter("    ", true, encoding);
+            out = new XMLOutputter();
             fos = new FileOutputStream(file);
             BufferedOutputStream bos = new BufferedOutputStream(fos);
             out.output(doc, bos);
@@ -575,7 +597,7 @@ public class FileUtils {
     }
 
     /**
-     * °ÑÒ»¸öJDOMÄ£ÐÍ±£´æµ½XMLÎÄ¼þÖÐ¡£
+     * ï¿½ï¿½Ò»ï¿½ï¿½JDOMÄ£ï¿½Í±ï¿½ï¿½æµ½XMLï¿½Ä¼ï¿½ï¿½Ð¡ï¿½
      */
     public static void saveDOM(Document doc, OutputStream os) throws Exception{
         try{
@@ -583,7 +605,7 @@ public class FileUtils {
             if (encoding == null) {
             	encoding = "GBK";
             }
-            XMLOutputter out = new XMLOutputter("    ", true, encoding);
+            XMLOutputter out = new XMLOutputter();
             BufferedOutputStream bos = new BufferedOutputStream(os);
             out.output(doc, bos);
             bos.flush();
@@ -593,7 +615,7 @@ public class FileUtils {
     }
     
     /**
-     * ½âÎö16½øÖÆµÄÕûÊý×Ö·û´®¡£
+     * ï¿½ï¿½ï¿½ï¿½16ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static int parseHex(String text) {
         text = text.toLowerCase().trim();
@@ -613,7 +635,7 @@ public class FileUtils {
     }
     
     /**
-     * °ÑÒ»¸öÖ¸Ïò±¾µØÎÄ¼þµÄurl×ª»»ÎªÎÄ¼þÂ·¾¶¡£
+     * ï¿½ï¿½Ò»ï¿½ï¿½Ö¸ï¿½ò±¾µï¿½ï¿½Ä¼ï¿½ï¿½ï¿½url×ªï¿½ï¿½Îªï¿½Ä¼ï¿½Â·ï¿½ï¿½ï¿½ï¿½
      * @param url
      * @return
      */
@@ -626,7 +648,7 @@ public class FileUtils {
     }
     
     /**
-     * ¸Ä±äÒ»¸öÊý×éµÄ³¤¶È¡£
+     * ï¿½Ä±ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½È¡ï¿½
      * @param arr
      * @param length
      * @return
@@ -638,7 +660,7 @@ public class FileUtils {
     }
     
     /**
-     * ¸Ä±äÒ»¸öÊý×éµÄ³¤¶È²¢ÉèÖÃÄ¬ÈÏÖµ¡£
+     * ï¿½Ä±ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½È²ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½Öµï¿½ï¿½
      * @param arr
      * @param length
      * @return
@@ -653,7 +675,7 @@ public class FileUtils {
     }
 
     /**
-     * ¸Ä±äÒ»¸öÊý×éµÄ³¤¶È¡£
+     * ï¿½Ä±ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½È¡ï¿½
      * @param arr
      * @param length
      * @return
@@ -665,7 +687,7 @@ public class FileUtils {
     }
 
     /**
-     * ¸Ä±äÒ»¸öÊý×éµÄ³¤¶È¡£
+     * ï¿½Ä±ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½È¡ï¿½
      * @param arr
      * @param length
      * @return
@@ -680,10 +702,10 @@ public class FileUtils {
     }
     
     /**
-     * °ÑÒ»¸ö×Ö·û´®·Ö³ÉÓÃÖ¸¶¨×Ö·û¸ô¿ªµÄ¶à¸ö×Ö·û´®.
-     * @param s Ô­Ê¼×Ö·û´®
-     * @param ch ·Ö¸ô×Ö·û
-     * @return ·Ö¸îºóµÄÊý×é
+     * ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö³ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½.
+     * @param s Ô­Ê¼ï¿½Ö·ï¿½ï¿½ï¿½
+     * @param ch ï¿½Ö¸ï¿½ï¿½Ö·ï¿½
+     * @return ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static String[] splitString(String s, char ch) {
         int startIndex = 0;
@@ -705,7 +727,7 @@ public class FileUtils {
     }
     
     /**
-     * °Ñ¸ñÊ½Îªn,n,nµÄ×Ö·û´®½âÎöÎªintÊý×é¡£
+     * ï¿½Ñ¸ï¿½Ê½Îªn,n,nï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªintï¿½ï¿½ï¿½é¡£
      * @param str
      * @param delimiter
      * @return
@@ -723,7 +745,7 @@ public class FileUtils {
     }
     
     /**
-     * °ÑintÊý×é×ª»»Îª¸ñÊ½Îªn,n,nµÄ×Ö·û´®¡£
+     * ï¿½ï¿½intï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½Ê½Îªn,n,nï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param arr
      * @param delimiter
      * @return
@@ -740,7 +762,7 @@ public class FileUtils {
     }
     
     /**
-     * °ÑList×ª»»Îª¸ñÊ½Îªn,n,nµÄ×Ö·û´®¡£
+     * ï¿½ï¿½List×ªï¿½ï¿½Îªï¿½ï¿½Ê½Îªn,n,nï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param arr
      * @param delimiter
      * @return
@@ -757,7 +779,7 @@ public class FileUtils {
     }
     
     /**
-     * °Ñ¸ñÊ½Îªn,n,nµÄ×Ö·û´®½âÎöÎªfloatÊý×é¡£
+     * ï¿½Ñ¸ï¿½Ê½Îªn,n,nï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªfloatï¿½ï¿½ï¿½é¡£
      * @param str
      * @param delimiter
      * @return
@@ -775,7 +797,7 @@ public class FileUtils {
     }
     
     /**
-     * °ÑfloatÊý×é×ª»»Îª¸ñÊ½Îªn,n,nµÄ×Ö·û´®¡£
+     * ï¿½ï¿½floatï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½Ê½Îªn,n,nï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param arr
      * @param delimiter
      * @return
@@ -792,7 +814,7 @@ public class FileUtils {
     }
     
     /**
-     * °Ñ¸ñÊ½Îªn,n,nµÄ×Ö·û´®½âÎöÎªStringÊý×é¡£
+     * ï¿½Ñ¸ï¿½Ê½Îªn,n,nï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªStringï¿½ï¿½ï¿½é¡£
      * @param str
      * @param delimiter
      * @return
@@ -805,7 +827,7 @@ public class FileUtils {
     }
     
     /**
-     * °ÑStringÊý×é×ª»»Îª¸ñÊ½Îªn,n,nµÄ×Ö·û´®¡£
+     * ï¿½ï¿½Stringï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½Ê½Îªn,n,nï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
      * @param arr
      * @param delimiter
      * @return
@@ -822,7 +844,7 @@ public class FileUtils {
     }
     
     /**
-     * ·´×ªÒå×Ö·û´®
+     * ï¿½ï¿½×ªï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
      */
     public static String reverseConv(String msg) {
         StringBuffer buf = new StringBuffer();
@@ -852,10 +874,10 @@ public class FileUtils {
     }
     
     /**
-     * È¡µÃÄ¿±êÎÄ¼þÏà¶ÔÓÚÔ­Ê¼Â·¾¶µÄÏà¶ÔÂ·¾¶¡£
+     * È¡ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­Ê¼Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½
      * @param target
      * @param ref
-     * @return Èç¹ûÁ½¸öÎÄ¼þ²»ÔÚÒ»¸öÅÌ·ûÏÂ£¬·µ»Ønull¡£
+     * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ì·ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½ï¿½nullï¿½ï¿½
      */
     public static String getRelatePath(String target, String ref) {
     	File tf = new File(target);
@@ -864,7 +886,7 @@ public class FileUtils {
     		reff = reff.getParentFile();
     	}
     	
-    	// ÏÈÕÒµ½¹²Í¬µÄ¸ù½Úµã
+    	// ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½Í¬ï¿½Ä¸ï¿½ï¿½Úµï¿½
     	File[] path1 = getPathes(tf.getParentFile());
     	File[] path2 = getPathes(reff);
     	int rootIndex = 0;
@@ -902,16 +924,16 @@ public class FileUtils {
     }
     
     /**
-     * Ìæ»»Ò»¸öÎÄ¼þµÄºó×ºÃû¡£
-     * @param newSuffix ²»´ø'.'µÄºó×ºÃû
+     * ï¿½æ»»Ò»ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Äºï¿½×ºï¿½ï¿½ï¿½ï¿½
+     * @param newSuffix ï¿½ï¿½ï¿½ï¿½'.'ï¿½Äºï¿½×ºï¿½ï¿½
      */
     public static File replaceSuffix(File src, String newSuffix) {
     	return new File(replaceSuffix(src.getAbsolutePath(), newSuffix));
     }
     
     /**
-     * Ìæ»»Ò»¸öÎÄ¼þµÄºó×ºÃû¡£
-     * @param newSuffix ²»´ø'.'µÄºó×ºÃû
+     * ï¿½æ»»Ò»ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Äºï¿½×ºï¿½ï¿½ï¿½ï¿½
+     * @param newSuffix ï¿½ï¿½ï¿½ï¿½'.'ï¿½Äºï¿½×ºï¿½ï¿½
      */
     public static String replaceSuffix(String src, String newSuffix) {
     	int pos = src.lastIndexOf('.');
@@ -923,7 +945,7 @@ public class FileUtils {
     }
     
     /**
-     * È¡µÃÎÄ¼þµÄºó×ºÃû¡£
+     * È¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Äºï¿½×ºï¿½ï¿½ï¿½ï¿½
      * @param fname
      * @return
      */
@@ -937,7 +959,7 @@ public class FileUtils {
     }
     
     /**
-     * ¼ì²écheckÊÇ²»ÊÇtargetµÄ¸¸Ä¿Â¼¡£
+     * ï¿½ï¿½ï¿½checkï¿½Ç²ï¿½ï¿½ï¿½targetï¿½Ä¸ï¿½Ä¿Â¼ï¿½ï¿½
      * @param check
      * @param target
      * @return
@@ -954,7 +976,7 @@ public class FileUtils {
     }
     
     /**
-     * ¸´ÖÆÒ»¸ö¶þÎ¬×Ö½ÚÊý×é¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Î¬ï¿½Ö½ï¿½ï¿½ï¿½ï¿½é¡£
      * @param source
      * @return
      */
@@ -967,7 +989,7 @@ public class FileUtils {
     }
     
     /**
-     * ±È½ÏÁ½¸ö¶þÎ¬×Ö½ÚÊý×é¡£
+     * ï¿½È½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½Ö½ï¿½ï¿½ï¿½ï¿½é¡£
      * @param source
      * @param target
      * @return
@@ -985,7 +1007,7 @@ public class FileUtils {
     }
     
     /**
-     * ÓÃGZIPËã·¨Ñ¹ËõÒ»¶ÎÊý¾Ý¡£
+     * ï¿½ï¿½GZIPï¿½ã·¨Ñ¹ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ý¡ï¿½
      * @param src
      * @return
      * @throws IOException
@@ -1000,7 +1022,7 @@ public class FileUtils {
     }
 
     /**
-     * ½âÑ¹ËõGZIP¸ñÊ½µÄÎÄ¼þ¡£
+     * ï¿½ï¿½Ñ¹ï¿½ï¿½GZIPï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
      * @param src
      * @return
      * @throws IOException

@@ -9,8 +9,8 @@ import jxl.Sheet;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 
-import org.jdom.Document;
-import org.jdom.Element;
+import org.jdom2.Document;
+import org.jdom2.Element;
 
 import cg.base.util.MathUtil;
 
@@ -87,7 +87,6 @@ public class AttributesLoadManager {
         return config;
     }
     
-	@SuppressWarnings("unchecked")
 	public static void loadConfigData(ProjectData projectData) throws Exception {
 		CONFIG_MAP.clear();
 		WORKBOOK_CACHE.clear();

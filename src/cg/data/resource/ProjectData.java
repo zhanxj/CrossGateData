@@ -12,7 +12,7 @@ import java.util.Map;
 
 import jxl.Workbook;
 
-import org.jdom.Document;
+import org.jdom2.Document;
 
 import cg.base.log.Log;
 import cg.data.resource.inputStream.ExcelInputStreamHandler;

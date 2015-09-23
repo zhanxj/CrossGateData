@@ -3,7 +3,7 @@ package cg.data.resource.inputStream;
 import java.io.InputStream;
 import java.net.URI;
 
-import org.jdom.Document;
+import org.jdom2.Document;
 
 import cg.base.log.Log;
 import cg.base.util.URLHandler;
