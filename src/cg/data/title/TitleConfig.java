@@ -1,7 +1,6 @@
 package cg.data.title;
 
-import cg.data.limitValue.LimitValueOfInt;
-import cg.data.limitValue.LimitValueOfShort;
+import com.google.common.collect.Range;
 
 public interface TitleConfig {
 	
@@ -23,9 +22,9 @@ public interface TitleConfig {
 	
 	String ITEM = "ITEM";
 	
-	LimitValueOfInt getFame();
+	Range<Integer> getFame();
 	
-	LimitValueOfShort getJob();
+	Range<Short> getJob();
 	
 	byte getEquipEvent();
 	
@@ -35,7 +34,7 @@ public interface TitleConfig {
 	
 	short getEndflg();
 	
-	LimitValueOfInt getGold();
+	Range<Integer> getGold();
 	
 	int getItemId();
 

@@ -6,15 +6,14 @@ import java.util.List;
 
 import cg.base.util.MathUtil;
 import cg.data.limitValue.LimitValueFactory;
-import cg.data.limitValue.LimitValueOfInt;
 import cg.data.limitValue.LimitValueOfInt.ValueOfInt;
-import cg.data.limitValue.LimitValueOfShort;
 import cg.data.limitValue.LimitValueOfShort.ValueOfShort;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.title.TitleConfig;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Range;
 
 public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 
@@ -34,9 +33,9 @@ public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 		
 		private static final LimitValueFactory limitValueFactory = LimitValueFactory.getInstance();
 		
-		private LimitValueOfInt fame;
+		private Range<Integer> fame;
 		
-		private LimitValueOfShort job;
+		private Range<Short> job;
 		
 		private byte equipEvent;
 		
@@ -46,7 +45,7 @@ public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 		
 		private short endflg;
 		
-		private LimitValueOfInt gold;
+		private Range<Integer> gold;
 		
 		private int itemId;
 		
@@ -80,7 +79,7 @@ public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 						hasJob = true;
 					} else {
 						short jobValue = MathUtil.stringToShort(info.split("=")[1]);
-						job = limitValueFactory.createLimitValue(jobValue, jobValue);
+						job = Range.closed(jobValue, jobValue);
 					}
 				} else if (info.indexOf(EQUIPEVENT) == 0) {
 					equipEvent = MathUtil.stringToByte(info.split("=")[1]);
@@ -97,7 +96,7 @@ public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 						hasGold = true;
 					} else {
 						int goldValue = MathUtil.stringToShort(info.split("=")[1]);
-						gold = limitValueFactory.createLimitValue(goldValue, goldValue);
+						gold = Range.closed(goldValue, goldValue);
 					}
 				} else if (info.indexOf(ITEM) == 0) {
 					itemId = MathUtil.stringToInt(info.split("=")[1]);
@@ -107,13 +106,13 @@ public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 			}
 			
 			if (hasFame) {
-				fame = limitValueFactory.createLimitValue(fameMin, fameMax);
+				fame = limitValueFactory.getRange(fameMin, fameMax);
 			}
 			if (hasJob) {
-				job = limitValueFactory.createLimitValue(jobMin, jobMax);
+				job = limitValueFactory.getRange(jobMin, jobMax);
 			}
 			if (hasGold) {
-				gold = limitValueFactory.createLimitValue(goldMin, goldMax);
+				gold = limitValueFactory.getRange(goldMin, goldMax);
 			}
 		}
 		
@@ -130,12 +129,12 @@ public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 		}
 
 		@Override
-		public LimitValueOfInt getFame() {
+		public Range<Integer> getFame() {
 			return fame;
 		}
 
 		@Override
-		public LimitValueOfShort getJob() {
+		public Range<Short> getJob() {
 			return job;
 		}
 
@@ -160,7 +159,7 @@ public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 		}
 
 		@Override
-		public LimitValueOfInt getGold() {
+		public Range<Integer> getGold() {
 			return gold;
 		}
 

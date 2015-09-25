@@ -2,6 +2,8 @@ package cg.data.limitValue;
 
 import java.util.Random;
 
+import com.google.common.collect.Range;
+
 import cg.data.limitValue.LimitValueOfByte.ValueOfByte;
 import cg.data.limitValue.LimitValueOfInt.ValueOfInt;
 import cg.data.limitValue.LimitValueOfShort.ValueOfShort;
@@ -204,6 +206,30 @@ public class LimitValueFactory {
 	
 	private int random(int rang, int min) {
 		return random.nextInt(rang) + min;
+	}
+	
+	public Range<Integer> getRange(ValueOfInt min, ValueOfInt max) {
+		if (min.getCanEqual()) {
+			return max.getCanEqual() ? Range.closed(min.getValue(), max.getValue()) : Range.closedOpen(min.getValue(), max.getValue());
+		} else {
+			return max.getCanEqual() ? Range.openClosed(min.getValue(), max.getValue()) : Range.open(min.getValue(), max.getValue());
+		}
+	}
+	
+	public Range<Short> getRange(ValueOfShort min, ValueOfShort max) {
+		if (min.getCanEqual()) {
+			return max.getCanEqual() ? Range.closed(min.getValue(), max.getValue()) : Range.closedOpen(min.getValue(), max.getValue());
+		} else {
+			return max.getCanEqual() ? Range.openClosed(min.getValue(), max.getValue()) : Range.open(min.getValue(), max.getValue());
+		}
+	}
+	
+	public Range<Byte> getRange(ValueOfByte min, ValueOfByte max) {
+		if (min.getCanEqual()) {
+			return max.getCanEqual() ? Range.closed(min.getValue(), max.getValue()) : Range.closedOpen(min.getValue(), max.getValue());
+		} else {
+			return max.getCanEqual() ? Range.openClosed(min.getValue(), max.getValue()) : Range.open(min.getValue(), max.getValue());
+		}
 	}
 
 }
