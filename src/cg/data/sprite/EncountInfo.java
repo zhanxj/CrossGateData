@@ -1,7 +1,8 @@
 package cg.data.sprite;
 
-import cg.data.limitValue.LimitValueOfByte;
 import cg.data.map.MapArea;
+
+import com.google.common.collect.Range;
 
 public interface EncountInfo {
 	
@@ -9,7 +10,7 @@ public interface EncountInfo {
 	
 	MapArea getArea();
 	
-	LimitValueOfByte getAmount();
+	Range<Byte> getAmount();
 	
 	byte getPriority();
 	

@@ -1,10 +1,10 @@
 package cg.data.map.dungeon;
 
-import cg.data.limitValue.LimitValueOfByte;
-import cg.data.limitValue.LimitValueOfShort;
 import cg.data.map.GameMap;
 import cg.data.map.MapArea;
 import cg.data.map.WarpManager;
+
+import com.google.common.collect.Range;
 
 public interface Dungeon {
 	
@@ -16,11 +16,11 @@ public interface Dungeon {
 	
 	int getEncountId();
 	
-	LimitValueOfByte getEnemyRate();
+	Range<Byte> getEnemyRate();
 	
 	boolean getChangeDayState();
 	
-	LimitValueOfShort getEnemyLevel();
+	Range<Short> getEnemyLevel();
 	
 	short getEnterMusic();
 	

@@ -14,9 +14,6 @@ import cg.base.image.ImageReader;
 import cg.base.log.Log;
 import cg.base.map.MapCell;
 import cg.base.util.MathUtil;
-import cg.data.limitValue.LimitValueFactory;
-import cg.data.limitValue.LimitValueOfByte;
-import cg.data.limitValue.LimitValueOfShort;
 import cg.data.map.GameMap;
 import cg.data.map.LocalInfo;
 import cg.data.map.MapArea;
@@ -37,6 +34,7 @@ import cg.data.util.GameMapUtil;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Range;
 
 public class CDungeonReader implements ObjectReader<Dungeon> {
 	
@@ -94,9 +92,9 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 		
 		private MapArea enterInfo, exitInfo;
 		
-		private LimitValueOfByte floorRange, enemyRate;
+		private Range<Byte> floorRange, enemyRate;
 		
-		private LimitValueOfShort enemyLevel;
+		private Range<Short> enemyLevel;
 		
 		private short boxAmount, enterMusic, exitMusic;
 		
@@ -128,12 +126,12 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 			warpResourceGlobalId = new int[]{Integer.parseInt(infos[30]), Integer.parseInt(infos[31]), Integer.parseInt(infos[32]), Integer.parseInt(infos[33]), 
 					Integer.parseInt(infos[34]), Integer.parseInt(infos[35]), Integer.parseInt(infos[36]), Integer.parseInt(infos[37])};
 			// 38
-			floorRange = LimitValueFactory.getInstance().createLimitValue(Byte.parseByte(infos[39]), Byte.parseByte(infos[40]));
+			floorRange = Range.closed(Byte.valueOf(infos[39]), Byte.valueOf(infos[40]));
 			sizeRange = new int[]{Integer.parseInt(infos[41]), Integer.parseInt(infos[42]), Integer.parseInt(infos[43]), Integer.parseInt(infos[44]), 
 					Integer.parseInt(infos[45]), Integer.parseInt(infos[46]), Integer.parseInt(infos[47]), Integer.parseInt(infos[48])};
 			encountId = Integer.parseInt(infos[49]);
-			enemyLevel = LimitValueFactory.getInstance().createLimitValue(Short.parseShort(infos[50]), Short.parseShort(infos[51]));
-			enemyRate = LimitValueFactory.getInstance().createLimitValue(Byte.parseByte(infos[52]), Byte.parseByte(infos[53]));
+			enemyLevel = Range.closed(Short.valueOf(infos[50]), Short.valueOf(infos[51]));
+			enemyRate = Range.closed(Byte.valueOf(infos[52]), Byte.valueOf(infos[53]));
 			boxAmount = Short.parseShort(infos[54]);
 			enterMusic = Short.parseShort(infos[55]);
 			changeDayState = infos[56].equals("1");
@@ -178,14 +176,14 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 		@Override
 		public DungeonData refresh(WarpManager warpManager, GameMap enterMap, GameMap exitMap) {
 			List<NpcInfo> npcInfoList = Lists.newLinkedList(); // cache the animation warp and box
-			DungeonMapInfo[] mapInfos = new DungeonMapInfo[LimitValueFactory.getInstance().random(floorRange)];
+			DungeonMapInfo[] mapInfos = new DungeonMapInfo[MathUtil.getRandomInRangeByte(floorRange)];
 			List<Map<Integer, int[]>> cellsList = Lists.newArrayListWithCapacity(mapInfos.length);
-			int levelRange = enemyLevel.getMaxValue() - enemyLevel.getMinValue(), maxFloor = mapInfos.length;
+			int levelRange = enemyLevel.upperEndpoint() - enemyLevel.lowerEndpoint(), maxFloor = mapInfos.length;
 			for (int floor = 0;floor < maxFloor;floor++) {
 				mapInfos[floor] = new DungeonMapInfo(imageReader, log, warpManager);
 				mapInfos[floor].setMapId(mapId + (floor << 16));
 				mapInfos[floor].setName(getName() + MessageFormat.format(floorText, floor + 1));
-				Map<Integer, int[]> canUseCells = mapInfos[floor].create(CREATE_SUB_ROOM_RATE, this, false, (short) ((floor + 1) * levelRange / maxFloor + enemyLevel.getMinValue()));
+				Map<Integer, int[]> canUseCells = mapInfos[floor].create(CREATE_SUB_ROOM_RATE, this, false, (short) ((floor + 1) * levelRange / maxFloor + enemyLevel.lowerEndpoint()));
 				cellsList.add(canUseCells);
 				
 				createWarp(floor, cellsList, warpManager, mapInfos, npcInfoList, enterMap, exitMap);
@@ -320,7 +318,7 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 		}
 
 		@Override
-		public LimitValueOfByte getEnemyRate() {
+		public Range<Byte> getEnemyRate() {
 			return enemyRate;
 		}
 
@@ -330,7 +328,7 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 		}
 
 		@Override
-		public LimitValueOfShort getEnemyLevel() {
+		public Range<Short> getEnemyLevel() {
 			return enemyLevel;
 		}
 

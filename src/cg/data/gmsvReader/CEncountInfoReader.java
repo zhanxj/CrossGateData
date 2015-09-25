@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.List;
 
 import cg.base.util.MathUtil;
-import cg.data.limitValue.LimitValueFactory;
-import cg.data.limitValue.LimitValueOfByte;
 import cg.data.map.MapArea;
 import cg.data.map.ReaderMapArea;
 import cg.data.resource.ObjectReader;
@@ -15,6 +13,7 @@ import cg.data.sprite.EncountInfo;
 import cg.data.sprite.EncountInfo.GroupInfo;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Range;
 
 public class CEncountInfoReader implements ObjectReader<EncountInfo> {
 
@@ -38,7 +37,7 @@ public class CEncountInfoReader implements ObjectReader<EncountInfo> {
 		
 		private MapArea area;
 		
-		private LimitValueOfByte amount;
+		private Range<Byte> amount;
 		
 		private byte priority;
 		
@@ -50,7 +49,7 @@ public class CEncountInfoReader implements ObjectReader<EncountInfo> {
 			String[] infos = line.split("\t", -2);
 			id = MathUtil.stringToInt(infos[0]);
 			area = new ReaderMapArea(infos, 3);
-			amount = LimitValueFactory.getInstance().createLimitValue(MathUtil.stringToByte(infos[8]), MathUtil.stringToByte(infos[9]));
+			amount = Range.closed(MathUtil.stringToByte(infos[8]), MathUtil.stringToByte(infos[9]));
 			priority = MathUtil.stringToByte(infos[10]);
 			for (int i = 0;i < GROUP_COUNT;i++) {
 				if (groupInfos != null) {
@@ -82,7 +81,7 @@ public class CEncountInfoReader implements ObjectReader<EncountInfo> {
 		}
 
 		@Override
-		public LimitValueOfByte getAmount() {
+		public Range<Byte> getAmount() {
 			return amount;
 		}
 
