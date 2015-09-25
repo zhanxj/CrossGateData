@@ -1,74 +1,75 @@
 package cg.data.sprite;
 
 import cg.data.item.DropItemGroup;
-import cg.data.limitValue.LimitValueOfShort;
+
+import com.google.common.collect.Range;
 
 public interface EnemyInfo {
 	
 	/**
-	 * ¹¥»÷Éè¶¨
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½è¶¨
 	 */
 	String ATTACKOPTION = "at";
 	/**
-	 * ·ÀÓùÉè¶¨
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½è¶¨
 	 */
 	String GUARDOPTION = "gu";
 	/**
-	 * Ê©·¨Éè¶¨
+	 * Ê©ï¿½ï¿½ï¿½è¶¨
 	 */
 	String MAGICOPTION = "ma";
 	/**
-	 * ÌÓÅÜÉè¶¨
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½è¶¨
 	 */
 	String ESCAPEOPTION = "es";
 	/**
-	 * ¼¼ÄÜÉè¶¨
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½è¶¨
 	 */
 	String WAZAOPTION = "wa";
 	/**
-	 * Ëæ»ú
+	 * ï¿½ï¿½ï¿½
 	 */
 	String RANDAOPTION = "rn";
 	
 	/**
-	 * ¹¥»÷¶ÔÏóÎªËùÓÐ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 	 */
 	byte B_AI_NORMAL_TARGET_ALL = 1;
 	/**
-	 * ¹¥»÷¶ÔÏóÎªÍæ¼Ò
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½
 	 */
 	byte B_AI_NORMAL_TARGET_PLAYER = 2;
 	/**
-	 * ¹¥»÷¶ÔÏóÎª³èÎï
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 	 */
 	byte B_AI_NORMAL_TARGET_PET = 3;
 	/**
-	 * ¹¥»÷¶ÔÏóÎª¶Ó³¤
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ó³ï¿½
 	 */
 	byte B_AI_NORMAL_TARGET_LEADER = 4;
 	
 	/**
-	 * Ëæ¼´¹¥»÷
+	 * ï¿½æ¼´ï¿½ï¿½ï¿½ï¿½
 	 */
 	byte B_AI_NORMAL_SELECT_RANDOM = 1;
 	/**
-	 * ¹¥»÷Ñª×î¶àµÄ
+	 * ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½
 	 */
 	byte B_AI_NORMAL_SELECT_HP_MAX = 2;
 	/**
-	 * ¹¥»÷Ñª×îÉÙµÄ
+	 * ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½Ùµï¿½
 	 */
 	byte B_AI_NORMAL_SELECT_HP_MIN = 3;
 	/**
-	 * ¹¥»÷Á¦Á¿×î¸ßµÄ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½
 	 */
 	byte B_AI_NORMAL_SELECT_STR_MAX = 4;
 	/**
-	 * ¹¥»÷Ãô×î¸ßµÄ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½
 	 */
 	byte B_AI_NORMAL_SELECT_DEX_MAX = 5;
 	/**
-	 * ¹¥»÷Ãô×îµÍµÄ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½
 	 */
 	byte B_AI_NORMAL_SELECT_DEX_MIN = 6;
 	/**
@@ -84,9 +85,9 @@ public interface EnemyInfo {
 	
 	int getEnemyBaseId();
 	
-	LimitValueOfShort getLevelRange();
+	Range<Short> getLevelRange();
 	
-	LimitValueOfShort getAmount();
+	Range<Short> getAmount();
 	
 	int getAiId();
 	

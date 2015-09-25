@@ -7,13 +7,12 @@ import java.util.List;
 import cg.base.util.MathUtil;
 import cg.data.item.DropItemGroup;
 import cg.data.item.DropItemGroup.DropItem;
-import cg.data.limitValue.LimitValueFactory;
-import cg.data.limitValue.LimitValueOfShort;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.sprite.EnemyInfo;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Range;
 
 public class CEnemyReader implements ObjectReader<EnemyInfo> {
 
@@ -39,7 +38,7 @@ public class CEnemyReader implements ObjectReader<EnemyInfo> {
 		
 		private int enemyId, enemybaseId, aiId, gainExp, battleScore, enemyTalk;
 		
-		private LimitValueOfShort level, amount;
+		private Range<Short> level, amount;
 		
 		private boolean canCatch;
 		
@@ -55,9 +54,8 @@ public class CEnemyReader implements ObjectReader<EnemyInfo> {
 			aiParams = infos[1].split(";");
 			enemyId = MathUtil.stringToInt(infos[2]);
 			enemybaseId = MathUtil.stringToInt(infos[3]);
-			LimitValueFactory limitValueFactory = LimitValueFactory.getInstance();
-			level = limitValueFactory.createLimitValue(MathUtil.stringToShort(infos[4]), MathUtil.stringToShort(infos[5]));
-			amount = limitValueFactory.createLimitValue(MathUtil.stringToShort(infos[4]), MathUtil.stringToShort(infos[5]));
+			level = Range.closed(MathUtil.stringToShort(infos[4]), MathUtil.stringToShort(infos[5]));
+			amount = Range.closed(MathUtil.stringToShort(infos[4]), MathUtil.stringToShort(infos[5]));
 			aiId = MathUtil.stringToInt(infos[8]);
 			gainExp = MathUtil.stringToInt(infos[9]);
 			battleScore = MathUtil.stringToInt(infos[10]);
@@ -129,12 +127,12 @@ public class CEnemyReader implements ObjectReader<EnemyInfo> {
 		}
 
 		@Override
-		public LimitValueOfShort getLevelRange() {
+		public Range<Short> getLevelRange() {
 			return level;
 		}
 
 		@Override
-		public LimitValueOfShort getAmount() {
+		public Range<Short> getAmount() {
 			return amount;
 		}
 

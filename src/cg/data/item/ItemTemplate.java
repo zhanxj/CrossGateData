@@ -1,11 +1,9 @@
 package cg.data.item;
 
 import cg.base.item.ItemInfo;
-import cg.data.limitValue.LimitValueOfByte;
-import cg.data.limitValue.LimitValueOfInt;
-import cg.data.limitValue.LimitValueOfShort;
 
 import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Range;
 
 public interface ItemTemplate extends ItemInfo {
 	
@@ -51,17 +49,17 @@ public interface ItemTemplate extends ItemInfo {
 	
 	boolean getCanDoubleClick();
 	
-	LimitValueOfShort getDurable();
+	Range<Short> getDurable();
 	
-	LimitValueOfByte getAttackCount();
+	Range<Byte> getAttackCount();
 	
 	boolean getIsPrecent();
 	
-	LimitValueOfInt getAttribute(String type, byte valueType);
+	Range<Integer> getAttribute(String type, byte valueType);
 	
 	ListMultimap<String, Byte> getAttributeTypes();
 	
-	LimitValueOfByte getLuck();
+	Range<Byte> getLuck();
 	
 	short getSpecialType();
 	
@@ -71,7 +69,7 @@ public interface ItemTemplate extends ItemInfo {
 	
 	byte getIdentifyRate();
 	
-	LimitValueOfShort getMagicAttack();
+	Range<Short> getMagicAttack();
 	
 	byte getElementAttribute_1();
 	
