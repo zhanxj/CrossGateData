@@ -1,6 +1,5 @@
 package cg.data.map.dungeon;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import cg.base.map.MapCell;
@@ -10,6 +9,8 @@ import cg.data.map.MapInfo;
 import cg.data.map.MapReader;
 import cg.data.map.WarpManager;
 import cg.data.sprite.NpcTemplate;
+
+import com.google.common.collect.Lists;
 
 public class DungeonData implements MapReader {
 	
@@ -73,7 +74,7 @@ public class DungeonData implements MapReader {
 	}
 	
 	public int[][] getCanUseLocals(int count) {
-		List<int[]> list = new LinkedList<int[]>();
+		List<int[]> list = Lists.newLinkedList();
 		for (MapInfo mapInfo : mapInfos) {
 			for (int east = 0;east < mapInfo.getMaxEast();east++) {
 				for (int south = 0;south < mapInfo.getMaxSouth();south++) {

@@ -1,6 +1,5 @@
 package cg.data.util;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import cg.base.log.Log;
@@ -11,12 +10,14 @@ import cg.data.map.MapArea;
 import cg.data.map.MapInfo;
 import cg.data.map.MapInfo.CLocalInfo;
 
+import com.google.common.collect.Lists;
+
 public class GameMapUtil {
 	
 	protected GameMapUtil() {};
 	
 	public static LocalInfo getAEmptyLocal(MapInfo mapInfo, MapArea mapArea, Log log) {
-		List<int[]> list = new LinkedList<int[]>();
+		List<int[]> list = Lists.newLinkedList();
 		for (int east = mapArea.getWest();east <= mapArea.getEast();east++) {
 			for (int south = mapArea.getNorth();south <= mapArea.getSouth();south++) {
 				if (mapInfo.getMark(east, south) == MapCell.MARK_NOMARL) {

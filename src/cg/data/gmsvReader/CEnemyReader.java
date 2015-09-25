@@ -3,7 +3,6 @@ package cg.data.gmsvReader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 import cg.base.util.MathUtil;
@@ -14,6 +13,8 @@ import cg.data.limitValue.LimitValueOfShort;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.sprite.EnemyInfo;
+
+import com.google.common.collect.Lists;
 
 public class CEnemyReader implements ObjectReader<EnemyInfo> {
 
@@ -63,7 +64,7 @@ public class CEnemyReader implements ObjectReader<EnemyInfo> {
 			battleScore = MathUtil.stringToInt(infos[10]);
 			// 11
 			canCatch = infos[12].equals("1");
-			List<DropItem> list = new LinkedList<DropItem>();
+			List<DropItem> list = Lists.newLinkedList();
 			for (int i = 0;i < DROP_ITEM_COUNT;i++) {
 				list.add(new CDropItem(MathUtil.stringToInt(infos[13 + i]), MathUtil.stringToInt(infos[23 + i], 100)));
 			}

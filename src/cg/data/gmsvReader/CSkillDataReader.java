@@ -3,7 +3,6 @@ package cg.data.gmsvReader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
@@ -14,6 +13,8 @@ import cg.data.resource.MessageManager;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.sprite.Message;
+
+import com.google.common.collect.Lists;
 
 public class CSkillDataReader implements ObjectReader<SkillLevelData> {
 	
@@ -70,7 +71,7 @@ public class CSkillDataReader implements ObjectReader<SkillLevelData> {
 			targetType = MathUtil.stringToShort(infos[8]);
 			price = MathUtil.stringToInt(infos[9]);
 			costMp = MathUtil.stringToShort(infos[11]);
-			Queue<Short> list = new LinkedList<Short>();
+			Queue<Short> list = Lists.newLinkedList();
 			short produce = MathUtil.stringToShort(infos[13]);
 			if (produce > 0) {
 				list.add(produce);

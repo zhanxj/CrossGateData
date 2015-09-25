@@ -3,7 +3,6 @@ package cg.data.gmsvReader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 import cg.base.util.MathUtil;
@@ -15,6 +14,8 @@ import cg.data.map.MapArea;
 import cg.data.map.ReaderMapArea;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
+
+import com.google.common.collect.Lists;
 
 public class CGatherAreaReader implements ObjectReader<GatherArea> {
 
@@ -46,7 +47,7 @@ public class CGatherAreaReader implements ObjectReader<GatherArea> {
 			skillId = MathUtil.stringToShort(infos[2]);
 			// 2, 3, 4, 5, 11
 			failRate = MathUtil.stringToShort(infos[12]);
-			List<DropItem> list = new LinkedList<DropItem>();
+			List<DropItem> list = Lists.newLinkedList();
 			for (int i = 0;i < DROP_ITEM_COUNT;i++) {
 				list.add(new CDropItem(MathUtil.stringToInt(infos[13 + i]), MathUtil.stringToInt(infos[23 + i], 100)));
 			}

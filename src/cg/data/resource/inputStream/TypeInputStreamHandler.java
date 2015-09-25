@@ -6,7 +6,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,9 +14,11 @@ import cg.base.util.IOUtils;
 import cg.base.util.URLHandler;
 import cg.data.resource.AWSS3;
 
+import com.google.common.collect.Lists;
+
 public abstract class TypeInputStreamHandler<T> implements InputStreamHandler<T> {
 	
-	protected List<URI> uris = new LinkedList<URI>();
+	protected List<URI> uris = Lists.newLinkedList();
 	
 	protected Map<String, T> resources = new HashMap<String, T>();
 	

@@ -5,8 +5,6 @@ import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,11 +15,14 @@ import org.jdom2.Document;
 import cg.base.log.Log;
 import cg.data.resource.inputStream.ExcelInputStreamHandler;
 import cg.data.resource.inputStream.InputStreamHandler;
+import cg.data.resource.inputStream.InputStreamHandler.DataInfo;
 import cg.data.resource.inputStream.TextInputStreamHandler;
 import cg.data.resource.inputStream.XmlInputStreamHandler;
-import cg.data.resource.inputStream.InputStreamHandler.DataInfo;
 import cg.data.resource.serverResource.ServerResourceLoader;
 import cg.data.resource.serverResource.ServerResourceLoader.SingleResourceLoader;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class ProjectData implements Reloadable, SingleResourceLoader {
 	
@@ -43,13 +44,12 @@ public class ProjectData implements Reloadable, SingleResourceLoader {
 	
 	protected String serverPath;
 	
-	@SuppressWarnings("rawtypes")
 	public ProjectData(Log log, String serverPath, ServerResourceLoader serverResourceLoader) throws Exception {
 		this.log = log;
 		this.serverPath = serverPath;
-		objectReaders = new HashMap<String, ObjectReader>();
-		listeners = new LinkedList<ProjectDataListener>();
-		inputStreamHandlers = new HashMap<Class, InputStreamHandler>();
+		objectReaders = Maps.newHashMap();
+		listeners = Lists.newLinkedList();
+		inputStreamHandlers = Maps.newHashMap();
 		inputStreamHandlers.put(String[].class, new TextInputStreamHandler(FILE_TYPE_TEXT, log));
 		inputStreamHandlers.put(Document.class, new XmlInputStreamHandler(FILE_TYPE_XML, log));
 		inputStreamHandlers.put(Workbook.class, new ExcelInputStreamHandler(FILE_TYPE_EXCEL, log));

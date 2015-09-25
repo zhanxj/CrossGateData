@@ -1,13 +1,14 @@
 package cg.data.title;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import cg.base.sprite.Title;
 import cg.data.resource.ProjectData;
 import cg.data.resource.ProjectDataListener;
+
+import com.google.common.collect.Lists;
 
 public class TitleManager implements ProjectDataListener {
 	
@@ -43,7 +44,7 @@ public class TitleManager implements ProjectDataListener {
 			if (titleConfigs.containsKey(titleId)) {
 				configs = titleConfigs.get(titleId);
 			} else {
-				configs = new LinkedList<TitleConfig>();
+				configs = Lists.newLinkedList();
 				titleConfigs.put(titleId, configs);
 			}
 			configs.add(titleConfig);

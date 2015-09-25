@@ -2,7 +2,6 @@ package cg.data.resource;
 
 import java.io.InputStream;
 import java.net.URI;
-import java.util.LinkedList;
 import java.util.List;
 
 import cg.base.util.URLHandler;
@@ -20,6 +19,7 @@ import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.google.common.collect.Lists;
 
 public class AWSS3 {
 	
@@ -73,7 +73,7 @@ public class AWSS3 {
 	}
 	
 	public static List<S3ObjectSummary> listObjects(String bucket, String prefix) {
-		List<S3ObjectSummary> objectSummaries = new LinkedList<S3ObjectSummary>();
+		List<S3ObjectSummary> objectSummaries = Lists.newLinkedList();
 		String marker = null;
 		ObjectListing objectListing;
 		do {

@@ -3,11 +3,12 @@ package cg.data.map.dungeon;
 import static cg.data.map.MapInfo.DATA_LENGTH;
 
 import java.io.BufferedWriter;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import cg.base.util.MathUtil;
+
+import com.google.common.collect.Lists;
 
 class DungeonMapRegion {
 
@@ -48,14 +49,14 @@ class DungeonMapRegion {
 	public void openDoor(int rate, Door parentDoor) {
 		this.rate = rate;
 		if (parentDoor != null) {
-			int oppDir = calcOppDir(parentDoor.dir); // ¼ÆËã¸¸·¿¼äÁ¬Í¨×Ô¼ºµÄÃÅÏà¶ÔµÄ·½Ïò
-			doors[oppDir] = new Door(this, (byte) oppDir); // ´´½¨Á¬Í¨¸¸·¿¼äµÄÃÅ
+			int oppDir = calcOppDir(parentDoor.dir); // ï¿½ï¿½ï¿½ã¸¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÔµÄ·ï¿½ï¿½ï¿½
+			doors[oppDir] = new Door(this, (byte) oppDir); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			doors[oppDir].target = parentDoor;
 			doors[oppDir].size = parentDoor.size;
 		}
 		
-		if (MathUtil.getRandom(100) < rate) { // ¿ÉÒÔ¿ªÃÅ
-			List<Byte> dirList = new LinkedList<Byte>();
+		if (MathUtil.getRandom(100) < rate) { // ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½
+			List<Byte> dirList = Lists.newLinkedList();
 			for (byte i = 0;i < DungeonMapRegion.DIR_COUNT;i++) {
 				if (doors[i] == null) {
 					dirList.add(i);
@@ -284,7 +285,7 @@ class DungeonMapRegion {
 		for (int east = 0;east < sizeRange[DungeonMapRegionInfo.ROOM_SIZE_EAST_MAX_INDEX];east++) {
 			for (int south = 0;south < sizeRange[DungeonMapRegionInfo.ROOM_SIZE_SOUTH_MAX_INDEX];south++) {
 				int imageGlobalId = getImageGlobalId(east, south);
-				bw.write(imageGlobalId == 0 ? "¡ö" : "¡ð");
+				bw.write(imageGlobalId == 0 ? "ï¿½ï¿½" : "ï¿½ï¿½");
 			}
 			bw.write("\r\n");
 		}

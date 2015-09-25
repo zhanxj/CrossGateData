@@ -1,10 +1,8 @@
 package cg.data.newReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +20,8 @@ import cg.data.resource.MessageManager;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 
+import com.google.common.collect.Lists;
+
 public class CSkillInfoReader implements ObjectReader<SkillInfo> {
 	
 	private final MessageManager messageManager;
@@ -36,14 +36,14 @@ public class CSkillInfoReader implements ObjectReader<SkillInfo> {
 		if (doc != null) {
 			Element root = doc.getRootElement();
 			List<Element> list = root.getChildren("skill");
-			List<SkillInfo> ret = new ArrayList<SkillInfo>(list.size());
+			List<SkillInfo> ret = Lists.newArrayListWithCapacity(list.size());
 			for (int i = 0;i < list.size();i++) {
 				Element element = list.get(i);
 				ret.add(new CSkillInfo(element, messageManager));
 			}
 			return ret;
 		} else {
-			return new LinkedList<SkillInfo>();
+			return Lists.newLinkedList();
 		}
 	}
 	

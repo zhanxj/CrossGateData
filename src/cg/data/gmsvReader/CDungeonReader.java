@@ -7,7 +7,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +36,8 @@ import cg.data.sprite.NpcInfo;
 import cg.data.sprite.NpcTemplate;
 import cg.data.util.FileUtils;
 import cg.data.util.GameMapUtil;
+
+import com.google.common.collect.Lists;
 
 public class CDungeonReader implements ObjectReader<Dungeon> {
 	
@@ -177,7 +178,7 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 
 		@Override
 		public DungeonData refresh(WarpManager warpManager, GameMap enterMap, GameMap exitMap) {
-			List<NpcInfo> npcInfoList = new LinkedList<NpcInfo>(); // cache the animation warp and box
+			List<NpcInfo> npcInfoList = Lists.newLinkedList(); // cache the animation warp and box
 			DungeonMapInfo[] mapInfos = new DungeonMapInfo[LimitValueFactory.getInstance().random(floorRange)];
 			List<Map<Integer, int[]>> cellsList = new ArrayList<Map<Integer, int[]>>(mapInfos.length);
 			int levelRange = enemyLevel.getMaxValue() - enemyLevel.getMinValue(), maxFloor = mapInfos.length;
@@ -259,7 +260,7 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 			for (Map<Integer, int[]> canUseCells : cellsList) {
 				size += canUseCells.size(); // add size
 			}
-			List<int[]> list = new LinkedList<int[]>();
+			List<int[]> list = Lists.newLinkedList();
 			for (int i = 0;i < count;i++) {
 				int rnd = MathUtil.getRandom(size--); // get a random number in [0, size), then size sub one
 				for (Map<Integer, int[]> canUseCells : cellsList) {
@@ -278,13 +279,13 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 		
 		private void createWarp(int floor, List<Map<Integer, int[]>> cellsList, WarpManager warpManager, DungeonMapInfo[] mapInfos, List<NpcInfo> npcInfoList, GameMap enterMap, GameMap exitMap) {
 			Map<Integer, int[]> canUseCells = cellsList.get(floor);
-			List<Integer> canUseKeys = new LinkedList<Integer>(canUseCells.keySet());
+			List<Integer> canUseKeys = Lists.newLinkedList(canUseCells.keySet());
 			int[] local = canUseCells.remove(canUseKeys.remove(MathUtil.getRandom(canUseCells.size())));
 			// create back warp and enter warp for each dungeon map
 			int backMapId, east, south, resourceGlobalId;;
 			Warp comeWarp;
 			int mapId = mapInfos[floor].getMapId();
-			if (floor == 0) { // the first map's come warp is a map which the enter info¡¯s map id
+			if (floor == 0) { // the first map's come warp is a map which the enter infoï¿½ï¿½s map id
 				LocalInfo localInfo = GameMapUtil.getAEmptyLocal(enterMap.getMapInfo(), getEnterInfo(), log);
 				if (localInfo == null) {
 					log.warning(getClass().getName() + "::createWarp() : The enter is obstacle.");
