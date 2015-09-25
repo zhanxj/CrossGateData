@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,12 +10,14 @@ import cg.data.resource.ProjectData;
 import cg.data.sprite.EnemyTalkInfo;
 import cg.data.sprite.EnemyTalkInfo.TalkInfo;
 
+import com.google.common.collect.Lists;
+
 public class CEnemyTalkReader implements ObjectReader<EnemyTalkInfo> {
 
 	@Override
 	public List<EnemyTalkInfo> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("enemytalk");
-		List<EnemyTalkInfo> list = new ArrayList<EnemyTalkInfo>(lines.length);
+		List<EnemyTalkInfo> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			if (!line.trim().substring(0, 1).equals("#")) {
 				list.add(new CEnemyTalkInfo(line));

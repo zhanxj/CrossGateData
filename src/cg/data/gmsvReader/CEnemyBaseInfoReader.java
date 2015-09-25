@@ -3,7 +3,6 @@ package cg.data.gmsvReader;
 import static cg.data.battle.skill.SkillLevelData.NO_SKILL;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -15,12 +14,14 @@ import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.sprite.CreatureTemplate;
 
+import com.google.common.collect.Lists;
+
 public class CEnemyBaseInfoReader implements ObjectReader<CreatureTemplate> {
 
 	@Override
 	public List<CreatureTemplate> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("enemybase");
-		List<CreatureTemplate> list = new ArrayList<CreatureTemplate>(lines.length);
+		List<CreatureTemplate> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			list.add(new CCreatureTemplate(line.split("\t", -2)));
 		}
@@ -114,7 +115,7 @@ public class CEnemyBaseInfoReader implements ObjectReader<CreatureTemplate> {
 			// 34
 			canCatch = infos[35].equals("1");
 			
-			List<Integer> list = new ArrayList<Integer>(skillAmount);
+			List<Integer> list = Lists.newArrayListWithCapacity(skillAmount);
 			for (int i = 0;i < skillAmount;i++) {
 				int skillCode = MathUtil.stringToInt(infos[36 + i], NO_SKILL);
 				if (skillCode != NO_SKILL) {

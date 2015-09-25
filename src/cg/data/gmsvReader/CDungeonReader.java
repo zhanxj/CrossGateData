@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -65,7 +64,7 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 	public List<Dungeon> read(ProjectData projectData) {
 		imageReader = imageManager.getImageReader();
 		String[] lines = projectData.getTextResource("dungeonconf");
-		List<Dungeon> list = new ArrayList<Dungeon>(lines.length);
+		List<Dungeon> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			list.add(new CDungeon(line, maze));
 		}
@@ -152,7 +151,7 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 			}
 			// 97, 98, 99, 100
 			int count = 8;
-			List<NpcInfo> list = new ArrayList<NpcInfo>(count);
+			List<NpcInfo> list = Lists.newArrayListWithCapacity(count);
 			for (int i = 0;i < count;i++) {
 				NpcInfo npcInfo = new NpcInfo(MathUtil.stringToInt(infos[101 + i * 2]));
 				npcInfo.setRefreshTime(MathUtil.stringToShort(infos[102 + i * 2]));
@@ -180,7 +179,7 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 		public DungeonData refresh(WarpManager warpManager, GameMap enterMap, GameMap exitMap) {
 			List<NpcInfo> npcInfoList = Lists.newLinkedList(); // cache the animation warp and box
 			DungeonMapInfo[] mapInfos = new DungeonMapInfo[LimitValueFactory.getInstance().random(floorRange)];
-			List<Map<Integer, int[]>> cellsList = new ArrayList<Map<Integer, int[]>>(mapInfos.length);
+			List<Map<Integer, int[]>> cellsList = Lists.newArrayListWithCapacity(mapInfos.length);
 			int levelRange = enemyLevel.getMaxValue() - enemyLevel.getMinValue(), maxFloor = mapInfos.length;
 			for (int floor = 0;floor < maxFloor;floor++) {
 				mapInfos[floor] = new DungeonMapInfo(imageReader, log, warpManager);
@@ -266,7 +265,7 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 				for (Map<Integer, int[]> canUseCells : cellsList) {
 					int index = rnd; // cache random number this time, if the random number less than canUseCells's size, it is this canUseCells's index
 					if (rnd < canUseCells.size()) {
-						List<Integer> keys = new ArrayList<Integer>(canUseCells.keySet()); // get all key of this canUseCells
+						List<Integer> keys = Lists.newArrayList(canUseCells.keySet()); // get all key of this canUseCells
 						list.add(canUseCells.remove(keys.get(index))); // local box
 						break;
 					} else {
@@ -299,7 +298,7 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 				resourceGlobalId = warpResourceGlobalId[ENTER_OUT_RESOURCE_GLOBAL_ID_INDEX];
 			} else { // if the map is not first map the come warp must create in previous map
 				Map<Integer, int[]> map = cellsList.get(floor - 1);
-				int[] backLocal = map.remove(new ArrayList<Integer>(map.keySet()).get(MathUtil.getRandom(map.size())));
+				int[] backLocal = map.remove(Lists.newArrayList(map.keySet()).get(MathUtil.getRandom(map.size())));
 				east = backLocal[0];
 				south = backLocal[1];
 				backMapId = mapInfos[floor - 1].getMapId();

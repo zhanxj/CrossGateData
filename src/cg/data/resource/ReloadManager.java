@@ -1,6 +1,5 @@
 package cg.data.resource;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -8,6 +7,8 @@ import java.util.Map;
 
 import cg.base.log.Log;
 import cg.base.time.Timer;
+
+import com.google.common.collect.Lists;
 
 public class ReloadManager implements Reloadable {
 	
@@ -23,7 +24,7 @@ public class ReloadManager implements Reloadable {
 		this.log = log;
 		this.timer = timer;
 		reloadSystems = new HashMap<String, Integer>();
-		list = new ArrayList<Reloadable>();
+		list = Lists.newArrayList();
 	}
 
 	@Override

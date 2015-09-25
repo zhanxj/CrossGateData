@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +10,8 @@ import cg.base.log.Log;
 import cg.data.gmsvReader.CGarbledReader.Garbled;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
+
+import com.google.common.collect.Lists;
 
 public class CGarbledReader implements ObjectReader<Garbled> {
 	
@@ -25,7 +26,7 @@ public class CGarbledReader implements ObjectReader<Garbled> {
 	@Override
 	public List<Garbled> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("creature_garbled");
-		List<Garbled> list = new ArrayList<Garbled>(lines.length);
+		List<Garbled> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			String[] infos = line.split(" ");
 			if (line.length() == 0 || infos.length < 4) {

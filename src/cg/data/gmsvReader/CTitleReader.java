@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,12 +9,14 @@ import cg.base.util.MathUtil;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 
+import com.google.common.collect.Lists;
+
 public class CTitleReader implements ObjectReader<Title> {
 	
 	@Override
 	public List<Title> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("titlename");
-		List<Title> list = new ArrayList<Title>(lines.length);
+		List<Title> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			list.add(new CTitle(line));
 		}

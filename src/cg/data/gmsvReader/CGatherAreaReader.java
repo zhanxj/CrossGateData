@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class CGatherAreaReader implements ObjectReader<GatherArea> {
 	@Override
 	public List<GatherArea> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("techarea");
-		List<GatherArea> list = new ArrayList<GatherArea>(lines.length);
+		List<GatherArea> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			list.add(new CGatherArea(line));
 		}

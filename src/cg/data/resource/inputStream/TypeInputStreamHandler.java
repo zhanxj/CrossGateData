@@ -3,7 +3,6 @@ package cg.data.resource.inputStream;
 import static cg.base.util.IOUtils.PATH_SPLIT;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -68,7 +67,7 @@ public abstract class TypeInputStreamHandler<T> implements InputStreamHandler<T>
 
 	@Override
 	public Collection<DataInfo> getDataInfos() {
-		Collection<DataInfo> collection = new ArrayList<DataInfo>(uris.size());
+		Collection<DataInfo> collection = Lists.newArrayListWithCapacity(uris.size());
 		for (URI uri : uris) {
 			collection.add(new DataInfo(uri.toString(), type));
 		}

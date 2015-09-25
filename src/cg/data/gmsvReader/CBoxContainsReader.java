@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,12 +9,14 @@ import cg.data.map.BoxContains;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 
+import com.google.common.collect.Lists;
+
 public class CBoxContainsReader implements ObjectReader<BoxContains> {
 	
 	@Override
 	public List<BoxContains> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("boxcontains");
-		List<BoxContains> list = new ArrayList<BoxContains>(lines.length);
+		List<BoxContains> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			list.add(new CBoxContains(line.split("\t")));
 		}

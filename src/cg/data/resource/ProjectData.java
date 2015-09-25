@@ -3,7 +3,6 @@ package cg.data.resource;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -139,7 +138,7 @@ public class ProjectData implements Reloadable, SingleResourceLoader {
 	@SuppressWarnings("unchecked")
 	public List<DataInfo> getFileList() {
 		int size = 0;
-		List<DataInfo> list = new ArrayList<DataInfo>(size);
+		List<DataInfo> list = Lists.newArrayListWithCapacity(size);
 		for (@SuppressWarnings("rawtypes") InputStreamHandler inputStreamHandler : inputStreamHandlers.values()) {
 			Collection<DataInfo> dataInfos = inputStreamHandler.getDataInfos();
 			size += dataInfos.size();

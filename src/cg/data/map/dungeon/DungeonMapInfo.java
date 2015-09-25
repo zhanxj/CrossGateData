@@ -10,7 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +25,8 @@ import cg.data.map.MapInfo;
 import cg.data.map.Warp;
 import cg.data.map.WarpManager;
 import cg.data.sprite.NpcInfo;
+
+import com.google.common.collect.Lists;
 
 public class DungeonMapInfo implements MapInfo {
 	
@@ -350,7 +351,7 @@ public class DungeonMapInfo implements MapInfo {
 					byte obstacleCount = obstacle.getRates()[DungeonMapRegionInfo.OBSTACLE_COUNT_INDEX];
 					if (cellMap.size() > obstacleCount) { // the count of can use cell must more than obstacle's amount
 						for (int i = 0;i < obstacleCount;i++) {
-							int[] local = canUseCells.remove(cellMap.remove(new ArrayList<Integer>(cellMap.keySet()).get(MathUtil.getRandom(cellMap.size()))));
+							int[] local = canUseCells.remove(cellMap.remove(Lists.newArrayList(cellMap.keySet()).get(MathUtil.getRandom(cellMap.size()))));
 							MathUtil.intToByte(objectImageGlobalIds, calcShortIndex(local[0], local[1]), DATA_LENGTH, obstacle.getImageGlobalId());
 							byte mark = dungeon.getMark(obstacle.getImageGlobalId());
 							marks[calcIndex(local[0], local[1])] = mark; // mark

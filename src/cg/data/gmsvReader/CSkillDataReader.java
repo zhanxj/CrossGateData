@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Queue;
@@ -27,7 +26,7 @@ public class CSkillDataReader implements ObjectReader<SkillLevelData> {
 	@Override
 	public List<SkillLevelData> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("tech");
-		List<SkillLevelData> skillDatas = new ArrayList<SkillLevelData>(lines.length);
+		List<SkillLevelData> skillDatas = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			skillDatas.add(new CSkillData(line, messageManager));
 		}

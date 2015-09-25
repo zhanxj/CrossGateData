@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,12 +9,14 @@ import cg.data.map.Warp;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 
+import com.google.common.collect.Lists;
+
 public class CWarpReader implements ObjectReader<Warp> {
 	
 	@Override
 	public List<Warp> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("warp");
-		List<Warp> list = new ArrayList<Warp>(lines.length);
+		List<Warp> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			if (line.indexOf("#") == -1) {
 				list.add(createWarp(line.split("\t", -2)));

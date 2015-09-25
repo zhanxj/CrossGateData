@@ -18,7 +18,6 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +29,8 @@ import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.input.sax.XMLReaders;
 import org.jdom2.output.XMLOutputter;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author 	com.pip
@@ -555,11 +556,11 @@ public class FileUtils {
         if (encoding == null) {
         	encoding = "GBK";
         }
-        try{
+        try {
             XMLOutputter out;
             if (!addSpace) {
             	// ɾ���������õĿո�
-            	ArrayList stack = new ArrayList();
+            	List stack = Lists.newArrayList();
             	stack.add(doc.getRootElement());
             	while (stack.size() > 0) {
             		Object obj = stack.remove(0);
@@ -584,13 +585,14 @@ public class FileUtils {
             BufferedOutputStream bos = new BufferedOutputStream(fos);
             out.output(doc, bos);
             bos.flush();
-        }catch(Exception e){
+        } catch (Exception e) {
             throw e;
-        }finally{
-            if(fos != null){
-                try{
+        } finally {
+            if (fos != null) {
+                try {
                     fos.close();
-                }catch(IOException e){
+                } catch(IOException e) {
+                	
                 }
             }
         }
@@ -710,7 +712,7 @@ public class FileUtils {
     public static String[] splitString(String s, char ch) {
         int startIndex = 0;
         int endIndex = 0;
-        List<String> vs = new ArrayList<String>();
+        List<String> vs = Lists.newArrayList();
         while (true) {
             endIndex = s.indexOf(ch, startIndex);
             if (endIndex == -1) {
@@ -912,7 +914,7 @@ public class FileUtils {
     }
     
     public static File[] getPathes(File f) {
-    	List<File> retList = new ArrayList<File>();
+    	List<File> retList = Lists.newArrayList();
     	File ff = f;
     	while (ff != null) {
     		retList.add(0, ff);

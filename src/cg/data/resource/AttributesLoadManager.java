@@ -1,6 +1,5 @@
 package cg.data.resource;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,6 +12,8 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 
 import cg.base.util.MathUtil;
+
+import com.google.common.collect.Lists;
 
 /**
  * EXCEL��ݼ��ؼ�����
@@ -246,7 +247,7 @@ public class AttributesLoadManager {
 
         int paramIdx = 0;
         for (String paramName : paramNames) {
-            ArrayList<String> values = new ArrayList<String>();
+            List<String> values = Lists.newArrayList();
             AttributeParamDef paramDef = config.params.get(paramName);
             Cell[] cellValues = cacheItem.sheet.getColumn(MathUtil.charToInt(paramDef.colnum));
             for(int i = startRow;i < cellValues.length;i++){

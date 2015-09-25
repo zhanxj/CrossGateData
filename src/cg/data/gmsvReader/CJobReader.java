@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -13,12 +12,14 @@ import cg.data.job.Job;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 
+import com.google.common.collect.Lists;
+
 public class CJobReader implements ObjectReader<Job> {
 
 	@Override
 	public List<Job> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("jobs");
-		List<Job> jobs = new ArrayList<Job>(lines.length);
+		List<Job> jobs = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			jobs.add(new CJob(line.split("\t", -2)));
 		}

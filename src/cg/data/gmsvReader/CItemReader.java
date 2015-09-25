@@ -28,7 +28,6 @@ import static cg.base.sprite.Attribute.ATTRIBUTE_WORK_INTELLIGENCE;
 import static cg.base.sprite.Attribute.ATTRIBUTE_WORK_STAMINA;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -46,6 +45,8 @@ import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.sprite.Message;
 
+import com.google.common.collect.Lists;
+
 public class CItemReader implements ObjectReader<ItemTemplate> {
 	
 	private MessageManager messageManager;
@@ -57,7 +58,7 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 	@Override
 	public List<ItemTemplate> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("itemset");
-		List<ItemTemplate> itemTemplates = new ArrayList<ItemTemplate>(lines.length);
+		List<ItemTemplate> itemTemplates = Lists.newArrayListWithCapacity(lines.length);
 		LimitValueFactory limitValueFactory = LimitValueFactory.getInstance();
 		for (String line : lines) {
 			String[] infos = line.split("\t", -2);

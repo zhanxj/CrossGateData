@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,12 +10,14 @@ import cg.base.util.MathUtil;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 
+import com.google.common.collect.Lists;
+
 public class CItemRecipeReader implements ObjectReader<ItemRecipe> {
 
 	@Override
 	public List<ItemRecipe> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("itemrecipe");
-		List<ItemRecipe> itemRecipes = new ArrayList<ItemRecipe>(lines.length);
+		List<ItemRecipe> itemRecipes = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			itemRecipes.add(new CItemRecipe(line.split("\t", -2)));
 		}

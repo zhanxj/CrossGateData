@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,12 +14,14 @@ import cg.data.resource.ProjectData;
 import cg.data.sprite.EncountInfo;
 import cg.data.sprite.EncountInfo.GroupInfo;
 
+import com.google.common.collect.Lists;
+
 public class CEncountInfoReader implements ObjectReader<EncountInfo> {
 
 	@Override
 	public List<EncountInfo> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("encount");
-		List<EncountInfo> list = new ArrayList<EncountInfo>(lines.length);
+		List<EncountInfo> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			if (line.indexOf("#") == -1) {
 				list.add(new CEncountInfo(line));

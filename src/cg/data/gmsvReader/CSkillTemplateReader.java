@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +15,8 @@ import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.sprite.Message;
 
+import com.google.common.collect.Lists;
+
 public class CSkillTemplateReader implements ObjectReader<SkillTemplate> {
 	
 	private final MessageManager messageManager;
@@ -27,7 +28,7 @@ public class CSkillTemplateReader implements ObjectReader<SkillTemplate> {
 	@Override
 	public List<SkillTemplate> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("skill");
-		List<SkillTemplate> list = new ArrayList<SkillTemplate>(lines.length);
+		List<SkillTemplate> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			list.add(new CSkillTemplate(line, messageManager));
 		}

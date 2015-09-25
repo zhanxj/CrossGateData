@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,12 +9,14 @@ import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.sprite.NpcTemplate;
 
+import com.google.common.collect.Lists;
+
 public class CNPCReader implements ObjectReader<NpcTemplate> {
 
 	@Override
 	public List<NpcTemplate> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("npc");
-		List<NpcTemplate> list = new ArrayList<NpcTemplate>(lines.length);
+		List<NpcTemplate> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			list.add(new CNpcTemplate(line));
 		}

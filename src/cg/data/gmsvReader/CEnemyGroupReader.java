@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,12 +10,14 @@ import cg.data.resource.ProjectData;
 import cg.data.sprite.EnemyGroup;
 import cg.data.sprite.EnemyGroup.SingleGroupInfo;
 
+import com.google.common.collect.Lists;
+
 public class CEnemyGroupReader implements ObjectReader<EnemyGroup> {
 
 	@Override
 	public List<EnemyGroup> read(ProjectData projectData) {
 		String[] lines = projectData.getTextResource("group");
-		List<EnemyGroup> list = new ArrayList<EnemyGroup>(lines.length);
+		List<EnemyGroup> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			list.add(new CEnemyGroup(line));
 		}

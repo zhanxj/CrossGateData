@@ -1,11 +1,9 @@
 package cg.data.gmsvReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import cg.base.animation.AnimationReader;
 import cg.base.image.ImageManager;
@@ -19,6 +17,9 @@ import cg.data.resource.AttributesLoadManager;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.sprite.RoleAnimationInfo;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class CRoleAnimationInfoReader implements ObjectReader<RoleAnimationInfo> {
 	
@@ -48,7 +49,7 @@ public class CRoleAnimationInfoReader implements ObjectReader<RoleAnimationInfo>
 			int[] headGlobalIds = AttributesLoadManager.loadAttributesData("role_animation", "role_id", "head_global_id");
 			String[] sexs = AttributesLoadManager.loadAttributesStrData("role_animation", "role_id", "sex");
 			String[] pages = AttributesLoadManager.loadAttributesStrData("role_animation", "role_id", "page");
-			Map<Byte, CRoleAnimationInfo> indexs = new TreeMap<Byte, CRoleAnimationInfo>();
+			Map<Byte, CRoleAnimationInfo> indexs = Maps.newTreeMap();
 			ResourceInfo[] headInfos = imageReader.getImageDictionaries(headGlobalIds);
 			ResourceInfo[] animationInfos = animationReader.getResourceInfos(animationGlobalIds);
 			for (int i = 0;i < roleIds.length;i++) {
@@ -63,10 +64,10 @@ public class CRoleAnimationInfoReader implements ObjectReader<RoleAnimationInfo>
 				}
 				animationInfo.addAnimationInfo(animationInfos[i]);
 				animationInfo.addHeadInfo(headInfos[i]);
-				animationInfo.sex = sexs[i].equals("ÄÐ") ? Unit.SEX_MALE : Unit.SEX_FEMALE;
+				animationInfo.sex = sexs[i].equals("ï¿½ï¿½") ? Unit.SEX_MALE : Unit.SEX_FEMALE;
 				animationInfo.pageIndex = MathUtil.stringToByte(pages[i], RoleAnimationInfo.NO_SELECT_PAGE);
 			}
-			return new ArrayList<RoleAnimationInfo>(indexs.values());
+			return Lists.newArrayList(indexs.values());
 		} catch (Exception e) {
 			log.error(getClass().getSimpleName(), e);
 			return null;
