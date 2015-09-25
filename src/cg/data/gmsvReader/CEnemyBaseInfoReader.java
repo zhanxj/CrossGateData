@@ -5,7 +5,6 @@ import static cg.data.battle.skill.SkillLevelData.NO_SKILL;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import cg.base.util.MathUtil;
 import cg.data.attribute.AttributeEx;
@@ -13,8 +12,9 @@ import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.sprite.CreatureTemplate;
 
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.collect.Table;
 
 public class CEnemyBaseInfoReader implements ObjectReader<CreatureTemplate> {
 
@@ -40,7 +40,7 @@ public class CEnemyBaseInfoReader implements ObjectReader<CreatureTemplate> {
 		
 		private byte race;
 		
-		private Map<String, Map<Byte, Short>> attributes;
+		private Table<String, Byte, Short> attributes;
 		
 		private short difficultyOfCatch;
 		
@@ -63,49 +63,43 @@ public class CEnemyBaseInfoReader implements ObjectReader<CreatureTemplate> {
 		private int[] skillCodes;
 		
 		public CCreatureTemplate(String[] infos) {
-			attributes = Maps.newHashMap();
+			attributes = HashBasedTable.create();
 			name = infos[0];
 			id = MathUtil.stringToInt(infos[1]);
 			basePointCount = MathUtil.stringToShort(infos[2]);
 			basePointFloat = MathUtil.stringToByte(infos[3]);
 			race = MathUtil.stringToByte(infos[4]);
 			
-			Map<Byte, Short> values = Maps.newHashMap();
-			values.put(AttributeEx.BP_VITALITY, MathUtil.stringToShort(infos[5]));
-			values.put(AttributeEx.BP_STRENGTH, MathUtil.stringToShort(infos[6]));
-			values.put(AttributeEx.BP_TOUGH, MathUtil.stringToShort(infos[7]));
-			values.put(AttributeEx.BP_QUICK, MathUtil.stringToShort(infos[8]));
-			values.put(AttributeEx.BP_MAGIC, MathUtil.stringToShort(infos[9]));
-			attributes.put(AttributeEx.ATTRIBUTE_TYPE_BP, values);
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_BP, AttributeEx.BP_VITALITY, MathUtil.stringToShort(infos[5]));
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_BP, AttributeEx.BP_STRENGTH, MathUtil.stringToShort(infos[6]));
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_BP, AttributeEx.BP_TOUGH, MathUtil.stringToShort(infos[7]));
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_BP, AttributeEx.BP_QUICK, MathUtil.stringToShort(infos[8]));
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_BP, AttributeEx.BP_MAGIC, MathUtil.stringToShort(infos[9]));
 			
 			difficultyOfCatch = MathUtil.stringToShort(infos[10]);
 			cardLevel = MathUtil.stringToByte(infos[11]);
 			needCharm = MathUtil.stringToByte(infos[12]);
 			
-			values = Maps.newHashMap();
-			values.put(AttributeEx.ATTRIBUTE_EXTEND_HIT, MathUtil.stringToShort(infos[13]));
-			values.put(AttributeEx.ATTRIBUTE_EXTEND_AVOID, MathUtil.stringToShort(infos[14]));
-			attributes.put(AttributeEx.ATTRIBUTE_TYPE_EXTEND, values);
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_EXTEND, AttributeEx.ATTRIBUTE_EXTEND_HIT, MathUtil.stringToShort(infos[13]));
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_EXTEND, AttributeEx.ATTRIBUTE_EXTEND_AVOID, MathUtil.stringToShort(infos[14]));
 			
 			elementAttributes = new byte[4];
 			for (int i = 0;i < elementAttributes.length;i++) {
 				elementAttributes[i] = MathUtil.stringToByte(infos[15 + i]);
 			}
 			
-			values = Maps.newHashMap();
-			values.put(AttributeEx.ATTRIBUTE_RESIST_POISON, MathUtil.stringToShort(infos[19]));
-			values.put(AttributeEx.ATTRIBUTE_RESIST_INTOXICATION, MathUtil.stringToShort(infos[20]));
-			values.put(AttributeEx.ATTRIBUTE_RESIST_SLEEP, MathUtil.stringToShort(infos[21]));
-			values.put(AttributeEx.ATTRIBUTE_RESIST_CONFUSION, MathUtil.stringToShort(infos[22]));
-			values.put(AttributeEx.ATTRIBUTE_RESIST_STONE, MathUtil.stringToShort(infos[23]));
-			values.put(AttributeEx.ATTRIBUTE_RESIST_AMNESIA, MathUtil.stringToShort(infos[24]));
-			attributes.put(AttributeEx.ATTRIBUTE_TYPE_RESIST, values);
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_RESIST, AttributeEx.ATTRIBUTE_RESIST_POISON, MathUtil.stringToShort(infos[19]));
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_RESIST, AttributeEx.ATTRIBUTE_RESIST_INTOXICATION, MathUtil.stringToShort(infos[20]));
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_RESIST, AttributeEx.ATTRIBUTE_RESIST_SLEEP, MathUtil.stringToShort(infos[21]));
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_RESIST, AttributeEx.ATTRIBUTE_RESIST_CONFUSION, MathUtil.stringToShort(infos[22]));
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_RESIST, AttributeEx.ATTRIBUTE_RESIST_STONE, MathUtil.stringToShort(infos[23]));
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_RESIST, AttributeEx.ATTRIBUTE_RESIST_AMNESIA, MathUtil.stringToShort(infos[24]));
 			
 			cardType = MathUtil.stringToByte(infos[25]);
 			// 26
 			
-			attributes.get(AttributeEx.ATTRIBUTE_TYPE_EXTEND).put(AttributeEx.ATTRIBUTE_EXTEND_CRITICAL, MathUtil.stringToShort(infos[27]));
-			attributes.get(AttributeEx.ATTRIBUTE_TYPE_EXTEND).put(AttributeEx.ATTRIBUTE_EXTEND_COUNTER, MathUtil.stringToShort(infos[28]));
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_EXTEND, AttributeEx.ATTRIBUTE_EXTEND_CRITICAL, MathUtil.stringToShort(infos[27]));
+			attributes.put(AttributeEx.ATTRIBUTE_TYPE_EXTEND, AttributeEx.ATTRIBUTE_EXTEND_COUNTER, MathUtil.stringToShort(infos[28]));
 
 			skillAmount = MathUtil.stringToByte(infos[29]);
 			animationId = MathUtil.stringToInt(infos[30]);
@@ -155,7 +149,7 @@ public class CEnemyBaseInfoReader implements ObjectReader<CreatureTemplate> {
 
 		@Override
 		public short getAttributeValue(String attributeType, byte type) {
-			return attributes.get(attributeType).get(type);
+			return attributes.get(attributeType, type);
 		}
 
 		@Override

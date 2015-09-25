@@ -5,20 +5,21 @@ import java.util.Map;
 
 import cg.data.resource.ProjectData;
 
-import com.google.common.collect.Maps;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 
 public class CWarpManager implements WarpManager {
 	
-	private Map<Integer, Map<Integer, Warp>> warps;
+	private Table<Integer, Integer, Warp> warps;
 	
 	public CWarpManager(ProjectData projectData) {
-		warps = Maps.newHashMap();
+		warps = HashBasedTable.create();
 		loadWarp(projectData);
 	}
 
 	@Override
 	public Map<Integer, Warp> getWarps(int mapId) {
-		return warps.get(mapId);
+		return warps.row(mapId);
 	}
 	
 	private void loadWarp(ProjectData projectData) {
@@ -30,13 +31,7 @@ public class CWarpManager implements WarpManager {
 
 	@Override
 	public void addWarp(Warp warp) {
-		if (!warps.containsKey(warp.getSourceMapId())) {
-			Map<Integer, Warp> sameMapWarps = Maps.newHashMap();
-			sameMapWarps.put(warp.getId(), warp);
-			warps.put(warp.getSourceMapId(), sameMapWarps);
-		} else {
-			warps.get(warp.getSourceMapId()).put(warp.getId(), warp);
-		}
+		warps.put(warp.getSourceMapId(), warp.getId(), warp);
 	}
 
 }

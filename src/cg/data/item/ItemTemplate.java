@@ -1,12 +1,11 @@
 package cg.data.item;
 
-import java.util.List;
-import java.util.Map;
-
 import cg.base.item.ItemInfo;
 import cg.data.limitValue.LimitValueOfByte;
 import cg.data.limitValue.LimitValueOfInt;
 import cg.data.limitValue.LimitValueOfShort;
+
+import com.google.common.collect.ListMultimap;
 
 public interface ItemTemplate extends ItemInfo {
 	
@@ -60,7 +59,7 @@ public interface ItemTemplate extends ItemInfo {
 	
 	LimitValueOfInt getAttribute(String type, byte valueType);
 	
-	Map<String, List<Byte>> getAttributeTypes();
+	ListMultimap<String, Byte> getAttributeTypes();
 	
 	LimitValueOfByte getLuck();
 	

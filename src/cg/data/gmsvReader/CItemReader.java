@@ -44,8 +44,11 @@ import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.sprite.Message;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.collect.Table;
 
 public class CItemReader implements ObjectReader<ItemTemplate> {
 	
@@ -93,43 +96,37 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			// 29	[0, 1]
 			itemTemplate.isPrecent = infos[30].equals("1");
 			
-			Map<Byte, LimitValueOfInt> values = Maps.newHashMap();
 			LimitValueOfInt value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[31]), MathUtil.stringToInt(infos[32]));
-			values.put(ATTRIBUTE_ATTACK, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_ATTACK, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[33]), MathUtil.stringToInt(infos[34]));
-			values.put(ATTRIBUTE_DEFEND, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_DEFEND, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[35]), MathUtil.stringToInt(infos[36]));
-			values.put(ATTRIBUTE_AGILITY, value);
-			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, values);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_AGILITY, value);
 			
-			values = Maps.newHashMap();
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[37]), MathUtil.stringToInt(infos[38]));
-			values.put(ATTRIBUTE_EXTEND_MIND, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_MIND, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[39]), MathUtil.stringToInt(infos[40]));
-			values.put(ATTRIBUTE_EXTEND_RECOVER, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_RECOVER, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[41]), MathUtil.stringToInt(infos[42]));
-			values.put(ATTRIBUTE_EXTEND_CRITICAL, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_CRITICAL, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[43]), MathUtil.stringToInt(infos[44]));
-			values.put(ATTRIBUTE_EXTEND_COUNTER, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_COUNTER, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[45]), MathUtil.stringToInt(infos[46]));
-			values.put(ATTRIBUTE_EXTEND_HIT, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_HIT, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[47]), MathUtil.stringToInt(infos[48]));
-			values.put(ATTRIBUTE_EXTEND_AVOID, value);
-			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, values);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_AVOID, value);
 
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[49]), MathUtil.stringToInt(infos[50]));
-			itemTemplate.attributes.get(ATTRIBUTE_TYPE_BASE).put(ATTRIBUTE_HP_MAX, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_HP_MAX, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[51]), MathUtil.stringToInt(infos[52]));
-			itemTemplate.attributes.get(ATTRIBUTE_TYPE_BASE).put(ATTRIBUTE_MP_MAX, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_MP_MAX, value);
 			
 			itemTemplate.luck = limitValueFactory.createLimitValue(MathUtil.stringToByte(infos[53]), MathUtil.stringToByte(infos[54]));
 			// 55	[-99490, 123]
 			// 56	[-99490, 123]
 			
-			values = Maps.newHashMap();
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[57]), MathUtil.stringToInt(infos[58]));
-			values.put(ATTRIBUTE_WORK_CHARM, value);
-			itemTemplate.attributes.put(ATTRIBUTE_TYPE_WORK, values);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_WORK, ATTRIBUTE_WORK_CHARM, value);
 			
 			itemTemplate.elementAttribute_1 = MathUtil.stringToByte(infos[59]);
 			itemTemplate.elementAttribute_2 = MathUtil.stringToByte(infos[60]);
@@ -137,26 +134,24 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			itemTemplate.elementAttributeValue_2 = MathUtil.stringToByte(infos[62]);
 
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[63]), MathUtil.stringToInt(infos[64]));
-			itemTemplate.attributes.get(ATTRIBUTE_TYPE_WORK).put(ATTRIBUTE_WORK_STAMINA, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_WORK, ATTRIBUTE_WORK_STAMINA, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[65]), MathUtil.stringToInt(infos[66]));
-			itemTemplate.attributes.get(ATTRIBUTE_TYPE_WORK).put(ATTRIBUTE_WORK_DEXTERITY, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_WORK, ATTRIBUTE_WORK_DEXTERITY, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[67]), MathUtil.stringToInt(infos[68]));
-			itemTemplate.attributes.get(ATTRIBUTE_TYPE_WORK).put(ATTRIBUTE_WORK_INTELLIGENCE, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_WORK, ATTRIBUTE_WORK_INTELLIGENCE, value);
 			
-			values = Maps.newHashMap();
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[69]), MathUtil.stringToInt(infos[70]));
-			values.put(ATTRIBUTE_RESIST_POISON, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_POISON, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[71]), MathUtil.stringToInt(infos[72]));
-			values.put(ATTRIBUTE_RESIST_SLEEP, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_SLEEP, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[73]), MathUtil.stringToInt(infos[74]));
-			values.put(ATTRIBUTE_RESIST_STONE, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_STONE, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[75]), MathUtil.stringToInt(infos[76]));
-			values.put(ATTRIBUTE_RESIST_INTOXICATION, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_INTOXICATION, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[77]), MathUtil.stringToInt(infos[78]));
-			values.put(ATTRIBUTE_RESIST_CONFUSION, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_CONFUSION, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[79]), MathUtil.stringToInt(infos[80]));
-			values.put(ATTRIBUTE_RESIST_AMNESIA, value);
-			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, values);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_AMNESIA, value);
 			
 			itemTemplate.specialType = MathUtil.stringToShort(infos[81]);
 			itemTemplate.subTypeParam[0] = MathUtil.stringToInt(infos[82]);
@@ -170,7 +165,7 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			itemTemplate.canPostByPet = infos[90].equals("1");
 
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[91]), MathUtil.stringToInt(infos[92]));
-			itemTemplate.attributes.get(ATTRIBUTE_TYPE_RESIST).put(ATTRIBUTE_RESIST_MAGIC, value);
+			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_MAGIC, value);
 			
 			itemTemplate.canComposite = infos[93].equals("1");
 			itemTemplate.descriptionId = MathUtil.stringToInt(infos[94], -1);
@@ -225,9 +220,9 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 		
 		private boolean isPrecent;
 		
-		private Map<String, Map<Byte, LimitValueOfInt>> attributes;
+		private Table<String, Byte, LimitValueOfInt> attributes;
 		
-		private Map<String, List<Byte>> attributeTypes;
+		private ListMultimap<String, Byte> attributeTypes;
 		
 		private LimitValueOfByte luck;
 		
@@ -266,8 +261,8 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 		private LimitValueOfShort magicAttack;
 		
 		public CItemTemplate() {
-			attributes = Maps.newHashMap();
-			attributeTypes = Maps.newHashMap();
+			attributes = HashBasedTable.create();
+			attributeTypes = ArrayListMultimap.create();
 			subTypeParam = new int[2];
 		}
 
@@ -293,10 +288,10 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			sb.append(" ; durable " + durable);
 			sb.append(" ; attackCount " + attackCount);
 			sb.append(" ; isPrecent = " + isPrecent);
-			Iterator<String> keySet = attributes.keySet().iterator();
+			Iterator<String> keySet = attributes.rowKeySet().iterator();
 			while (keySet.hasNext()) {
 				String valueKey = keySet.next();
-				Map<Byte, LimitValueOfInt> value = attributes.get(valueKey);
+				Map<Byte, LimitValueOfInt> value = attributes.row(valueKey);
 				Iterator<Byte> keys = value.keySet().iterator();
 				while (keys.hasNext()) {
 					if (valueKey.equals(ATTRIBUTE_TYPE_BASE)) {
@@ -508,7 +503,7 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 
 		@Override
 		public LimitValueOfInt getAttribute(String type, byte valueType) {
-			return attributes.get(type).get(valueType);
+			return attributes.get(type, valueType);
 		}
 
 		@Override
@@ -599,7 +594,7 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 		}
 
 		@Override
-		public Map<String, List<Byte>> getAttributeTypes() {
+		public ListMultimap<String, Byte> getAttributeTypes() {
 			return attributeTypes;
 		}
 

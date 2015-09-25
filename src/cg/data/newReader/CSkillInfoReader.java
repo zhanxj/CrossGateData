@@ -68,7 +68,6 @@ public class CSkillInfoReader implements ObjectReader<SkillInfo> {
 			expType = Byte.parseByte(element.getAttributeValue("expType"));
 			effectWorkLevel = Byte.parseByte(element.getAttributeValue("effectWorkLevel"));
 			
-			attributeCells = Maps.newHashMap();
 			List<Element> attributeList = element.getChildren("attribute");
 			for (int i = 0;i < attributeList.size();i++) {
 				Element child = attributeList.get(i);
