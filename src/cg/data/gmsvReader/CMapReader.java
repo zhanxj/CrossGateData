@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 import cg.base.image.ImageDictionary;
@@ -18,6 +17,8 @@ import cg.data.map.MapReader;
 import cg.data.map.Warp;
 import cg.data.map.WarpManager;
 
+import com.google.common.collect.Maps;
+
 @Deprecated
 public class CMapReader implements MapReader {
 	
@@ -30,7 +31,7 @@ public class CMapReader implements MapReader {
 	public CMapReader(WarpManager warpManager, ImageReader imageReader) {
 		this.warpManager = warpManager;
 		this.imageReader = imageReader;
-		mapMemos = new HashMap<Integer, MapMemo>();
+		mapMemos = Maps.newHashMap();
 		try {
 			init();
 		} catch (IOException e) {
@@ -83,7 +84,7 @@ public class CMapReader implements MapReader {
 		public CMapInfo(MapMemo mapMemo, Map<Integer, Warp> warps) throws IOException {
 			name = mapMemo.getName();
 			mapId = mapMemo.getMapId();
-			warpIds = new HashMap<Integer, Integer>();
+			warpIds = Maps.newHashMap();
 			File file = new File(CrossGateData.getProjectData().getServerPath());
 			file = new File(file, "server/map/" + mapMemo.getFileName());
 			FileInputStream fis = new FileInputStream(file);

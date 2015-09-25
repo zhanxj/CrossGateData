@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.text.MessageFormat;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,10 +36,11 @@ import cg.data.util.FileUtils;
 import cg.data.util.GameMapUtil;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class CDungeonReader implements ObjectReader<Dungeon> {
 	
-	private static final Map<Integer, Byte> marks = new HashMap<Integer, Byte>();
+	private static final Map<Integer, Byte> marks = Maps.newHashMap();
 	
 	private static int WARP_ID = -1;
 	

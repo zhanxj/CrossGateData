@@ -2,7 +2,6 @@ package cg.data.newReader;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +20,7 @@ import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class CSkillInfoReader implements ObjectReader<SkillInfo> {
 	
@@ -54,7 +54,7 @@ public class CSkillInfoReader implements ObjectReader<SkillInfo> {
 		private CSkillInfo(Element element, MessageManager messageManager) {
 			super(messageManager);
 			
-			attributeCells = new HashMap<String, AttributeCell>();
+			attributeCells = Maps.newHashMap();
 			name = element.getAttributeValue("name");
 			id = MathUtil.stringToShort(element.getAttributeValue("id"));
 			studyPrice = MathUtil.stringToShort(element.getAttributeValue("studyPrice"));
@@ -68,7 +68,7 @@ public class CSkillInfoReader implements ObjectReader<SkillInfo> {
 			expType = Byte.parseByte(element.getAttributeValue("expType"));
 			effectWorkLevel = Byte.parseByte(element.getAttributeValue("effectWorkLevel"));
 			
-			attributeCells = new HashMap<String, AttributeCell>();
+			attributeCells = Maps.newHashMap();
 			List<Element> attributeList = element.getChildren("attribute");
 			for (int i = 0;i < attributeList.size();i++) {
 				Element child = attributeList.get(i);
@@ -81,7 +81,7 @@ public class CSkillInfoReader implements ObjectReader<SkillInfo> {
 				attributeCells.get(attributeType).setValue(type, value);
 			}
 			
-			skillLevelDatas = new HashMap<Integer, SkillLevelData>();
+			skillLevelDatas = Maps.newHashMap();
 			List<Element> dataList = element.getChildren("attribute");
 			for (int i = 0;i < dataList.size();i++) {
 				Element child = dataList.get(i);

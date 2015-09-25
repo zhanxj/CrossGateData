@@ -2,7 +2,6 @@ package cg.data.gmsvReader;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,6 +12,7 @@ import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class CJobReader implements ObjectReader<Job> {
 
@@ -46,7 +46,7 @@ public class CJobReader implements ObjectReader<Job> {
 			type = MathUtil.stringToByte(infos[3]);
 			cost = MathUtil.stringToInt(infos[4]);
 			fame = MathUtil.stringToInt(infos[4]);
-			promotionSkills = new HashMap<Short, Byte>();
+			promotionSkills = Maps.newHashMap();
 			for (int i = 0;i < 5;i++) {
 				short skillId = MathUtil.stringToShort(infos[i + 6]);
 				if (skillId > 0) {

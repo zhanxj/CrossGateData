@@ -1,11 +1,12 @@
 package cg.data.log;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import cg.base.util.MathUtil;
 import cg.data.battle.skill.SkillLevelData;
+
+import com.google.common.collect.Maps;
 
 public class CSkillDataInfoPrinter extends AbstractInfoPrinter<SkillLevelData> {
 
@@ -14,7 +15,7 @@ public class CSkillDataInfoPrinter extends AbstractInfoPrinter<SkillLevelData> {
 		setOutputFile(false);
 		@SuppressWarnings("unchecked")
 		Map<Integer, SkillLevelData> skillDatas = (Map<Integer, SkillLevelData>) map;
-		Map<Short, Short> targetTypes = new HashMap<Short, Short>();
+		Map<Short, Short> targetTypes = Maps.newHashMap();
 		Iterator<Integer> keys = skillDatas.keySet().iterator();
 		while (keys.hasNext()) {
 			Short targetType = skillDatas.get(keys.next()).getTargetType();

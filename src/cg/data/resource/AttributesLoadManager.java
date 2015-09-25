@@ -1,7 +1,7 @@
 package cg.data.resource;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -14,6 +14,7 @@ import org.jdom2.Element;
 import cg.base.util.MathUtil;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 /**
  * EXCEL��ݼ��ؼ�����
@@ -21,17 +22,17 @@ import com.google.common.collect.Lists;
  */
 public class AttributesLoadManager {
 	
-	private static HashMap<String, AttributeConfigDef> CONFIG_MAP = new HashMap<String, AttributeConfigDef>();
+	private static Map<String, AttributeConfigDef> CONFIG_MAP = Maps.newHashMap();
 	
-	private static HashMap<String, WorkbookCacheItem> WORKBOOK_CACHE = new HashMap<String, WorkbookCacheItem>();
+	private static Map<String, WorkbookCacheItem> WORKBOOK_CACHE = Maps.newHashMap();
 	
-	private static HashMap<String, SheetCacheItem> SHEET_CACHE = new HashMap<String, SheetCacheItem>();
+	private static Map<String, SheetCacheItem> SHEET_CACHE = Maps.newHashMap();
 	
 	private static class AttributeConfigDef {
 		
 		public String name, sheetname, file;
 		
-		public HashMap<String, AttributeParamDef> params = new HashMap<String, AttributeParamDef>();
+		public Map<String, AttributeParamDef> params = Maps.newHashMap();
 		
 	}
 	

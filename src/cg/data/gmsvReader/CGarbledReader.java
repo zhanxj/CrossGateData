@@ -2,7 +2,6 @@ package cg.data.gmsvReader;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,10 +11,11 @@ import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class CGarbledReader implements ObjectReader<Garbled> {
 	
-	private Map<String, String> garbleds = new HashMap<String, String>();
+	private Map<String, String> garbleds = Maps.newHashMap();
 	
 	private Log log;
 	

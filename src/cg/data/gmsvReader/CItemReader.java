@@ -29,7 +29,6 @@ import static cg.base.sprite.Attribute.ATTRIBUTE_WORK_STAMINA;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +45,7 @@ import cg.data.resource.ProjectData;
 import cg.data.sprite.Message;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class CItemReader implements ObjectReader<ItemTemplate> {
 	
@@ -93,7 +93,7 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			// 29	[0, 1]
 			itemTemplate.isPrecent = infos[30].equals("1");
 			
-			Map<Byte, LimitValueOfInt> values = new HashMap<Byte, LimitValueOfInt>();
+			Map<Byte, LimitValueOfInt> values = Maps.newHashMap();
 			LimitValueOfInt value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[31]), MathUtil.stringToInt(infos[32]));
 			values.put(ATTRIBUTE_ATTACK, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[33]), MathUtil.stringToInt(infos[34]));
@@ -102,7 +102,7 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			values.put(ATTRIBUTE_AGILITY, value);
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, values);
 			
-			values = new HashMap<Byte, LimitValueOfInt>();
+			values = Maps.newHashMap();
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[37]), MathUtil.stringToInt(infos[38]));
 			values.put(ATTRIBUTE_EXTEND_MIND, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[39]), MathUtil.stringToInt(infos[40]));
@@ -126,7 +126,7 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			// 55	[-99490, 123]
 			// 56	[-99490, 123]
 			
-			values = new HashMap<Byte, LimitValueOfInt>();
+			values = Maps.newHashMap();
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[57]), MathUtil.stringToInt(infos[58]));
 			values.put(ATTRIBUTE_WORK_CHARM, value);
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_WORK, values);
@@ -143,7 +143,7 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[67]), MathUtil.stringToInt(infos[68]));
 			itemTemplate.attributes.get(ATTRIBUTE_TYPE_WORK).put(ATTRIBUTE_WORK_INTELLIGENCE, value);
 			
-			values = new HashMap<Byte, LimitValueOfInt>();
+			values = Maps.newHashMap();
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[69]), MathUtil.stringToInt(infos[70]));
 			values.put(ATTRIBUTE_RESIST_POISON, value);
 			value = limitValueFactory.createLimitValue(MathUtil.stringToInt(infos[71]), MathUtil.stringToInt(infos[72]));
@@ -266,8 +266,8 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 		private LimitValueOfShort magicAttack;
 		
 		public CItemTemplate() {
-			attributes = new HashMap<String, Map<Byte, LimitValueOfInt>>();
-			attributeTypes = new HashMap<String, List<Byte>>();
+			attributes = Maps.newHashMap();
+			attributeTypes = Maps.newHashMap();
 			subTypeParam = new int[2];
 		}
 

@@ -10,7 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,6 +26,7 @@ import cg.data.map.WarpManager;
 import cg.data.sprite.NpcInfo;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class DungeonMapInfo implements MapInfo {
 	
@@ -285,7 +285,7 @@ public class DungeonMapInfo implements MapInfo {
 		objectImageGlobalIds = new byte[size];
 		marks = new byte[size / DATA_LENGTH];
 		
-		Map<Integer, int[]> canUseCells = new HashMap<Integer, int[]>();
+		Map<Integer, int[]> canUseCells = Maps.newHashMap();
 		for (Integer key : keys) {
 			for (DungeonMapRegion mapRegion : mapRegions.get(key).values()) {
 				mapRegion.fill();
@@ -337,7 +337,7 @@ public class DungeonMapInfo implements MapInfo {
 			int maxRow = MathUtil.divAddOne(maxSouth, rangeSouth), maxCol = MathUtil.divAddOne(maxEast, rangeEast);
 			for (int col = 0;col < maxCol;col++) {
 				for (int row = 0;row < maxRow;row++) {
-					Map<Integer, Integer> cellMap = new HashMap<Integer, Integer>();
+					Map<Integer, Integer> cellMap = Maps.newHashMap();
 					int startEast = col * rangeEast, startSouth = row * rangeSouth; // calculate 
 					for (int east = 0;east < rangeEast;east++) {
 						for (int south = 0;south < rangeSouth;south++) {

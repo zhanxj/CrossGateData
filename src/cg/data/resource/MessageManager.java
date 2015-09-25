@@ -1,12 +1,13 @@
 package cg.data.resource;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cg.base.log.Log;
 import cg.data.gmsvReader.CGarbledReader.Garbled;
 import cg.data.sprite.Message;
+
+import com.google.common.collect.Maps;
 
 public class MessageManager implements ProjectDataListener {
 	
@@ -18,8 +19,8 @@ public class MessageManager implements ProjectDataListener {
 	
 	public MessageManager(Log log) {
 		this.log = log;
-		messages = new HashMap<Integer, Message>();
-		garbleds = new HashMap<String, String>();
+		messages = Maps.newHashMap();
+		garbleds = Maps.newHashMap();
 	}
 
 	@Override

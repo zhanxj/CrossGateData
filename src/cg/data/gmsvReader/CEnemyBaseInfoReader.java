@@ -4,7 +4,6 @@ import static cg.data.battle.skill.SkillLevelData.NO_SKILL;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +14,7 @@ import cg.data.resource.ProjectData;
 import cg.data.sprite.CreatureTemplate;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class CEnemyBaseInfoReader implements ObjectReader<CreatureTemplate> {
 
@@ -63,14 +63,14 @@ public class CEnemyBaseInfoReader implements ObjectReader<CreatureTemplate> {
 		private int[] skillCodes;
 		
 		public CCreatureTemplate(String[] infos) {
-			attributes = new HashMap<String, Map<Byte, Short>>();
+			attributes = Maps.newHashMap();
 			name = infos[0];
 			id = MathUtil.stringToInt(infos[1]);
 			basePointCount = MathUtil.stringToShort(infos[2]);
 			basePointFloat = MathUtil.stringToByte(infos[3]);
 			race = MathUtil.stringToByte(infos[4]);
 			
-			Map<Byte, Short> values = new HashMap<Byte, Short>();
+			Map<Byte, Short> values = Maps.newHashMap();
 			values.put(AttributeEx.BP_VITALITY, MathUtil.stringToShort(infos[5]));
 			values.put(AttributeEx.BP_STRENGTH, MathUtil.stringToShort(infos[6]));
 			values.put(AttributeEx.BP_TOUGH, MathUtil.stringToShort(infos[7]));
@@ -82,7 +82,7 @@ public class CEnemyBaseInfoReader implements ObjectReader<CreatureTemplate> {
 			cardLevel = MathUtil.stringToByte(infos[11]);
 			needCharm = MathUtil.stringToByte(infos[12]);
 			
-			values = new HashMap<Byte, Short>();
+			values = Maps.newHashMap();
 			values.put(AttributeEx.ATTRIBUTE_EXTEND_HIT, MathUtil.stringToShort(infos[13]));
 			values.put(AttributeEx.ATTRIBUTE_EXTEND_AVOID, MathUtil.stringToShort(infos[14]));
 			attributes.put(AttributeEx.ATTRIBUTE_TYPE_EXTEND, values);
@@ -92,7 +92,7 @@ public class CEnemyBaseInfoReader implements ObjectReader<CreatureTemplate> {
 				elementAttributes[i] = MathUtil.stringToByte(infos[15 + i]);
 			}
 			
-			values = new HashMap<Byte, Short>();
+			values = Maps.newHashMap();
 			values.put(AttributeEx.ATTRIBUTE_RESIST_POISON, MathUtil.stringToShort(infos[19]));
 			values.put(AttributeEx.ATTRIBUTE_RESIST_INTOXICATION, MathUtil.stringToShort(infos[20]));
 			values.put(AttributeEx.ATTRIBUTE_RESIST_SLEEP, MathUtil.stringToShort(infos[21]));

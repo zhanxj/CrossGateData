@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 import cg.base.image.ImageDictionary;
@@ -19,6 +18,8 @@ import cg.data.map.MapReader;
 import cg.data.map.Warp;
 import cg.data.map.WarpManager;
 import cg.data.resource.ProjectData;
+
+import com.google.common.collect.Maps;
 
 public class CFileMapReader implements MapReader {
 	
@@ -84,7 +85,7 @@ public class CFileMapReader implements MapReader {
 				mapId = Integer.parseInt(infos[1]);
 			}
 			fis = new FileInputStream(file);
-			warpIds = new HashMap<Integer, Integer>();
+			warpIds = Maps.newHashMap();
 			
 			readHead();
 			readContent();

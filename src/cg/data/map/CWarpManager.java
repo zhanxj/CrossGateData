@@ -1,17 +1,18 @@
 package cg.data.map;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cg.data.resource.ProjectData;
+
+import com.google.common.collect.Maps;
 
 public class CWarpManager implements WarpManager {
 	
 	private Map<Integer, Map<Integer, Warp>> warps;
 	
 	public CWarpManager(ProjectData projectData) {
-		warps = new HashMap<Integer, Map<Integer, Warp>>();
+		warps = Maps.newHashMap();
 		loadWarp(projectData);
 	}
 
@@ -30,7 +31,7 @@ public class CWarpManager implements WarpManager {
 	@Override
 	public void addWarp(Warp warp) {
 		if (!warps.containsKey(warp.getSourceMapId())) {
-			Map<Integer, Warp> sameMapWarps = new HashMap<Integer, Warp>();
+			Map<Integer, Warp> sameMapWarps = Maps.newHashMap();
 			sameMapWarps.put(warp.getId(), warp);
 			warps.put(warp.getSourceMapId(), sameMapWarps);
 		} else {

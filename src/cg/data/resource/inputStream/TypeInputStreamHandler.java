@@ -4,7 +4,6 @@ import static cg.base.util.IOUtils.PATH_SPLIT;
 
 import java.net.URI;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,12 +13,13 @@ import cg.base.util.URLHandler;
 import cg.data.resource.AWSS3;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public abstract class TypeInputStreamHandler<T> implements InputStreamHandler<T> {
 	
 	protected List<URI> uris = Lists.newLinkedList();
 	
-	protected Map<String, T> resources = new HashMap<String, T>();
+	protected Map<String, T> resources = Maps.newHashMap();
 	
 	protected final String type;
 	

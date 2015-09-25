@@ -2,7 +2,6 @@ package cg.data.gmsvReader;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +15,7 @@ import cg.data.resource.ProjectData;
 import cg.data.sprite.Message;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class CSkillTemplateReader implements ObjectReader<SkillTemplate> {
 	
@@ -64,7 +64,7 @@ public class CSkillTemplateReader implements ObjectReader<SkillTemplate> {
 			needWeaponType = MathUtil.stringToShort(infos[8]);
 			expType = MathUtil.stringToByte(infos[9]);
 			useSpace = MathUtil.stringToByte(infos[10]);
-			attributeCells = new HashMap<String, AttributeCell>();
+			attributeCells = Maps.newHashMap();
 			AttributeCell attributeCell = new AttributeCell(Attribute.ATTRIBUTE_TYPE_WORK);
 			attributeCell.setValue(Attribute.ATTRIBUTE_WORK_STAMINA, MathUtil.stringToByte(infos[13]));
 			attributeCell.setValue(Attribute.ATTRIBUTE_WORK_DEXTERITY, MathUtil.stringToByte(infos[14]));
