@@ -3,8 +3,9 @@ package cg.data.map;
 import static cg.data.map.MapInfo.DATA_LENGTH;
 
 import java.io.InputStream;
+import java.util.List;
 
-import cg.base.io.OutputPacket;
+import cg.base.io.message.VoMapCell;
 import cg.base.util.IOUtils;
 import cg.base.util.MathUtil;
 import cg.base.util.URLHandler;
@@ -13,7 +14,7 @@ public class AreaURLHandler implements URLHandler {
 	
 	private int west, east, north, south;
 	
-	private OutputPacket packet;
+	private List<VoMapCell> mapCells;
 	
 	private MapInfo mapInfo;
 	
@@ -36,23 +37,26 @@ public class AreaURLHandler implements URLHandler {
 				int imageGlobalId = MathUtil.bytesToInt2(datas, 0, DATA_LENGTH);
 				int objectId = MathUtil.bytesToInt2(datas, DATA_LENGTH, DATA_LENGTH);
 				
-				packet.writeInt(e);
-				packet.writeInt(s);
-				packet.writeInt(imageGlobalId);
-				packet.writeInt(objectId);
-				packet.writeByte(mapInfo.getMark(e, s));
+				VoMapCell voMapCell = new VoMapCell();
+				voMapCell.setEast(e);
+				voMapCell.setSouth(s);
+				voMapCell.setImageGlobalId(imageGlobalId);
+				voMapCell.setObjectId(objectId);
+				voMapCell.setMark((int) mapInfo.getMark(e, s));
+				
+				mapCells.add(voMapCell);
 			}
 		}
 		
 		clear();
 	}
 	
-	public void setContent(int west, int east, int north, int south, OutputPacket packet, MapInfo mapInfo) {
+	public void setContent(int west, int east, int north, int south, List<VoMapCell> mapCells, MapInfo mapInfo) {
 		this.west = west;
 		this.east = east;
 		this.north = north;
 		this.south = south;
-		this.packet = packet;
+		this.mapCells = mapCells;
 		this.mapInfo = mapInfo;
 	}
 	
