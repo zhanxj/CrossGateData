@@ -1,6 +1,5 @@
 package cg.data.sprite;
 
-import cg.base.io.OutputPacket;
 import cg.base.io.message.VoUnit;
 import cg.base.sprite.Unit;
 import cg.base.util.Updatable;
@@ -29,8 +28,6 @@ public interface MapUnit extends Unit, Updatable {
 	boolean getBeRemoved();
 	
 	void receiveMove(MapUnit unit, MoveState state);
-	
-	void writeInfoPacket(OutputPacket packet);
 	
 	VoUnit writeInfoVO();
 	
