@@ -6,6 +6,7 @@ import cg.base.CrossGateBase;
 import cg.base.LoadCall;
 import cg.base.animation.AnimationReader;
 import cg.base.image.ImageManager;
+import cg.base.log.Log;
 import cg.data.gmsvReader.CBoxContainsReader;
 import cg.data.gmsvReader.CDungeonReader;
 import cg.data.gmsvReader.CEncountInfoReader;
@@ -154,7 +155,7 @@ public class CrossGateData extends CrossGateBase {
 		}
 		
 		@Override
-		protected ImageManager createImageManager() {
+		protected ImageManager createImageManager(Log log) {
 			return new ReadImageResourceManager(log, getClientFilePath());
 		}
 
