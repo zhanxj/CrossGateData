@@ -131,7 +131,7 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 					Integer.parseInt(infos[45]), Integer.parseInt(infos[46]), Integer.parseInt(infos[47]), Integer.parseInt(infos[48])};
 			encountId = Integer.parseInt(infos[49]);
 			enemyLevel = Range.closed(Short.valueOf(infos[50]), Short.valueOf(infos[51]));
-			enemyRate = Range.closed(Byte.valueOf(infos[52]), Byte.valueOf(infos[53]));
+			enemyRate = MathUtil.createRange(Byte.valueOf(infos[52]), Byte.valueOf(infos[53]));
 			boxAmount = Short.parseShort(infos[54]);
 			enterMusic = Short.parseShort(infos[55]);
 			changeDayState = infos[56].equals("1");

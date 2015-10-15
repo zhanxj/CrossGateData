@@ -54,8 +54,8 @@ public class CEnemyReader implements ObjectReader<EnemyInfo> {
 			aiParams = infos[1].split(";");
 			enemyId = MathUtil.stringToInt(infos[2]);
 			enemybaseId = MathUtil.stringToInt(infos[3]);
-			level = Range.closed(MathUtil.stringToShort(infos[4]), MathUtil.stringToShort(infos[5]));
-			amount = Range.closed(MathUtil.stringToShort(infos[4]), MathUtil.stringToShort(infos[5]));
+			level = MathUtil.createRange(MathUtil.stringToShort(infos[4]), MathUtil.stringToShort(infos[5]));
+			amount = MathUtil.createRange(MathUtil.stringToShort(infos[4]), MathUtil.stringToShort(infos[5]));
 			aiId = MathUtil.stringToInt(infos[8]);
 			gainExp = MathUtil.stringToInt(infos[9]);
 			battleScore = MathUtil.stringToInt(infos[10]);

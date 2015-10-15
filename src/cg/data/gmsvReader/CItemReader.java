@@ -94,9 +94,9 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			
 			Range<Integer> value = Range.closed(MathUtil.stringToInt(infos[31]), MathUtil.stringToInt(infos[32]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_ATTACK, value);
-			value = Range.closed(MathUtil.stringToInt(infos[33]), MathUtil.stringToInt(infos[34]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[33]), MathUtil.stringToInt(infos[34]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_DEFEND, value);
-			value = Range.closed(MathUtil.stringToInt(infos[35]), MathUtil.stringToInt(infos[36]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[35]), MathUtil.stringToInt(infos[36]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_AGILITY, value);
 			
 			value = Range.closed(MathUtil.stringToInt(infos[37]), MathUtil.stringToInt(infos[38]));
@@ -109,12 +109,12 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_COUNTER, value);
 			value = Range.closed(MathUtil.stringToInt(infos[45]), MathUtil.stringToInt(infos[46]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_HIT, value);
-			value = Range.closed(MathUtil.stringToInt(infos[47]), MathUtil.stringToInt(infos[48]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[47]), MathUtil.stringToInt(infos[48]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_AVOID, value);
 
-			value = Range.closed(MathUtil.stringToInt(infos[49]), MathUtil.stringToInt(infos[50]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[49]), MathUtil.stringToInt(infos[50]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_HP_MAX, value);
-			value = Range.closed(MathUtil.stringToInt(infos[51]), MathUtil.stringToInt(infos[52]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[51]), MathUtil.stringToInt(infos[52]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_MP_MAX, value);
 			
 			itemTemplate.luck = Range.closed(MathUtil.stringToByte(infos[53]), MathUtil.stringToByte(infos[54]));
@@ -142,7 +142,7 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_SLEEP, value);
 			value = Range.closed(MathUtil.stringToInt(infos[73]), MathUtil.stringToInt(infos[74]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_STONE, value);
-			value = Range.closed(MathUtil.stringToInt(infos[75]), MathUtil.stringToInt(infos[76]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[75]), MathUtil.stringToInt(infos[76]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_INTOXICATION, value);
 			value = Range.closed(MathUtil.stringToInt(infos[77]), MathUtil.stringToInt(infos[78]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_CONFUSION, value);
@@ -160,7 +160,7 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			itemTemplate.dropDispear = infos[89].equals("1");
 			itemTemplate.canPostByPet = infos[90].equals("1");
 
-			value = Range.closed(MathUtil.stringToInt(infos[91]), MathUtil.stringToInt(infos[92]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[91]), MathUtil.stringToInt(infos[92]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_MAGIC, value);
 			
 			itemTemplate.canComposite = infos[93].equals("1");

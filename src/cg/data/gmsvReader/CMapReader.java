@@ -28,6 +28,7 @@ public class CMapReader implements MapReader {
 	
 	private final ImageReader imageReader;
 	
+	@Deprecated
 	public CMapReader(WarpManager warpManager, ImageReader imageReader) {
 		this.warpManager = warpManager;
 		this.imageReader = imageReader;
