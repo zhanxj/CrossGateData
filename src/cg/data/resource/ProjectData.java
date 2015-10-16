@@ -12,6 +12,9 @@ import jxl.Workbook;
 import org.jdom2.Document;
 
 import cg.base.log.Log;
+import cg.data.map.AreaFileHandler;
+import cg.data.map.AreaLoader;
+import cg.data.map.AreaNetHandler;
 import cg.data.resource.inputStream.ExcelInputStreamHandler;
 import cg.data.resource.inputStream.InputStreamHandler;
 import cg.data.resource.inputStream.InputStreamHandler.DataInfo;
@@ -43,6 +46,8 @@ public class ProjectData implements Reloadable, SingleResourceLoader {
 	
 	protected String serverPath;
 	
+	protected AreaLoader areaLoader;
+	
 	public ProjectData(Log log, String serverPath, ServerResourceLoader serverResourceLoader) throws Exception {
 		this.log = log;
 		this.serverPath = serverPath;
@@ -52,6 +57,7 @@ public class ProjectData implements Reloadable, SingleResourceLoader {
 		inputStreamHandlers.put(String[].class, new TextInputStreamHandler(FILE_TYPE_TEXT, log));
 		inputStreamHandlers.put(Document.class, new XmlInputStreamHandler(FILE_TYPE_XML, log));
 		inputStreamHandlers.put(Workbook.class, new ExcelInputStreamHandler(FILE_TYPE_EXCEL, log));
+		areaLoader = new URI(serverPath).getHost() == null ? new AreaFileHandler() : new AreaNetHandler(serverPath);
 		
 		serverResourceLoader.load(serverPath, this);
 	}
@@ -157,6 +163,10 @@ public class ProjectData implements Reloadable, SingleResourceLoader {
 	
 	public String getServerPath() {
 		return serverPath;
+	}
+	
+	public AreaLoader createAreaLoader() {
+		return areaLoader;
 	}
 
 }
