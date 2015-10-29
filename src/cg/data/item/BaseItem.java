@@ -25,5 +25,9 @@ public interface BaseItem {
 	boolean getIdentify();
 	
 	boolean identify();
+	
+	int getStampCount();
+	
+	void addStampCount(int stampCount);
 
 }

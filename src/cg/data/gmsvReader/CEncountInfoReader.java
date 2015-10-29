@@ -23,10 +23,14 @@ public class CEncountInfoReader implements ObjectReader<EncountInfo> {
 		List<EncountInfo> list = Lists.newArrayListWithCapacity(lines.length);
 		for (String line : lines) {
 			if (line.indexOf("#") == -1) {
-				list.add(new CEncountInfo(line));
+				list.add(createEncountInfo(line.split("\t", -2)));
 			}
 		}
 		return list;
+	}
+	
+	public static EncountInfo createEncountInfo(String[] infos) {
+		return new CEncountInfo(infos);
 	}
 	
 	private static class CEncountInfo implements EncountInfo {
@@ -45,8 +49,7 @@ public class CEncountInfoReader implements ObjectReader<EncountInfo> {
 		
 		private byte totalRate;
 		
-		public CEncountInfo(String line) {
-			String[] infos = line.split("\t", -2);
+		public CEncountInfo(String[] infos) {
 			id = MathUtil.stringToInt(infos[0]);
 			area = new ReaderMapArea(infos, 3);
 			amount = Range.closed(MathUtil.stringToByte(infos[8]), MathUtil.stringToByte(infos[9]));
