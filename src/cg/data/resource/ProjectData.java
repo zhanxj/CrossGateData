@@ -113,7 +113,7 @@ public class ProjectData implements Reloadable, SingleResourceLoader {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected <T> InputStreamHandler<T> getInputStreamHandler(Class T) {
+	public <T> InputStreamHandler<T> getInputStreamHandler(Class T) {
 		return (InputStreamHandler<T>) inputStreamHandlers.get(T);
 	}
 	
