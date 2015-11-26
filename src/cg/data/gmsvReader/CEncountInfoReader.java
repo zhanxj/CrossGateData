@@ -4,6 +4,10 @@ import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Range;
+
 import cg.base.util.MathUtil;
 import cg.data.map.MapArea;
 import cg.data.map.ReaderMapArea;
@@ -11,9 +15,6 @@ import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.sprite.EncountInfo;
 import cg.data.sprite.EncountInfo.GroupInfo;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Range;
 
 public class CEncountInfoReader implements ObjectReader<EncountInfo> {
 
@@ -45,30 +46,20 @@ public class CEncountInfoReader implements ObjectReader<EncountInfo> {
 		
 		private byte priority;
 		
-		private GroupInfo[] groupInfos;
-		
-		private byte totalRate;
+		private List<GroupInfo> groupInfos;
 		
 		public CEncountInfo(String[] infos) {
 			id = MathUtil.stringToInt(infos[0]);
 			area = new ReaderMapArea(infos, 3);
 			amount = Range.closed(MathUtil.stringToByte(infos[8]), MathUtil.stringToByte(infos[9]));
 			priority = MathUtil.stringToByte(infos[10]);
+			groupInfos = Lists.newLinkedList();
 			for (int i = 0;i < GROUP_COUNT;i++) {
-				if (groupInfos != null) {
-					if (groupInfos.length > i) {
-						int groupId = MathUtil.stringToInt(infos[14 + i]);
-						groupInfos[i] = new CGroupInfo(groupId, MathUtil.stringToByte(infos[24 + i]));
-						totalRate += groupInfos[i].getRate();
-					} else {
-						break;
-					}
-				} else if (infos[14 + i].length() == 0) {
-					groupInfos = new GroupInfo[i];
-					i = -1;
-				} else if (i == GROUP_COUNT - 1) {
-					groupInfos = new GroupInfo[GROUP_COUNT];
-					i = -1;
+				if (infos[14 + i].length() == 0) {
+					break;
+				} else {
+					int groupId = MathUtil.stringToInt(infos[14 + i]);
+					groupInfos.add(new CGroupInfo(groupId, MathUtil.stringToByte(infos[24 + i])));
 				}
 			}
 		}
@@ -94,13 +85,8 @@ public class CEncountInfoReader implements ObjectReader<EncountInfo> {
 		}
 
 		@Override
-		public GroupInfo[] getGroupInfos() {
-			return groupInfos;
-		}
-
-		@Override
-		public byte getTotalRate() {
-			return totalRate;
+		public List<GroupInfo> getGroupInfos() {
+			return ImmutableList.copyOf(groupInfos);
 		}
 		
 	}

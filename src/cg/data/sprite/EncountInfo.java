@@ -1,8 +1,10 @@
 package cg.data.sprite;
 
-import cg.data.map.MapArea;
+import java.util.List;
 
 import com.google.common.collect.Range;
+
+import cg.data.map.MapArea;
 
 public interface EncountInfo {
 	
@@ -14,9 +16,7 @@ public interface EncountInfo {
 	
 	byte getPriority();
 	
-	GroupInfo[] getGroupInfos();
-	
-	byte getTotalRate();
+	List<GroupInfo> getGroupInfos();
 	
 	public static interface GroupInfo {
 		

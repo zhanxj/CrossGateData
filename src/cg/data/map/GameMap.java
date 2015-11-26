@@ -2,8 +2,8 @@ package cg.data.map;
 
 import java.util.List;
 
-import cg.data.sprite.EncountInfo;
 import cg.data.sprite.MapUnit;
+import cg.data.sprite.RateEncountInfo;
 
 public interface GameMap {
 	
@@ -31,7 +31,7 @@ public interface GameMap {
 	
 	void unitMoved(MapUnit unit, int sourceEast, int sourceSouth);
 	
-	EncountInfo getEncountInfo(int east, int south, boolean must, int rateFix);
+	RateEncountInfo getEncountInfo(int east, int south, boolean must, int rateFix);
 	
 	void addWarp(Warp warp);
 	
