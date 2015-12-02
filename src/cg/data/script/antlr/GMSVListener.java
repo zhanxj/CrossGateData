@@ -1,6 +1,5 @@
-// Generated from GMSV.g4 by ANTLR 4.5.1
+// Generated from D:\file\workspace\CrossGateData\src\cg\data\script\antlr\GMSV.g4 by ANTLR 4.5.1
 package cg.data.script.antlr;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

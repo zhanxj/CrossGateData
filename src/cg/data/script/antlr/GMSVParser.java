@@ -1,6 +1,5 @@
-// Generated from GMSV.g4 by ANTLR 4.5.1
+// Generated from D:\file\workspace\CrossGateData\src\cg\data\script\antlr\GMSV.g4 by ANTLR 4.5.1
 package cg.data.script.antlr;
-
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -35,7 +34,8 @@ public class GMSVParser extends Parser {
 		T__101=102, T__102=103, T__103=104, T__104=105, T__105=106, T__106=107, 
 		T__107=108, T__108=109, T__109=110, T__110=111, T__111=112, T__112=113, 
 		T__113=114, T__114=115, T__115=116, T__116=117, T__117=118, ID=119, STRING=120, 
-		INT=121, BOOLEAN=122, NEWLINE=123, WS=124, LOGIC=125, DEFINE_VALUE=126;
+		INT=121, BOOLEAN=122, NEWLINE=123, WS=124, LOGIC=125, DEFINE_VALUE=126, 
+		ANNOTATE=127;
 	public static final int
 		RULE_r = 0, RULE_addfeversec = 1, RULE_addgold = 2, RULE_addgoldlevel = 3, 
 		RULE_addluck = 4, RULE_addskillslot = 5, RULE_addstampcount = 6, RULE_albumitemflg = 7, 
@@ -127,7 +127,8 @@ public class GMSVParser extends Parser {
 		null, null, null, null, null, null, null, null, null, null, null, null, 
 		null, null, null, null, null, null, null, null, null, null, null, null, 
 		null, null, null, null, null, null, null, null, null, null, null, "ID", 
-		"STRING", "INT", "BOOLEAN", "NEWLINE", "WS", "LOGIC", "DEFINE_VALUE"
+		"STRING", "INT", "BOOLEAN", "NEWLINE", "WS", "LOGIC", "DEFINE_VALUE", 
+		"ANNOTATE"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -4772,7 +4773,7 @@ public class GMSVParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\u0080\u023a\4\2\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\u0081\u023a\4\2\t"+
 		"\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
