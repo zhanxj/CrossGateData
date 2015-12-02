@@ -22,7 +22,7 @@ public class Syscall {
 			public void enterBlock(BlockContext ctx) {
 				super.enterBlock(ctx);
 				System.out.println(ctx.getText());
-				System.out.println(ctx.ID());
+//				System.out.println(ctx.ID());
 			}
 			
 		});
