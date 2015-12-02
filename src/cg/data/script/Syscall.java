@@ -14,7 +14,6 @@ import cg.data.script.antlr.GMSVParser.BlockContext;
 public class Syscall {
 	
 	public static void main(String[] args) {
-//		ANTLRInputStream in = new ANTLRInputStream("total 1/rblock total");
 		try {
 			ANTLRInputStream in = new ANTLRInputStream(new FileReader(new File("D:/file/workspace/CrossGateResource/npc/EV_aoki_6515.txt")));
 			GMSVLexer lexer = new GMSVLexer(in);
@@ -25,9 +24,7 @@ public class Syscall {
 	
 				@Override
 				public void enterBlock(BlockContext ctx) {
-					super.enterBlock(ctx);
 					System.out.println(ctx.getText());
-	//				System.out.println(ctx.ID());
 				}
 				
 			});
