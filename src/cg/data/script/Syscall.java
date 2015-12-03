@@ -10,6 +10,7 @@ import cg.data.script.antlr.GMSVBaseListener;
 import cg.data.script.antlr.GMSVLexer;
 import cg.data.script.antlr.GMSVParser;
 import cg.data.script.antlr.GMSVParser.BlockContext;
+import cg.data.script.antlr.GMSVParser.StrcmpchatContext;
 
 public class Syscall {
 	
@@ -19,11 +20,23 @@ public class Syscall {
 			GMSVLexer lexer = new GMSVLexer(in);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
 			GMSVParser parse = new GMSVParser(tokens);
-			BlockContext context = parse.block();
-			context.enterRule(new GMSVBaseListener(){
+			BlockContext blockContext = parse.block();
+			blockContext.enterRule(new GMSVBaseListener(){
 	
 				@Override
 				public void enterBlock(BlockContext ctx) {
+					System.out.println(ctx.getText());
+					for (int i = 0, loop = ctx.getChildCount();i < loop;i++) {
+						System.out.println(ctx.getChild(i));
+					}
+				}
+				
+			});
+			StrcmpchatContext strcmpchatContext = parse.strcmpchat();
+			strcmpchatContext.enterRule(new GMSVBaseListener() {
+
+				@Override
+				public void enterStrcmpchat(StrcmpchatContext ctx) {
 					System.out.println(ctx.getText());
 				}
 				
