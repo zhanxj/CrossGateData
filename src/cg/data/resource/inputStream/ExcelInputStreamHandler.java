@@ -3,10 +3,9 @@ package cg.data.resource.inputStream;
 import java.io.InputStream;
 import java.net.URI;
 
+import cg.base.util.URLHandler;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
-import cg.base.log.Log;
-import cg.base.util.URLHandler;
 
 public class ExcelInputStreamHandler extends TypeInputStreamHandler<Workbook> implements URLHandler {
 	
@@ -14,8 +13,8 @@ public class ExcelInputStreamHandler extends TypeInputStreamHandler<Workbook> im
 	
 	private Workbook workbook;
 	
-	public ExcelInputStreamHandler(String type, Log log) {
-		super(type, log);
+	public ExcelInputStreamHandler(String type) {
+		super(type);
 		ws = new WorkbookSettings();
 		ws.setSuppressWarnings(true);
 		ws.setCellValidationDisabled(true);

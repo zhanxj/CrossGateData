@@ -5,23 +5,21 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import cg.base.log.Log;
-import cg.data.gmsvReader.CGarbledReader.Garbled;
-import cg.data.resource.ObjectReader;
-import cg.data.resource.ProjectData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import cg.data.gmsvReader.CGarbledReader.Garbled;
+import cg.data.resource.ObjectReader;
+import cg.data.resource.ProjectData;
+
 public class CGarbledReader implements ObjectReader<Garbled> {
 	
+	private static final Logger log = LoggerFactory.getLogger(CGarbledReader.class);
+	
 	private Map<String, String> garbleds = Maps.newHashMap();
-	
-	private Log log;
-	
-	public CGarbledReader(Log log) {
-		this.log = log;
-	}
 
 	@Override
 	public List<Garbled> read(ProjectData projectData) {
@@ -32,7 +30,7 @@ public class CGarbledReader implements ObjectReader<Garbled> {
 			if (line.length() == 0 || infos.length < 4) {
 				// nothing
 			} else if (garbleds.containsKey(infos[3])) {
-				log.warning(getClass().getName() + "::readCreatureGarbled() repeat word : " + infos[3]);
+				log.warn("repeat word : " + infos[3]);
 			} else {
 				list.add(new Garbled(infos[3], infos[2]));
 			}

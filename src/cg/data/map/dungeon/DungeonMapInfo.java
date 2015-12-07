@@ -15,9 +15,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
 import cg.base.image.ImageDictionary;
 import cg.base.image.ImageReader;
-import cg.base.log.Log;
 import cg.base.map.MapCell;
 import cg.base.util.MathUtil;
 import cg.data.map.MapInfo;
@@ -25,10 +30,9 @@ import cg.data.map.Warp;
 import cg.data.map.WarpManager;
 import cg.data.sprite.NpcInfo;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 public class DungeonMapInfo implements MapInfo {
+	
+	private static final Logger log = LoggerFactory.getLogger(DungeonMapInfo.class);
 	
 	private static final byte[] XY = new byte[]{
 		-1, -1, 
@@ -53,13 +57,10 @@ public class DungeonMapInfo implements MapInfo {
 	
 	private final ImageReader imageReader;
 	
-	private final Log log;
-	
 	private final WarpManager warpManager;
 	
-	public DungeonMapInfo(ImageReader imageReader, Log log, WarpManager warpManager) {
+	public DungeonMapInfo(ImageReader imageReader, WarpManager warpManager) {
 		this.imageReader = imageReader;
-		this.log = log;
 		this.warpManager = warpManager;
 	}
 

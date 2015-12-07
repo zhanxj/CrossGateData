@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Maps;
+
 import cg.base.image.ImageDictionary;
 import cg.base.image.ImageReader;
 import cg.base.map.MapCell;
@@ -17,10 +22,10 @@ import cg.data.map.MapReader;
 import cg.data.map.Warp;
 import cg.data.map.WarpManager;
 
-import com.google.common.collect.Maps;
-
 @Deprecated
 public class CMapReader implements MapReader {
+	
+	private static final Logger log = LoggerFactory.getLogger(CMapReader.class);
 	
 	private final Map<Integer, MapMemo> mapMemos;
 	
@@ -66,7 +71,7 @@ public class CMapReader implements MapReader {
 			try {
 				mapInfos[index++] = read(mapMemo.getMapId());
 			} catch (Exception e) {
-				CrossGateData.getLog().error("", e);
+				log.error("", e);
 			}
 		}
 		return mapInfos;

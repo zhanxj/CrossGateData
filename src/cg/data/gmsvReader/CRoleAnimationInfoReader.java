@@ -5,11 +5,16 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
 import cg.base.animation.AnimationReader;
 import cg.base.image.ImageManager;
 import cg.base.image.ImageReader;
 import cg.base.io.ResourceInfo;
-import cg.base.log.Log;
 import cg.base.sprite.Unit;
 import cg.base.util.MathUtil;
 import cg.data.resource.AnimationReaderCreator;
@@ -18,10 +23,9 @@ import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.sprite.RoleAnimationInfo;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 public class CRoleAnimationInfoReader implements ObjectReader<RoleAnimationInfo> {
+	
+	private static final Logger log = LoggerFactory.getLogger(CRoleAnimationInfoReader.class);
 	
 	private ImageReader imageReader;
 	
@@ -31,12 +35,9 @@ public class CRoleAnimationInfoReader implements ObjectReader<RoleAnimationInfo>
 	
 	private final AnimationReaderCreator animationReaderCreator;
 	
-	private final Log log;
-	
-	public CRoleAnimationInfoReader(ImageManager imageManager, AnimationReaderCreator animationReaderCreator, Log log) {
+	public CRoleAnimationInfoReader(ImageManager imageManager, AnimationReaderCreator animationReaderCreator) {
 		this.imageManager = imageManager;
 		this.animationReaderCreator = animationReaderCreator;
-		this.log = log;
 	}
 
 	@Override
@@ -69,7 +70,7 @@ public class CRoleAnimationInfoReader implements ObjectReader<RoleAnimationInfo>
 			}
 			return Lists.newArrayList(indexs.values().toArray(new RoleAnimationInfo[indexs.size()]));
 		} catch (Exception e) {
-			log.error(getClass().getSimpleName(), e);
+			log.error("", e);
 			return null;
 		}
 	}

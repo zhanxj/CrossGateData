@@ -4,12 +4,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Maps;
+
 import cg.base.image.ImageDictionary;
 import cg.base.image.ImageReader;
-import cg.base.log.Log;
 import cg.base.map.MapCell;
 import cg.base.util.IOUtils;
 import cg.base.util.MathUtil;
@@ -19,9 +24,9 @@ import cg.data.map.Warp;
 import cg.data.map.WarpManager;
 import cg.data.resource.ProjectData;
 
-import com.google.common.collect.Maps;
-
 public class CFileMapReader implements MapReader {
+	
+	private static final Logger log = LoggerFactory.getLogger(CFileMapReader.class);
 	
 	private final WarpManager warpManager;
 	
@@ -31,14 +36,11 @@ public class CFileMapReader implements MapReader {
 	
 	private final ProjectData projectData;
 	
-	private final Log log;
-	
-	public CFileMapReader(WarpManager warpManager, String pathName, ImageReader imageReader, ProjectData projectData, Log log) {
+	public CFileMapReader(WarpManager warpManager, String pathName, ImageReader imageReader, ProjectData projectData) {
 		this.warpManager = warpManager;
 		this.pathName = pathName;
 		this.imageReader = imageReader;
 		this.projectData = projectData;
-		this.log = log;
 	}
 
 	@Override
@@ -236,12 +238,12 @@ public class CFileMapReader implements MapReader {
 		@Deprecated
 		@Override
 		public void setObject(int east, int south, int resourceId) {
-			log.warning(getClass().getName() + "::setObject(" + resourceId + ") : do not support this method." + this);
+			log.warn("{}::setObject({}) : do not support this method.", getClass().getName(), resourceId);
 		}
 
 		@Override
 		public String toString() {
-			return "MapInfo[" + getMapId() + "] " + getName() + " {" + getMaxEast() + "," + getMaxSouth() + "}.";
+			return MessageFormat.format("MapInfo[{0}] {1} {{2},{3}}.", getMapId(), getName(), getMaxEast(), getMaxSouth());
 		}
 		
 		public int outputMarks(OutputStream os) throws IOException {

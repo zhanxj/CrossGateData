@@ -3,15 +3,14 @@ package cg.data.resource;
 import cg.base.image.CImageManager;
 import cg.base.image.ImageReader;
 import cg.base.io.CImageResource;
-import cg.base.log.Log;
 import cg.base.reader.CImageReader;
 
 public class ReadImageResourceManager extends CImageManager implements Reloadable {
 	
 	protected final String clientFilePath;
 
-	public ReadImageResourceManager(Log log, String clientFilePath) {
-		super(log, clientFilePath);
+	public ReadImageResourceManager(String clientFilePath) {
+		super(clientFilePath);
 		this.clientFilePath = clientFilePath;
 	}
 
@@ -36,7 +35,7 @@ public class ReadImageResourceManager extends CImageManager implements Reloadabl
 	}
 	
 	protected ImageReader createImageReader() {
-		return new CImageReader(this, log, clientFilePath);
+		return new CImageReader(this, clientFilePath);
 	}
 
 }

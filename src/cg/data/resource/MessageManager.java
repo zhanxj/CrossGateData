@@ -3,22 +3,23 @@ package cg.data.resource;
 import java.util.List;
 import java.util.Map;
 
-import cg.base.log.Log;
-import cg.data.gmsvReader.CGarbledReader.Garbled;
-import cg.data.sprite.Message;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Maps;
 
+import cg.data.gmsvReader.CGarbledReader.Garbled;
+import cg.data.sprite.Message;
+
 public class MessageManager implements ProjectDataListener {
+	
+	private static final Logger log = LoggerFactory.getLogger(MessageManager.class);
 	
 	private Map<Integer, Message> messages;
 	
 	private Map<String, String> garbleds;
 	
-	private final Log log;
-	
-	public MessageManager(Log log) {
-		this.log = log;
+	public MessageManager() {
 		messages = Maps.newHashMap();
 		garbleds = Maps.newHashMap();
 	}
@@ -53,7 +54,7 @@ public class MessageManager implements ProjectDataListener {
 	
 	public Message getMessage(int msgId) {
 		if (msgId != Message.NO_MESSAGE && !messages.containsKey(msgId)) {
-			log.warning(getClass() + "::getMessage() : " + msgId + " is null.");
+			log.warn("{}::getMessage() : {} is null.", getClass(), msgId);
 		}
 		return messages.get(msgId);
 	}

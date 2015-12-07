@@ -8,10 +8,16 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Range;
+
 import cg.base.image.ImageDictionary;
 import cg.base.image.ImageManager;
 import cg.base.image.ImageReader;
-import cg.base.log.Log;
 import cg.base.map.MapCell;
 import cg.base.util.MathUtil;
 import cg.data.map.GameMap;
@@ -32,11 +38,9 @@ import cg.data.sprite.NpcTemplate;
 import cg.data.util.FileUtils;
 import cg.data.util.GameMapUtil;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Range;
-
 public class CDungeonReader implements ObjectReader<Dungeon> {
+	
+	private static final Logger log = LoggerFactory.getLogger(CDungeonReader.class);
 	
 	private static final Map<Integer, Byte> marks = Maps.newHashMap();
 	
@@ -48,11 +52,8 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 	
 	private final File maze;
 	
-	private final Log log;
-	
-	public CDungeonReader(ImageManager imageManager, Log log) {
+	public CDungeonReader(ImageManager imageManager) {
 		this.imageManager = imageManager;
-		this.log = log;
 		maze = new File("maze");
 		FileUtils.deleteDir(maze);
 		maze.mkdir();
@@ -180,7 +181,7 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 			List<Map<Integer, int[]>> cellsList = Lists.newArrayListWithCapacity(mapInfos.length);
 			int levelRange = enemyLevel.upperEndpoint() - enemyLevel.lowerEndpoint(), maxFloor = mapInfos.length;
 			for (int floor = 0;floor < maxFloor;floor++) {
-				mapInfos[floor] = new DungeonMapInfo(imageReader, log, warpManager);
+				mapInfos[floor] = new DungeonMapInfo(imageReader, warpManager);
 				mapInfos[floor].setMapId(mapId + (floor << 16));
 				mapInfos[floor].setName(getName() + MessageFormat.format(floorText, floor + 1));
 				Map<Integer, int[]> canUseCells = mapInfos[floor].create(CREATE_SUB_ROOM_RATE, this, false, (short) ((floor + 1) * levelRange / maxFloor + enemyLevel.lowerEndpoint()));
@@ -283,9 +284,9 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 			Warp comeWarp;
 			int mapId = mapInfos[floor].getMapId();
 			if (floor == 0) { // the first map's come warp is a map which the enter info��s map id
-				LocalInfo localInfo = GameMapUtil.getAEmptyLocal(enterMap.getMapInfo(), getEnterInfo(), log);
+				LocalInfo localInfo = GameMapUtil.getAEmptyLocal(enterMap.getMapInfo(), getEnterInfo());
 				if (localInfo == null) {
-					log.warning(getClass().getName() + "::createWarp() : The enter is obstacle.");
+					log.warn("The enter is obstacle.");
 					return;
 				}
 				east = localInfo.getEast();

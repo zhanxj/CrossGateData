@@ -4,24 +4,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import cg.base.log.Log;
-import cg.base.time.Timer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import cg.base.time.Timer;
+
 public class ReloadManager implements Reloadable {
+	
+	private static final Logger log = LoggerFactory.getLogger(ReloadManager.class);
 	
 	private Map<String, Integer> reloadSystems;
 	
 	private List<Reloadable> list;
 	
-	private final Log log;
-	
 	private final Timer timer;
 	
-	public ReloadManager(Log log, Timer timer) {
-		this.log = log;
+	public ReloadManager(Timer timer) {
 		this.timer = timer;
 		reloadSystems = Maps.newHashMap();
 		list = Lists.newArrayList();
@@ -32,16 +33,16 @@ public class ReloadManager implements Reloadable {
 		int time = timer.getTime();
 		for (Reloadable reloadable : list) {
 			reloadable.reload();
-			log.info(getClass().getSimpleName() + "::reload() : " + reloadable.getClass().getName() + " reload finish.");
+			log.info("{}::reload() : {} reload finish.", getClass().getSimpleName(), reloadable.getClass().getName());
 		}
-		log.info(getClass().getSimpleName() + "::reload() : finish in " + (timer.getTime() - time) + " ms.");
+		log.info("{}::reload() : finish in {} ms.", getClass().getSimpleName(), (timer.getTime() - time));
 	}
 	
 	public synchronized void register(String name, Reloadable reloadable) {
 		if (reloadSystems.containsKey(name)) {
-			log.warning(getClass().getName() + "::register() name " + name + " is repeat!");
+			log.warn("{}::register() name {} is repeat!", getClass().getName(), name);
 		} else if (reloadable == null) {
-			log.warning(getClass().getName() + "::register() name " + name + " is null!");
+			log.warn("{}::register() name {} is null!", getClass().getName(), name);
 		} else {
 			reloadSystems.put(name, list.size());
 			list.add(reloadable);
@@ -59,26 +60,25 @@ public class ReloadManager implements Reloadable {
 			String key = keys.next();
 			if (reloadSystems.get(key).equals(reloadable)) {
 				reloadSystems.remove(key);
-				log.warning(getClass().getName() + "::unregister() " + reloadable + " successful!");
+				log.warn("{}::unregister() {} successful!", getClass().getName(), reloadable);
 				return;
 			}
 		}
-		log.warning(getClass().getName() + "::unregister() " + reloadable + " was not in ReloadManager");
+		log.warn("{}::unregister() {} was not in ReloadManager", getClass().getName(), reloadable);
 	}
 	
 	public void reload(String name) {
-		log.info(getClass().getName() + "::reload() " + name + " begin.");
+		log.info("{}::reload() {} begin.", getClass().getName(), name);
 		Reloadable reloadable = list.get(reloadSystems.get(name));
 		if (reloadable != null) {
 			try {
 				reloadable.reload();
-				log.info(getClass().getName() + "::reload() " + name + " ok.");
+				log.info("{}::reload() {} ok.", getClass().getName(), name);
 			} catch (Exception e) {
-				log.error(getClass().getName() + "::reload() " + name + " has error : " + e.getMessage(), e);
-				e.printStackTrace();
+				log.error("", e);
 			}
 		} else {
-			log.info(getClass().getName() + "::reload() " + name + " was not in ReloadManager.");
+			log.info("{}::reload() {} was not in ReloadManager.", getClass().getName(), name);
 		}
 	}
 

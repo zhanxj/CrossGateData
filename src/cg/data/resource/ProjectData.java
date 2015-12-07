@@ -7,11 +7,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import jxl.Workbook;
-
 import org.jdom2.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import cg.base.log.Log;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
 import cg.data.map.AreaFileHandler;
 import cg.data.map.AreaLoader;
 import cg.data.map.AreaNetHandler;
@@ -22,9 +24,7 @@ import cg.data.resource.inputStream.TextInputStreamHandler;
 import cg.data.resource.inputStream.XmlInputStreamHandler;
 import cg.data.resource.serverResource.ServerResourceLoader;
 import cg.data.resource.serverResource.ServerResourceLoader.SingleResourceLoader;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import jxl.Workbook;
 
 public class ProjectData implements Reloadable, SingleResourceLoader {
 	
@@ -34,6 +34,8 @@ public class ProjectData implements Reloadable, SingleResourceLoader {
 	
 	public static final String FILE_TYPE_EXCEL = "xls";
 	
+	protected static final Logger log = LoggerFactory.getLogger(ProjectData.class);
+	
 	@SuppressWarnings("rawtypes")
 	protected Map<Class, InputStreamHandler> inputStreamHandlers;
 	
@@ -42,21 +44,18 @@ public class ProjectData implements Reloadable, SingleResourceLoader {
 	
 	protected List<ProjectDataListener> listeners;
 	
-	protected Log log;
-	
 	protected String serverPath;
 	
 	protected AreaLoader areaLoader;
 	
-	public ProjectData(Log log, String serverPath, ServerResourceLoader serverResourceLoader) throws Exception {
-		this.log = log;
+	public ProjectData(String serverPath, ServerResourceLoader serverResourceLoader) throws Exception {
 		this.serverPath = serverPath;
 		objectReaders = Maps.newHashMap();
 		listeners = Lists.newLinkedList();
 		inputStreamHandlers = Maps.newHashMap();
-		inputStreamHandlers.put(String[].class, new TextInputStreamHandler(FILE_TYPE_TEXT, log));
-		inputStreamHandlers.put(Document.class, new XmlInputStreamHandler(FILE_TYPE_XML, log));
-		inputStreamHandlers.put(Workbook.class, new ExcelInputStreamHandler(FILE_TYPE_EXCEL, log));
+		inputStreamHandlers.put(String[].class, new TextInputStreamHandler(FILE_TYPE_TEXT));
+		inputStreamHandlers.put(Document.class, new XmlInputStreamHandler(FILE_TYPE_XML));
+		inputStreamHandlers.put(Workbook.class, new ExcelInputStreamHandler(FILE_TYPE_EXCEL));
 		areaLoader = new URI(serverPath).getHost() == null ? new AreaFileHandler() : new AreaNetHandler(serverPath);
 		
 		serverResourceLoader.load(serverPath, this);
@@ -125,10 +124,10 @@ public class ProjectData implements Reloadable, SingleResourceLoader {
 			if (subTypes.length > 0 && subTypes[0] instanceof Class) {
 				objectReaders.put(subTypes[0].toString(), reader);
 			} else {
-				log.warning(getClass().getName() + "::addObjectReader() subTypes not fit.");
+				log.warn("{}::addObjectReader() subTypes not fit.", getClass().getName());
 			}
 		} else {
-			log.warning(getClass().getName() + "::addObjectReader() types not fit.");
+			log.warn("{}::addObjectReader() types not fit.", getClass().getName());
 		}
 	}
 	

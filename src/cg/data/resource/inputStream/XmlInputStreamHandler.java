@@ -5,7 +5,6 @@ import java.net.URI;
 
 import org.jdom2.Document;
 
-import cg.base.log.Log;
 import cg.base.util.URLHandler;
 import cg.data.util.FileUtils;
 
@@ -13,8 +12,8 @@ public class XmlInputStreamHandler extends TypeInputStreamHandler<Document> impl
 	
 	private Document document;
 
-	public XmlInputStreamHandler(String type, Log log) {
-		super(type, log);
+	public XmlInputStreamHandler(String type) {
+		super(type);
 	}
 
 	@Override

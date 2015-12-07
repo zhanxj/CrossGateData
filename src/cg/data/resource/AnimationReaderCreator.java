@@ -1,16 +1,18 @@
 package cg.data.resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import cg.base.animation.AnimationReader;
 import cg.base.image.ImageManager;
-import cg.base.log.Log;
 import cg.base.reader.CAnimationReader;
 import cg.base.time.Timer;
 
 public class AnimationReaderCreator implements Reloadable {
 	
-	protected AnimationReader animationReader;
+	protected static final Logger log = LoggerFactory.getLogger(AnimationReaderCreator.class);
 	
-	protected Log log;
+	protected AnimationReader animationReader;
 	
 	protected String clientFilePath;
 	
@@ -18,8 +20,7 @@ public class AnimationReaderCreator implements Reloadable {
 	
 	protected ImageManager imageManager;
 	
-	public AnimationReaderCreator(Log log, String clientFilePath, Timer timer, ImageManager imageManager) {
-		this.log = log;
+	public AnimationReaderCreator(String clientFilePath, Timer timer, ImageManager imageManager) {
 		this.clientFilePath = clientFilePath;
 		this.timer = timer;
 		this.imageManager = imageManager;
@@ -27,7 +28,7 @@ public class AnimationReaderCreator implements Reloadable {
 	
 	@Override
 	public void reload() throws Exception {
-		animationReader = new CAnimationReader(log, clientFilePath, imageManager, timer);
+		animationReader = new CAnimationReader(clientFilePath, imageManager, timer);
 	}
 	
 	public AnimationReader getAnimationReader() {

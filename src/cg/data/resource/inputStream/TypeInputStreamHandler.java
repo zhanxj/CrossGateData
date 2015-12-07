@@ -7,15 +7,19 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import cg.base.log.Log;
-import cg.base.util.IOUtils;
-import cg.base.util.URLHandler;
-import cg.data.resource.AWSS3;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import cg.base.util.IOUtils;
+import cg.base.util.URLHandler;
+import cg.data.resource.AWSS3;
+
 public abstract class TypeInputStreamHandler<T> implements InputStreamHandler<T> {
+	
+	protected static final Logger log = LoggerFactory.getLogger(TypeInputStreamHandler.class);
 	
 	protected List<URI> uris = Lists.newLinkedList();
 	
@@ -23,11 +27,8 @@ public abstract class TypeInputStreamHandler<T> implements InputStreamHandler<T>
 	
 	protected final String type;
 	
-	protected final Log log;
-	
-	public TypeInputStreamHandler(String type, Log log) {
+	public TypeInputStreamHandler(String type) {
 		this.type = type;
-		this.log = log;
 	}
 
 	@Override

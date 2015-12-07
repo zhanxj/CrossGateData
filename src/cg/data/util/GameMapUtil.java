@@ -2,7 +2,11 @@ package cg.data.util;
 
 import java.util.List;
 
-import cg.base.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Lists;
+
 import cg.base.map.MapCell;
 import cg.base.util.MathUtil;
 import cg.data.map.LocalInfo;
@@ -10,13 +14,13 @@ import cg.data.map.MapArea;
 import cg.data.map.MapInfo;
 import cg.data.map.MapInfo.CLocalInfo;
 
-import com.google.common.collect.Lists;
-
 public class GameMapUtil {
+	
+	protected static final Logger log = LoggerFactory.getLogger(GameMapUtil.class);
 	
 	protected GameMapUtil() {};
 	
-	public static LocalInfo getAEmptyLocal(MapInfo mapInfo, MapArea mapArea, Log log) {
+	public static LocalInfo getAEmptyLocal(MapInfo mapInfo, MapArea mapArea) {
 		List<int[]> list = Lists.newLinkedList();
 		for (int east = mapArea.getWest();east <= mapArea.getEast();east++) {
 			for (int south = mapArea.getNorth();south <= mapArea.getSouth();south++) {
@@ -32,7 +36,7 @@ public class GameMapUtil {
 			info.update(mapInfo.getMapId(), local[0], local[1]);
 			return info;
 		} else {
-			log.warning(GameMapUtil.class.getSimpleName() + "::getAEmptyLocal() : do not find empty local[" + mapArea + "] in map[" + mapInfo.getMapId() + "][" + mapInfo.getName() + "].");
+			log.warn("do not find empty local[{}] in map[{}][{}].", mapArea, mapInfo.getMapId(), mapInfo.getName());
 			return null;
 		}
 	}

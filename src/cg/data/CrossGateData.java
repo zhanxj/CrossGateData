@@ -6,7 +6,6 @@ import cg.base.CrossGateBase;
 import cg.base.LoadCall;
 import cg.base.animation.AnimationReader;
 import cg.base.image.ImageManager;
-import cg.base.log.Log;
 import cg.data.gmsvReader.CBoxContainsReader;
 import cg.data.gmsvReader.CDungeonReader;
 import cg.data.gmsvReader.CEncountInfoReader;
@@ -116,7 +115,7 @@ public class CrossGateData extends CrossGateBase {
 			projectData.addObjectReader(new CEnemyAiReader());
 			projectData.addObjectReader(new CEnemyBaseInfoReader());
 			projectData.addObjectReader(new CEnemyTalkReader());
-			projectData.addObjectReader(new CGarbledReader(getLog()));
+			projectData.addObjectReader(new CGarbledReader());
 			projectData.addObjectReader(new CItemRecipeReader());
 			projectData.addObjectReader(new CItemReader(getMessageManager()));
 			projectData.addObjectReader(new CJobReader());
@@ -128,22 +127,22 @@ public class CrossGateData extends CrossGateBase {
 			projectData.addObjectReader(new CTitleConfigReader());
 			projectData.addObjectReader(new CWarpReader());
 			projectData.addObjectReader(new CGatherAreaReader());
-			projectData.addObjectReader(new CRoleAnimationInfoReader(getImageManager(), animationReaderCreator, getLog()));
-			projectData.addObjectReader(new CDungeonReader(getImageManager(), getLog()));
+			projectData.addObjectReader(new CRoleAnimationInfoReader(getImageManager(), animationReaderCreator));
+			projectData.addObjectReader(new CDungeonReader(getImageManager()));
 		}
 		
 		protected abstract byte getModel();
 		
 		protected AnimationReaderCreator createAnimationReaderCreator() {
-			return new AnimationReaderCreator(getLog(), getClientFilePath(), getTimer(), getImageManager());
+			return new AnimationReaderCreator(getClientFilePath(), getTimer(), getImageManager());
 		}
 		
 		protected ReloadManager createReloadManager() {
-			return new ReloadManager(getLog(), getTimer());
+			return new ReloadManager(getTimer());
 		}
 		
 		protected MessageManager createMessageManager() {
-			MessageManager messageManager = new MessageManager(getLog());
+			MessageManager messageManager = new MessageManager();
 			getProjectData().addListener(messageManager);
 			return messageManager;
 		}
@@ -155,8 +154,8 @@ public class CrossGateData extends CrossGateBase {
 		}
 		
 		@Override
-		protected ImageManager createImageManager(Log log) {
-			return new ReadImageResourceManager(log, getClientFilePath());
+		protected ImageManager createImageManager() {
+			return new ReadImageResourceManager(getClientFilePath());
 		}
 
 		protected abstract ProjectData createProjectData();
