@@ -87,27 +87,27 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			itemTemplate.groupSize = MathUtil.stringToShort(infos[22], (short) 1);
 			itemTemplate.level = MathUtil.stringToByte(infos[23]);
 			// 24
-			itemTemplate.durable = Range.closed(MathUtil.stringToShort(infos[25]), MathUtil.stringToShort(infos[26]));
-			itemTemplate.attackCount = Range.closed(MathUtil.stringToByte(infos[27]), MathUtil.stringToByte(infos[28]));
+			itemTemplate.durable = MathUtil.createRange(MathUtil.stringToShort(infos[25]), MathUtil.stringToShort(infos[26]));
+			itemTemplate.attackCount = MathUtil.createRange(MathUtil.stringToByte(infos[27]), MathUtil.stringToByte(infos[28]));
 			// 29	[0, 1]
 			itemTemplate.isPrecent = infos[30].equals("1");
 			
-			Range<Integer> value = Range.closed(MathUtil.stringToInt(infos[31]), MathUtil.stringToInt(infos[32]));
+			Range<Integer> value = MathUtil.createRange(MathUtil.stringToInt(infos[31]), MathUtil.stringToInt(infos[32]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_ATTACK, value);
 			value = MathUtil.createRange(MathUtil.stringToInt(infos[33]), MathUtil.stringToInt(infos[34]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_DEFEND, value);
 			value = MathUtil.createRange(MathUtil.stringToInt(infos[35]), MathUtil.stringToInt(infos[36]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_AGILITY, value);
 			
-			value = Range.closed(MathUtil.stringToInt(infos[37]), MathUtil.stringToInt(infos[38]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[37]), MathUtil.stringToInt(infos[38]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_MIND, value);
-			value = Range.closed(MathUtil.stringToInt(infos[39]), MathUtil.stringToInt(infos[40]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[39]), MathUtil.stringToInt(infos[40]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_RECOVER, value);
-			value = Range.closed(MathUtil.stringToInt(infos[41]), MathUtil.stringToInt(infos[42]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[41]), MathUtil.stringToInt(infos[42]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_CRITICAL, value);
-			value = Range.closed(MathUtil.stringToInt(infos[43]), MathUtil.stringToInt(infos[44]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[43]), MathUtil.stringToInt(infos[44]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_COUNTER, value);
-			value = Range.closed(MathUtil.stringToInt(infos[45]), MathUtil.stringToInt(infos[46]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[45]), MathUtil.stringToInt(infos[46]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_HIT, value);
 			value = MathUtil.createRange(MathUtil.stringToInt(infos[47]), MathUtil.stringToInt(infos[48]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_EXTEND, ATTRIBUTE_EXTEND_AVOID, value);
@@ -117,11 +117,11 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			value = MathUtil.createRange(MathUtil.stringToInt(infos[51]), MathUtil.stringToInt(infos[52]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_BASE, ATTRIBUTE_MP_MAX, value);
 			
-			itemTemplate.luck = Range.closed(MathUtil.stringToByte(infos[53]), MathUtil.stringToByte(infos[54]));
+			itemTemplate.luck = MathUtil.createRange(MathUtil.stringToByte(infos[53]), MathUtil.stringToByte(infos[54]));
 			// 55	[-99490, 123]
 			// 56	[-99490, 123]
 			
-			value = Range.closed(MathUtil.stringToInt(infos[57]), MathUtil.stringToInt(infos[58]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[57]), MathUtil.stringToInt(infos[58]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_WORK, ATTRIBUTE_WORK_CHARM, value);
 			
 			itemTemplate.elementAttribute_1 = MathUtil.stringToByte(infos[59]);
@@ -129,24 +129,24 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			itemTemplate.elementAttributeValue_1 = MathUtil.stringToByte(infos[61]);
 			itemTemplate.elementAttributeValue_2 = MathUtil.stringToByte(infos[62]);
 
-			value = Range.closed(MathUtil.stringToInt(infos[63]), MathUtil.stringToInt(infos[64]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[63]), MathUtil.stringToInt(infos[64]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_WORK, ATTRIBUTE_WORK_STAMINA, value);
-			value = Range.closed(MathUtil.stringToInt(infos[65]), MathUtil.stringToInt(infos[66]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[65]), MathUtil.stringToInt(infos[66]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_WORK, ATTRIBUTE_WORK_DEXTERITY, value);
-			value = Range.closed(MathUtil.stringToInt(infos[67]), MathUtil.stringToInt(infos[68]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[67]), MathUtil.stringToInt(infos[68]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_WORK, ATTRIBUTE_WORK_INTELLIGENCE, value);
 			
-			value = Range.closed(MathUtil.stringToInt(infos[69]), MathUtil.stringToInt(infos[70]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[69]), MathUtil.stringToInt(infos[70]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_POISON, value);
-			value = Range.closed(MathUtil.stringToInt(infos[71]), MathUtil.stringToInt(infos[72]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[71]), MathUtil.stringToInt(infos[72]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_SLEEP, value);
-			value = Range.closed(MathUtil.stringToInt(infos[73]), MathUtil.stringToInt(infos[74]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[73]), MathUtil.stringToInt(infos[74]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_STONE, value);
 			value = MathUtil.createRange(MathUtil.stringToInt(infos[75]), MathUtil.stringToInt(infos[76]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_INTOXICATION, value);
-			value = Range.closed(MathUtil.stringToInt(infos[77]), MathUtil.stringToInt(infos[78]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[77]), MathUtil.stringToInt(infos[78]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_CONFUSION, value);
-			value = Range.closed(MathUtil.stringToInt(infos[79]), MathUtil.stringToInt(infos[80]));
+			value = MathUtil.createRange(MathUtil.stringToInt(infos[79]), MathUtil.stringToInt(infos[80]));
 			itemTemplate.attributes.put(ATTRIBUTE_TYPE_RESIST, ATTRIBUTE_RESIST_AMNESIA, value);
 			
 			itemTemplate.specialType = MathUtil.stringToShort(infos[81]);
@@ -169,7 +169,7 @@ public class CItemReader implements ObjectReader<ItemTemplate> {
 			itemTemplate.identifyRate = MathUtil.stringToByte(infos[96]);
 			// 97	{0, 1, 5, 10, 30}
 			// 98	{0, 1, 5, 10, 30}
-			itemTemplate.magicAttack = Range.closed(MathUtil.stringToShort(infos[99]), MathUtil.stringToShort(infos[100]));
+			itemTemplate.magicAttack = MathUtil.createRange(MathUtil.stringToShort(infos[99]), MathUtil.stringToShort(infos[100]));
 			// 101	{0, 1, 20, 40}
 			itemTemplates.add(itemTemplate);
 		}
