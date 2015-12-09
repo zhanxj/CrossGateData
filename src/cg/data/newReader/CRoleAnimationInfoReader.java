@@ -1,4 +1,4 @@
-package cg.data.gmsvReader;
+package cg.data.newReader;
 
 import java.io.File;
 import java.util.Collection;
@@ -65,7 +65,7 @@ public class CRoleAnimationInfoReader implements ObjectReader<RoleAnimationInfo>
 				}
 				animationInfo.addAnimationInfo(animationInfos[i]);
 				animationInfo.addHeadInfo(headInfos[i]);
-				animationInfo.sex = sexs[i].equals("��") ? Unit.SEX_MALE : Unit.SEX_FEMALE;
+				animationInfo.sex = sexs[i].equals("男") ? Unit.SEX_MALE : Unit.SEX_FEMALE;
 				animationInfo.pageIndex = MathUtil.stringToByte(pages[i], RoleAnimationInfo.NO_SELECT_PAGE);
 			}
 			return Lists.newArrayList(indexs.values().toArray(new RoleAnimationInfo[indexs.size()]));
