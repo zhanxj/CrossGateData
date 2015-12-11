@@ -15,12 +15,12 @@ import cg.base.image.ImageDictionary;
 import cg.base.image.ImageReader;
 import cg.base.map.MapCell;
 import cg.base.util.MathUtil;
-import cg.data.CrossGateData;
 import cg.data.map.MapInfo;
 import cg.data.map.MapMemo;
 import cg.data.map.MapReader;
 import cg.data.map.Warp;
 import cg.data.map.WarpManager;
+import cg.data.resource.ProjectData;
 
 @Deprecated
 public class CMapReader implements MapReader {
@@ -33,10 +33,13 @@ public class CMapReader implements MapReader {
 	
 	private final ImageReader imageReader;
 	
+	private final ProjectData projectData;
+	
 	@Deprecated
-	public CMapReader(WarpManager warpManager, ImageReader imageReader) {
+	public CMapReader(WarpManager warpManager, ImageReader imageReader, ProjectData projectData) {
 		this.warpManager = warpManager;
 		this.imageReader = imageReader;
+		this.projectData = projectData;
 		mapMemos = Maps.newHashMap();
 		try {
 			init();
@@ -46,7 +49,7 @@ public class CMapReader implements MapReader {
 	}
 	
 	private void init() throws IOException {
-		File file = new File(CrossGateData.getProjectData().getServerPath());
+		File file = new File(projectData.getServerPath());
 		file = new File(file, "server/map");
 		File[] mapFiles = file.listFiles();
 		for (File mapFile : mapFiles) {
@@ -91,7 +94,7 @@ public class CMapReader implements MapReader {
 			name = mapMemo.getName();
 			mapId = mapMemo.getMapId();
 			warpIds = Maps.newHashMap();
-			File file = new File(CrossGateData.getProjectData().getServerPath());
+			File file = new File(projectData.getServerPath());
 			file = new File(file, "server/map/" + mapMemo.getFileName());
 			FileInputStream fis = new FileInputStream(file);
 			byte[] datas = new byte[24];
