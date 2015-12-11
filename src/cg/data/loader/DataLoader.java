@@ -17,13 +17,7 @@ import cg.data.resource.ReloadManager;
 import cg.data.resource.Reloadable;
 import cg.data.title.TitleManager;
 
-public abstract class DataLoader extends Loader {
-	
-	public final byte MODEL_LOCAL = 0;
-	
-	public final byte MODEL_EDITOR = 1;
-	
-	public final byte MODEL_SERVER = 2;
+public abstract class DataLoader extends Loader implements IDataPlatform {
 	
 	protected ReloadManager reloadManager;
 	
@@ -143,35 +137,43 @@ public abstract class DataLoader extends Loader {
 	protected AnimationReader createAnimationReader() {
 		return animationReaderCreator.getAnimationReader();
 	}
-	
+
+	@Override
 	public final int getVersion() {
 		return version;
 	}
-	
+
+	@Override
 	public final byte getModel() {
 		return model;
 	}
-	
+
+	@Override
 	public final ReloadManager getReloadManager() {
 		return reloadManager;
 	}
-	
+
+	@Override
 	public final ProjectData getProjectData() {
 		return projectData;
 	}
-	
+
+	@Override
 	public final MessageManager getMessageManager() {
 		return messageManager;
 	}
-	
+
+	@Override
 	public final TitleManager getTitleManager() {
 		return titleManager;
 	}
-	
+
+	@Override
 	public final WarpManager getWarpManager() {
 		return warpManager;
 	}
-	
+
+	@Override
 	public final MapReader getMapReader() {
 		return mapReader;
 	}
