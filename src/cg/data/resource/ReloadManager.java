@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import cg.base.time.Timer;
+import cg.base.time.Time;
 
 public class ReloadManager implements Reloadable {
 	
@@ -20,9 +20,9 @@ public class ReloadManager implements Reloadable {
 	
 	private List<Reloadable> list;
 	
-	private final Timer timer;
+	private final Time timer;
 	
-	public ReloadManager(Timer timer) {
+	public ReloadManager(Time timer) {
 		this.timer = timer;
 		reloadSystems = Maps.newHashMap();
 		list = Lists.newArrayList();

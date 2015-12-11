@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import cg.base.animation.AnimationReader;
 import cg.base.image.ImageManager;
 import cg.base.reader.CAnimationReader;
-import cg.base.time.Timer;
+import cg.base.time.Time;
 
 public class AnimationReaderCreator implements Reloadable {
 	
@@ -16,11 +16,11 @@ public class AnimationReaderCreator implements Reloadable {
 	
 	protected String clientFilePath;
 	
-	protected Timer timer;
+	protected Time timer;
 	
 	protected ImageManager imageManager;
 	
-	public AnimationReaderCreator(String clientFilePath, Timer timer, ImageManager imageManager) {
+	public AnimationReaderCreator(String clientFilePath, Time timer, ImageManager imageManager) {
 		this.clientFilePath = clientFilePath;
 		this.timer = timer;
 		this.imageManager = imageManager;
