@@ -49,6 +49,7 @@ public abstract class DataLoader extends Loader implements IDataPlatform {
 		animationReaderCreator = createAnimationReaderCreator();
 
 		projectData = createProjectData();
+		messageManager = createMessageManager();
 		try {
 			registerReload();
 			loadData();
@@ -58,7 +59,6 @@ public abstract class DataLoader extends Loader implements IDataPlatform {
 			log.error("", e);
 			exit();
 		}
-		messageManager = createMessageManager();
 		titleManager = createTitleManager();
 		warpManager = createWarpManager();
 		mapReader = createMapReader();
