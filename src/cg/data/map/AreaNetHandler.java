@@ -2,13 +2,11 @@ package cg.data.map;
 
 import static cg.data.map.MapInfo.DATA_LENGTH;
 
-import java.io.InputStream;
 import java.util.List;
 
 import cg.base.io.message.VoMapCell;
 import cg.base.util.IOUtils;
 import cg.base.util.MathUtil;
-import cg.base.util.URLHandler;
 
 public class AreaNetHandler implements AreaLoader {
 	
@@ -23,32 +21,7 @@ public class AreaNetHandler implements AreaLoader {
 
 	@Override
 	public void writeInfo(int west, int east, int north, int south, List<VoMapCell> mapCells, MapInfo mapInfo) throws Exception {
-		IOUtils.getStream(host + "/reader/MapResource?image=true&object=true&" + makeUrlParams(west, east, north, south, mapInfo), new AreaURLHandler(west, east, north, south, mapCells, mapInfo));
-	}
-	
-	private String makeUrlParams(int west, int east, int north, int south, MapInfo mapInfo) {
-		return "mapId=" + mapInfo.getMapId() + "&west=" + west + "&east=" + (east + 1) + "&north=" + north + "&south=" + (south + 1);
-	}
-	
-	private static final class AreaURLHandler implements URLHandler {
-		
-		private int west, east, north, south;
-		
-		private List<VoMapCell> mapCells;
-		
-		private MapInfo mapInfo;
-		
-		public AreaURLHandler(int west, int east, int north, int south, List<VoMapCell> mapCells, MapInfo mapInfo) {
-			this.west = west;
-			this.east = east;
-			this.north = north;
-			this.south = south;
-			this.mapCells = mapCells;
-			this.mapInfo = mapInfo;
-		}
-
-		@Override
-		public void handle(InputStream is, String info) throws Exception {
+		IOUtils.getStream(host + "/reader/MapResource?image=true&object=true&" + makeUrlParams(west, east, north, south, mapInfo), (is, info) -> {
 //			packet.writeInt((east - west + 1) * (north - south + 1)); // size
 			for (int e = west;e <= east;e++) {
 				for (int s = north;s <= south;s++) {
@@ -67,8 +40,11 @@ public class AreaNetHandler implements AreaLoader {
 					mapCells.add(voMapCell);
 				}
 			}
-		}
-		
+		});
+	}
+	
+	private static String makeUrlParams(int west, int east, int north, int south, MapInfo mapInfo) {
+		return "mapId=" + mapInfo.getMapId() + "&west=" + west + "&east=" + (east + 1) + "&north=" + north + "&south=" + (south + 1);
 	}
 
 }
