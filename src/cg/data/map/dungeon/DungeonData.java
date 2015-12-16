@@ -2,15 +2,14 @@ package cg.data.map.dungeon;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 import cg.base.map.MapCell;
 import cg.base.util.MathUtil;
 import cg.data.map.GameMap;
 import cg.data.map.MapInfo;
 import cg.data.map.MapReader;
-import cg.data.map.WarpManager;
 import cg.data.sprite.NpcTemplate;
-
-import com.google.common.collect.Lists;
 
 public class DungeonData implements MapReader {
 	
@@ -30,9 +29,7 @@ public class DungeonData implements MapReader {
 	
 	private final String name;
 	
-	private final WarpManager warpManager;
-	
-	public DungeonData(MapInfo[] mapInfos, NpcTemplate[] npcTemplates, int eastRange, int southRange, GameMap enterMap, GameMap exitMap, String name, WarpManager warpManager) {
+	public DungeonData(MapInfo[] mapInfos, NpcTemplate[] npcTemplates, int eastRange, int southRange, GameMap enterMap, GameMap exitMap, String name) {
 		this.npcTemplates = npcTemplates;
 		this.mapInfos = mapInfos;
 		aoiEastRange = eastRange;
@@ -40,7 +37,6 @@ public class DungeonData implements MapReader {
 		this.enterMap = enterMap;
 		this.exitMap = exitMap;
 		this.name = name;
-		this.warpManager = warpManager;
 	}
 
 	public NpcTemplate[] getNpcTemplates() {
@@ -94,11 +90,6 @@ public class DungeonData implements MapReader {
 			}
 			return array;
 		}
-	}
-
-	@Override
-	public WarpManager getWarpManager() {
-		return warpManager;
 	}
 
 }

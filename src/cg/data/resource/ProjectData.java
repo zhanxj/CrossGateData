@@ -112,7 +112,7 @@ public class ProjectData implements Reloadable, SingleResourceLoader {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public <T> InputStreamHandler<T> getInputStreamHandler(Class T) {
+	private <T> InputStreamHandler<T> getInputStreamHandler(Class T) {
 		return (InputStreamHandler<T>) inputStreamHandlers.get(T);
 	}
 	
@@ -158,10 +158,6 @@ public class ProjectData implements Reloadable, SingleResourceLoader {
 	
 	public void removeListener(ProjectDataListener listener) {
 		listeners.remove(listener);
-	}
-	
-	public String getServerPath() {
-		return serverPath;
 	}
 	
 	public AreaLoader createAreaLoader() {

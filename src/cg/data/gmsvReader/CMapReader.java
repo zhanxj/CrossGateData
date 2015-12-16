@@ -15,12 +15,11 @@ import cg.base.image.ImageDictionary;
 import cg.base.image.ImageReader;
 import cg.base.map.MapCell;
 import cg.base.util.MathUtil;
+import cg.data.loader.IDataPlatform;
 import cg.data.map.MapInfo;
 import cg.data.map.MapMemo;
 import cg.data.map.MapReader;
 import cg.data.map.Warp;
-import cg.data.map.WarpManager;
-import cg.data.resource.ProjectData;
 
 @Deprecated
 public class CMapReader implements MapReader {
@@ -29,17 +28,11 @@ public class CMapReader implements MapReader {
 	
 	private final Map<Integer, MapMemo> mapMemos;
 	
-	private final WarpManager warpManager;
-	
-	private final ImageReader imageReader;
-	
-	private final ProjectData projectData;
+	private final IDataPlatform platform;
 	
 	@Deprecated
-	public CMapReader(WarpManager warpManager, ImageReader imageReader, ProjectData projectData) {
-		this.warpManager = warpManager;
-		this.imageReader = imageReader;
-		this.projectData = projectData;
+	public CMapReader(IDataPlatform platform) {
+		this.platform = platform;
 		mapMemos = Maps.newHashMap();
 		try {
 			init();
@@ -49,7 +42,7 @@ public class CMapReader implements MapReader {
 	}
 	
 	private void init() throws IOException {
-		File file = new File(projectData.getServerPath());
+		File file = new File(platform.getClientFilePath());
 		file = new File(file, "server/map");
 		File[] mapFiles = file.listFiles();
 		for (File mapFile : mapFiles) {
@@ -59,7 +52,7 @@ public class CMapReader implements MapReader {
 	}
 
 	public MapInfo read(int mapId) throws Exception {
-		return new CMapInfo(mapMemos.get(mapId), warpManager.getWarps(mapId));
+		return new CMapInfo(mapMemos.get(mapId), platform.getWarpManager().getWarps(mapId));
 	}
 	
 	public Collection<MapMemo> getMapMemos() {
@@ -94,7 +87,7 @@ public class CMapReader implements MapReader {
 			name = mapMemo.getName();
 			mapId = mapMemo.getMapId();
 			warpIds = Maps.newHashMap();
-			File file = new File(projectData.getServerPath());
+			File file = new File(platform.getClientFilePath());
 			file = new File(file, "server/map/" + mapMemo.getFileName());
 			FileInputStream fis = new FileInputStream(file);
 			byte[] datas = new byte[24];
@@ -119,6 +112,7 @@ public class CMapReader implements MapReader {
 			fis.read(cellImageGlobalIds);
 			fis.read(objectImageGlobalIds);
 
+			ImageReader imageReader = platform.getImageManager().getImageReader();
 			for (int east = 0;east < maxEast;east++) {
 				for (int south = 0;south < maxSouth;south++) {
 					ImageDictionary imageDictionary = imageReader.getImageDictionary(getObjectId(east, south));
@@ -204,7 +198,7 @@ public class CMapReader implements MapReader {
 			int key = calcIndex(warp.getSourceMapEast(), warp.getSourceMapSouth());
 			warpIds.put(key, warp.getId());
 			marks[key] = MapCell.MARK_WARP;
-			warpManager.addWarp(warp);
+			platform.getWarpManager().addWarp(warp);
 		}
 
 		@Override
@@ -214,7 +208,7 @@ public class CMapReader implements MapReader {
 
 		@Override
 		public void setObject(int east, int south, int resourceId) {
-			ImageDictionary imageDictionary = imageReader.getImageDictionary(getObjectId(east, south));
+			ImageDictionary imageDictionary = platform.getImageManager().getImageReader().getImageDictionary(getObjectId(east, south));
 			if (imageDictionary != null) {
 				MathUtil.intToByte(objectImageGlobalIds, calcShortIndex(east, south), DATA_LENGTH, resourceId);
 				setMark(imageDictionary, east, south, marks);
@@ -281,11 +275,6 @@ public class CMapReader implements MapReader {
 	@Override
 	public String getName() {
 		return getClass().getName();
-	}
-
-	@Override
-	public WarpManager getWarpManager() {
-		return warpManager;
 	}
 
 }

@@ -128,8 +128,10 @@ public abstract class DataLoader extends Loader implements IDataPlatform {
 	protected abstract ProjectData createProjectData();
 	
 	protected abstract WarpManager createWarpManager();
-	
-	protected abstract MapReader createMapReader();
+
+	protected MapReader createMapReader() {
+		return GMSVReaders.createFileMapReader("map", this);
+	}
 	
 	protected abstract URI loadServerFilePath() throws Exception;
 

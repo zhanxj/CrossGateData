@@ -18,40 +18,34 @@ import cg.base.image.ImageReader;
 import cg.base.map.MapCell;
 import cg.base.util.IOUtils;
 import cg.base.util.MathUtil;
+import cg.data.loader.IDataPlatform;
 import cg.data.map.MapInfo;
 import cg.data.map.MapReader;
 import cg.data.map.Warp;
 import cg.data.map.WarpManager;
-import cg.data.resource.ProjectData;
 
 public class CFileMapReader implements MapReader {
 	
 	private static final Logger log = LoggerFactory.getLogger(CFileMapReader.class);
 	
-	private final WarpManager warpManager;
-	
 	private final String pathName;
 	
-	private final ImageReader imageReader;
+	private final IDataPlatform platform;
 	
-	private final ProjectData projectData;
-	
-	public CFileMapReader(WarpManager warpManager, String pathName, ImageReader imageReader, ProjectData projectData) {
-		this.warpManager = warpManager;
+	public CFileMapReader(String pathName, IDataPlatform platform) {
 		this.pathName = pathName;
-		this.imageReader = imageReader;
-		this.projectData = projectData;
+		this.platform = platform;
 	}
 
 	@Override
 	public MapInfo[] load() {
-		File file = new File(projectData.getServerPath());
+		File file = new File(platform.getClientFilePath());
 		file = new File(file, pathName);
 		File[] mapFiles = file.listFiles();
 		MapInfo[] mapInfos = new MapInfo[mapFiles.length];
 		for (int i = 0;i < mapFiles.length;i++) {
 			try {
-				mapInfos[i] = new FileMapInfo(mapFiles[i], warpManager);
+				mapInfos[i] = new FileMapInfo(mapFiles[i], platform.getWarpManager());
 			} catch (IOException e) {
 				log.error("", e);
 			}
@@ -130,6 +124,7 @@ public class CFileMapReader implements MapReader {
 		
 		private void readContent() throws IOException {
 			byte[] objectImageGlobalIds = readBytes(getMaxEast() * getMaxSouth() * DATA_LENGTH, getMaxEast() * getMaxSouth() * DATA_LENGTH);
+			ImageReader imageReader = platform.getImageManager().getImageReader();
 			for (int east = 0;east < maxEast;east++) {
 				for (int south = 0;south < maxSouth;south++) {
 					ImageDictionary imageDictionary = imageReader.getImageDictionary(MathUtil.bytesToInt2(objectImageGlobalIds, calcShortIndex(east, south), DATA_LENGTH));
@@ -227,7 +222,7 @@ public class CFileMapReader implements MapReader {
 			int key = calcIndex(warp.getSourceMapEast(), warp.getSourceMapSouth());
 			warpIds.put(key, warp.getId());
 			marks[key] = MapCell.MARK_WARP;
-			warpManager.addWarp(warp);
+			platform.getWarpManager().addWarp(warp);
 		}
 
 		@Override
@@ -251,11 +246,6 @@ public class CFileMapReader implements MapReader {
 			return marks.length;
 		}
 		
-	}
-
-	@Override
-	public WarpManager getWarpManager() {
-		return warpManager;
 	}
 
 }

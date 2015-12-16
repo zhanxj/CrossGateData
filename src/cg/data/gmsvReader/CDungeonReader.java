@@ -204,7 +204,7 @@ public class CDungeonReader implements ObjectReader<Dungeon> {
 			
 //			output(mapInfos);
 			cellsList.clear();
-			return new DungeonData(mapInfos, npcInfoList.toArray(new NpcTemplate[npcInfoList.size()]), aoiEastRange, aoiSouthRange, enterMap, exitMap, getName(), warpManager);
+			return new DungeonData(mapInfos, npcInfoList.toArray(new NpcTemplate[npcInfoList.size()]), aoiEastRange, aoiSouthRange, enterMap, exitMap, getName());
 		}
 
 		@Override

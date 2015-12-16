@@ -1,7 +1,6 @@
 package cg.data.gmsvReader;
 
 import cg.base.image.ImageManager;
-import cg.base.image.ImageReader;
 import cg.base.item.ItemRecipe;
 import cg.base.skill.SkillTemplate;
 import cg.base.sprite.Title;
@@ -10,15 +9,14 @@ import cg.data.battle.skill.SkillLevelData;
 import cg.data.gmsvReader.CGarbledReader.Garbled;
 import cg.data.item.ItemTemplate;
 import cg.data.job.Job;
+import cg.data.loader.IDataPlatform;
 import cg.data.map.BoxContains;
 import cg.data.map.GatherArea;
 import cg.data.map.MapReader;
 import cg.data.map.Warp;
-import cg.data.map.WarpManager;
 import cg.data.map.dungeon.Dungeon;
 import cg.data.resource.MessageManager;
 import cg.data.resource.ObjectReader;
-import cg.data.resource.ProjectData;
 import cg.data.sprite.CreatureTemplate;
 import cg.data.sprite.EncountInfo;
 import cg.data.sprite.EnemyGroup;
@@ -64,8 +62,8 @@ public final class GMSVReaders {
 		return new CEnemyTalkReader();
 	}
 	
-	public static MapReader createFileMapReader(WarpManager warpManager, String pathName, ImageReader imageReader, ProjectData projectData) {
-		return new CFileMapReader(warpManager, pathName, imageReader, projectData);
+	public static MapReader createFileMapReader(String pathName, IDataPlatform platform) {
+		return new CFileMapReader(pathName, platform);
 	}
 	
 	public static ObjectReader<Garbled> createGarbledReader() {
