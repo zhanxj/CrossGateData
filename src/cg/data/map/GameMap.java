@@ -2,10 +2,11 @@ package cg.data.map;
 
 import java.util.List;
 
+import cg.base.map.MapCellContainer;
 import cg.data.sprite.MapUnit;
 import cg.data.sprite.RateEncountInfo;
 
-public interface GameMap {
+public interface GameMap extends MapCellContainer {
 	
 	byte LOCAL_MIDDLE_EAST = -1;
 	
