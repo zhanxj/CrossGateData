@@ -16,6 +16,8 @@ public interface InputStreamHandler<T> extends Reloadable {
 	
 	Collection<DataInfo> getDataInfos();
 	
+	Collection<String> getNames();
+	
 	public static class DataInfo {
 		
 		public final String uri, type;

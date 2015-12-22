@@ -83,4 +83,9 @@ public abstract class TypeInputStreamHandler<T> implements InputStreamHandler<T>
 		}
 	}
 
+	@Override
+	public Collection<String> getNames() {
+		return resources.keySet();
+	}
+
 }
