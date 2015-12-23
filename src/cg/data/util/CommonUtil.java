@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 public class CommonUtil {
 	
 	private static final SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm");
+	
     public static String getDateString(Date date){
     	if(date==null){
     		return "";
@@ -40,8 +41,8 @@ public class CommonUtil {
     }
     
     public static String HOUR = "Ð¡Ê±";
-    public static String MINUTE = "·Ö";
-    public static String SECOND = "Ãë";
+    public static String MINUTE = "ï¿½ï¿½";
+    public static String SECOND = "ï¿½ï¿½";
    
     
     public static String formatSecond(int sec) {
@@ -73,7 +74,6 @@ public class CommonUtil {
 	public static final int getMapId(int globalId){
 		return globalId>>12;
 	}
-	
 
     public static boolean hit(Random rnd, int chance, int base){
     	if (chance <= 0) {
@@ -138,7 +138,7 @@ public class CommonUtil {
     }
     
     /**
-     * @brief ¼ì²éÒ»¸öÊý×ÖIDÊÇ·ñÔÚÒ»¸öIDÁÐ±íÖÐ£¨ÓÃ×Ö·û´®±íÊ¾£¬¶ººÅ·Ö¸ô£©
+     * @brief ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½Ç·ï¿½ï¿½ï¿½Ò»ï¿½ï¿½IDï¿½Ð±ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Å·Ö¸ï¿½ï¿½ï¿½
      * @param id
      * @param idList
      * @return

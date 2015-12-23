@@ -4,16 +4,13 @@ import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Range;
+
 import cg.base.util.MathUtil;
-import cg.data.limitValue.LimitValueFactory;
-import cg.data.limitValue.LimitValueOfInt.ValueOfInt;
-import cg.data.limitValue.LimitValueOfShort.ValueOfShort;
 import cg.data.resource.ObjectReader;
 import cg.data.resource.ProjectData;
 import cg.data.title.TitleConfig;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Range;
 
 public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 
@@ -30,8 +27,6 @@ public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 	}
 	
 	private static class CTitleConfig implements TitleConfig {
-		
-		private static final LimitValueFactory limitValueFactory = LimitValueFactory.getInstance();
 		
 		private Range<Integer> fame;
 		
@@ -51,32 +46,26 @@ public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 		
 		public CTitleConfig(String line) {
 			String[] infos = line.split(",");
-			ValueOfInt fameMin = limitValueFactory.createValueOfInt(Integer.MIN_VALUE, false);
-			ValueOfInt fameMax = limitValueFactory.createValueOfInt(Integer.MAX_VALUE, false);
-			boolean hasFame = false;
-			ValueOfShort jobMin = limitValueFactory.createValueOfShort(Short.MIN_VALUE, false);
-			ValueOfShort jobMax = limitValueFactory.createValueOfShort(Short.MAX_VALUE, false);
-			boolean hasJob = false;
-			ValueOfInt goldMin = limitValueFactory.createValueOfInt(Integer.MIN_VALUE, false);
-			ValueOfInt goldMax = limitValueFactory.createValueOfInt(Integer.MAX_VALUE, false);
-			boolean hasGold = false;
+			Range<Integer> fameMin = Range.atLeast(Integer.MIN_VALUE);
+			Range<Integer> fameMax = Range.atMost(Integer.MAX_VALUE);
+			Range<Short> jobMin = Range.atLeast(Short.MIN_VALUE);
+			Range<Short> jobMax = Range.atMost(Short.MAX_VALUE);
+			Range<Integer> goldMin = Range.atLeast(Integer.MIN_VALUE);
+			Range<Integer> goldMax = Range.atMost(Integer.MAX_VALUE);
 			for (String info : infos) {
 				if (info.indexOf(FAME) == 0) {
 					if (info.indexOf(">") > -1) {
-						fameMin = getValueOfInt(info.split(">")[1]);
+						fameMin = info.indexOf("=") > -1 ? Range.atLeast(Integer.parseInt(info.split("=")[1])) : Range.greaterThan(Integer.parseInt(info.split(">")[1]));
 					} else {
-						fameMax = getValueOfInt(info.split("<")[1]);
+						fameMax = info.indexOf("=") > -1 ? Range.atMost(Integer.parseInt(info.split("=")[1])) : Range.lessThan(Integer.parseInt(info.split("<")[1]));
 					}
-					hasFame = true;
 				} else if (info.indexOf(TITLE) == 0) {
 					titleId = MathUtil.stringToShort(info.split("=")[1]);
 				} else if (info.indexOf(JOB) == 0 || info.indexOf(Job) == 0) {
 					if (info.indexOf(">") > -1) {
-						jobMin = getValueOfShort(info.split(">")[1]);
-						hasJob = true;
+						jobMin = info.indexOf("=") > -1 ? Range.atLeast(Short.parseShort(info.split("=")[1])) : Range.greaterThan(Short.parseShort(info.split(">")[1]));
 					} else if (info.indexOf("<") > -1) {
-						jobMax = getValueOfShort(info.split("<")[1]);
-						hasJob = true;
+						jobMax = info.indexOf("=") > -1 ? Range.atMost(Short.parseShort(info.split("=")[1])) : Range.lessThan(Short.parseShort(info.split("<")[1]));
 					} else {
 						short jobValue = MathUtil.stringToShort(info.split("=")[1]);
 						job = Range.closed(jobValue, jobValue);
@@ -89,11 +78,9 @@ public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 					endflg = MathUtil.stringToShort(info.split("=")[1]);
 				} else if (info.indexOf(GOLD) == 0) {
 					if (info.indexOf(">") > -1) {
-						goldMin = getValueOfInt(info.split(">")[1]);
-						hasGold = true;
+						goldMin = info.indexOf("=") > -1 ? Range.atLeast(Integer.parseInt(info.split("=")[1])) : Range.greaterThan(Integer.parseInt(info.split(">")[1]));
 					} else if (info.indexOf("<") > -1) {
-						goldMax = getValueOfInt(info.split("<")[1]);
-						hasGold = true;
+						goldMax = info.indexOf("=") > -1 ? Range.atMost(Integer.parseInt(info.split("=")[1])) : Range.lessThan(Integer.parseInt(info.split("<")[1]));
 					} else {
 						int goldValue = MathUtil.stringToShort(info.split("=")[1]);
 						gold = Range.closed(goldValue, goldValue);
@@ -105,27 +92,13 @@ public class CTitleConfigReader implements ObjectReader<TitleConfig> {
 				}
 			}
 			
-			if (hasFame) {
-				fame = limitValueFactory.getRange(fameMin, fameMax);
+			fame = fameMin.intersection(fameMax);
+			if (job == null) {
+				job = jobMin.intersection(jobMax);
 			}
-			if (hasJob) {
-				job = limitValueFactory.getRange(jobMin, jobMax);
+			if (gold == null) {
+				gold = goldMin.intersection(goldMax);
 			}
-			if (hasGold) {
-				gold = limitValueFactory.getRange(goldMin, goldMax);
-			}
-		}
-		
-		private static ValueOfShort getValueOfShort(String info) {
-			boolean hasEqual = info.indexOf("=") == 0;
-			info = hasEqual ? info.substring(1) : info;
-			return limitValueFactory.createValueOfShort(MathUtil.stringToShort(info), hasEqual);
-		}
-		
-		private static ValueOfInt getValueOfInt(String info) {
-			boolean hasEqual = info.indexOf("=") == 0;
-			info = hasEqual ? info.substring(1) : info;
-			return limitValueFactory.createValueOfInt(MathUtil.stringToInt(info), hasEqual);
 		}
 
 		@Override
