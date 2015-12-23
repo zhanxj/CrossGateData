@@ -54,7 +54,7 @@ public class MessageManager implements ProjectDataListener {
 	
 	public Message getMessage(int msgId) {
 		if (msgId != Message.NO_MESSAGE && !messages.containsKey(msgId)) {
-			log.warn("{}::getMessage() : {} is null.", getClass(), msgId);
+			log.warn("{} is null.", msgId);
 		}
 		return messages.get(msgId);
 	}
