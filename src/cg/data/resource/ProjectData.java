@@ -20,13 +20,12 @@ import cg.data.map.AreaNetHandler;
 import cg.data.resource.inputStream.ExcelInputStreamHandler;
 import cg.data.resource.inputStream.InputStreamHandler;
 import cg.data.resource.inputStream.InputStreamHandler.DataInfo;
+import cg.data.resource.loader.ServerResourceLoader;
 import cg.data.resource.inputStream.TextInputStreamHandler;
 import cg.data.resource.inputStream.XmlInputStreamHandler;
-import cg.data.resource.serverResource.ServerResourceLoader;
-import cg.data.resource.serverResource.ServerResourceLoader.SingleResourceLoader;
 import jxl.Workbook;
 
-public class ProjectData implements Reloadable, SingleResourceLoader {
+public class ProjectData implements Reloadable {
 	
 	public static final String FILE_TYPE_TEXT = "txt";
 	
@@ -58,21 +57,19 @@ public class ProjectData implements Reloadable, SingleResourceLoader {
 		inputStreamHandlers.put(Workbook.class, new ExcelInputStreamHandler(FILE_TYPE_EXCEL));
 		areaLoader = new URI(serverPath).getHost() == null ? new AreaFileHandler() : new AreaNetHandler(serverPath);
 		
-		serverResourceLoader.load(serverPath, this);
-	}
-	
-	@Override
-	public void load(URI uri) {
-		String path = uri.getPath();
-		if (path.endsWith(FILE_TYPE_TEXT)) {
-			inputStreamHandlers.get(String[].class).addURI(uri);
-		} else if (path.endsWith(FILE_TYPE_EXCEL)) {
-			inputStreamHandlers.get(Workbook.class).addURI(uri);
-		} else if (path.endsWith(FILE_TYPE_XML)) {
-			inputStreamHandlers.get(Document.class).addURI(uri);
-		} else {
-			// This is a map.
-		}
+		serverResourceLoader.load(serverPath, (uri) -> {
+			String path = uri.getPath();
+			if (path.endsWith(FILE_TYPE_TEXT)) {
+				inputStreamHandlers.get(String[].class).addURI(uri);
+			} else if (path.endsWith(FILE_TYPE_EXCEL)) {
+				inputStreamHandlers.get(Workbook.class).addURI(uri);
+			} else if (path.endsWith(FILE_TYPE_XML)) {
+				inputStreamHandlers.get(Document.class).addURI(uri);
+			} else {
+				// This is a map.
+			}
+			return null;
+		});
 	}
 	
 	protected void clearResource() {
