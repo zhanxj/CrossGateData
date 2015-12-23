@@ -7,7 +7,7 @@ import cg.base.util.URLHandler;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 
-public class ExcelInputStreamHandler extends TypeInputStreamHandler<Workbook> implements URLHandler {
+class ExcelInputStreamHandler extends TypeInputStreamHandler<Workbook> implements URLHandler {
 	
 	private WorkbookSettings ws;
 	

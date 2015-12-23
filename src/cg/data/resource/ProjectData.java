@@ -17,12 +17,10 @@ import com.google.common.collect.Maps;
 import cg.data.map.AreaFileHandler;
 import cg.data.map.AreaLoader;
 import cg.data.map.AreaNetHandler;
-import cg.data.resource.inputStream.ExcelInputStreamHandler;
 import cg.data.resource.inputStream.InputStreamHandler;
 import cg.data.resource.inputStream.InputStreamHandler.DataInfo;
+import cg.data.resource.inputStream.InputStreamHandlers;
 import cg.data.resource.loader.ServerResourceLoader;
-import cg.data.resource.inputStream.TextInputStreamHandler;
-import cg.data.resource.inputStream.XmlInputStreamHandler;
 import jxl.Workbook;
 
 public class ProjectData implements Reloadable {
@@ -52,9 +50,9 @@ public class ProjectData implements Reloadable {
 		objectReaders = Maps.newHashMap();
 		listeners = Lists.newLinkedList();
 		inputStreamHandlers = Maps.newHashMap();
-		inputStreamHandlers.put(String[].class, new TextInputStreamHandler(FILE_TYPE_TEXT));
-		inputStreamHandlers.put(Document.class, new XmlInputStreamHandler(FILE_TYPE_XML));
-		inputStreamHandlers.put(Workbook.class, new ExcelInputStreamHandler(FILE_TYPE_EXCEL));
+		inputStreamHandlers.put(String[].class, InputStreamHandlers.createTextHandler(FILE_TYPE_TEXT));
+		inputStreamHandlers.put(Document.class, InputStreamHandlers.createXmlHandler(FILE_TYPE_XML));
+		inputStreamHandlers.put(Workbook.class, InputStreamHandlers.createExcelHandler(FILE_TYPE_EXCEL));
 		areaLoader = new URI(serverPath).getHost() == null ? new AreaFileHandler() : new AreaNetHandler(serverPath);
 		
 		serverResourceLoader.load(serverPath, (uri) -> {

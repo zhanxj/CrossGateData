@@ -8,7 +8,7 @@ import org.jdom2.Document;
 import cg.base.util.URLHandler;
 import cg.data.util.FileUtils;
 
-public class XmlInputStreamHandler extends TypeInputStreamHandler<Document> implements URLHandler {
+class XmlInputStreamHandler extends TypeInputStreamHandler<Document> implements URLHandler {
 	
 	private Document document;
 

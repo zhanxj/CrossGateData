@@ -5,7 +5,7 @@ import java.util.List;
 
 import cg.base.util.ListURLHandler;
 
-public class TextInputStreamHandler extends TypeInputStreamHandler<String[]> {
+class TextInputStreamHandler extends TypeInputStreamHandler<String[]> {
 	
 	private ListURLHandler listURLHandler = new ListURLHandler();
 
