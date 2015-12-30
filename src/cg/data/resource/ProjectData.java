@@ -3,6 +3,7 @@ package cg.data.resource;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.net.URLDecoder;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import cg.base.util.IOUtils;
 import cg.data.map.AreaFileHandler;
 import cg.data.map.AreaLoader;
 import cg.data.map.AreaNetHandler;
@@ -56,15 +58,19 @@ public class ProjectData implements Reloadable {
 		areaLoader = new URI(serverPath).getHost() == null ? new AreaFileHandler() : new AreaNetHandler(serverPath);
 		
 		serverResourceLoader.load(serverPath, (uri) -> {
-			String path = uri.getPath();
-			if (path.endsWith(FILE_TYPE_TEXT)) {
-				inputStreamHandlers.get(String[].class).addURI(uri);
-			} else if (path.endsWith(FILE_TYPE_EXCEL)) {
-				inputStreamHandlers.get(Workbook.class).addURI(uri);
-			} else if (path.endsWith(FILE_TYPE_XML)) {
-				inputStreamHandlers.get(Document.class).addURI(uri);
-			} else {
-				// This is a map.
+			try {
+				String path = IOUtils.OS.contains("win") ? uri.getPath() : URLDecoder.decode(uri.toString(), "utf-8");
+				if (path.endsWith(FILE_TYPE_TEXT)) {
+					inputStreamHandlers.get(String[].class).addURI(uri);
+				} else if (path.endsWith(FILE_TYPE_EXCEL)) {
+					inputStreamHandlers.get(Workbook.class).addURI(uri);
+				} else if (path.endsWith(FILE_TYPE_XML)) {
+					inputStreamHandlers.get(Document.class).addURI(uri);
+				} else {
+					// This is a map.
+				}
+			} catch (Exception e) {
+				log.error("", e);
 			}
 			return null;
 		});
