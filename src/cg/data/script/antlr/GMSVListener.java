@@ -80,26 +80,6 @@ public interface GMSVListener extends ParseTreeListener {
 	 */
 	void exitAddstampcount(GMSVParser.AddstampcountContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GMSVParser#albumitemflg}.
-	 * @param ctx the parse tree
-	 */
-	void enterAlbumitemflg(GMSVParser.AlbumitemflgContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GMSVParser#albumitemflg}.
-	 * @param ctx the parse tree
-	 */
-	void exitAlbumitemflg(GMSVParser.AlbumitemflgContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GMSVParser#bankitem}.
-	 * @param ctx the parse tree
-	 */
-	void enterBankitem(GMSVParser.BankitemContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GMSVParser#bankitem}.
-	 * @param ctx the parse tree
-	 */
-	void exitBankitem(GMSVParser.BankitemContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GMSVParser#bimage}.
 	 * @param ctx the parse tree
 	 */
@@ -190,16 +170,6 @@ public interface GMSVListener extends ParseTreeListener {
 	 */
 	void exitEncount(GMSVParser.EncountContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GMSVParser#endblock}.
-	 * @param ctx the parse tree
-	 */
-	void enterEndblock(GMSVParser.EndblockContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GMSVParser#endblock}.
-	 * @param ctx the parse tree
-	 */
-	void exitEndblock(GMSVParser.EndblockContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GMSVParser#endevent}.
 	 * @param ctx the parse tree
 	 */
@@ -270,16 +240,6 @@ public interface GMSVListener extends ParseTreeListener {
 	 */
 	void exitGaendwindow(GMSVParser.GaendwindowContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GMSVParser#gaglobalflag}.
-	 * @param ctx the parse tree
-	 */
-	void enterGaglobalflag(GMSVParser.GaglobalflagContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GMSVParser#gaglobalflag}.
-	 * @param ctx the parse tree
-	 */
-	void exitGaglobalflag(GMSVParser.GaglobalflagContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GMSVParser#gawindow}.
 	 * @param ctx the parse tree
 	 */
@@ -289,16 +249,6 @@ public interface GMSVListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitGawindow(GMSVParser.GawindowContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GMSVParser#getalbumflgtotal}.
-	 * @param ctx the parse tree
-	 */
-	void enterGetalbumflgtotal(GMSVParser.GetalbumflgtotalContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GMSVParser#getalbumflgtotal}.
-	 * @param ctx the parse tree
-	 */
-	void exitGetalbumflgtotal(GMSVParser.GetalbumflgtotalContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GMSVParser#giveitem}.
 	 * @param ctx the parse tree
@@ -419,16 +369,6 @@ public interface GMSVListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitGroup(GMSVParser.GroupContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GMSVParser#guildmember}.
-	 * @param ctx the parse tree
-	 */
-	void enterGuildmember(GMSVParser.GuildmemberContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GMSVParser#guildmember}.
-	 * @param ctx the parse tree
-	 */
-	void exitGuildmember(GMSVParser.GuildmemberContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GMSVParser#haveitem}.
 	 * @param ctx the parse tree
@@ -740,16 +680,6 @@ public interface GMSVListener extends ParseTreeListener {
 	 */
 	void exitMetamocount(GMSVParser.MetamocountContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GMSVParser#moveto}.
-	 * @param ctx the parse tree
-	 */
-	void enterMoveto(GMSVParser.MovetoContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GMSVParser#moveto}.
-	 * @param ctx the parse tree
-	 */
-	void exitMoveto(GMSVParser.MovetoContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GMSVParser#next}.
 	 * @param ctx the parse tree
 	 */
@@ -839,16 +769,6 @@ public interface GMSVListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPhitem(GMSVParser.PhitemContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GMSVParser#play_se}.
-	 * @param ctx the parse tree
-	 */
-	void enterPlay_se(GMSVParser.Play_seContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GMSVParser#play_se}.
-	 * @param ctx the parse tree
-	 */
-	void exitPlay_se(GMSVParser.Play_seContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GMSVParser#playse}.
 	 * @param ctx the parse tree
@@ -970,16 +890,6 @@ public interface GMSVListener extends ParseTreeListener {
 	 */
 	void exitSetobject(GMSVParser.SetobjectContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GMSVParser#setparameter}.
-	 * @param ctx the parse tree
-	 */
-	void enterSetparameter(GMSVParser.SetparameterContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GMSVParser#setparameter}.
-	 * @param ctx the parse tree
-	 */
-	void exitSetparameter(GMSVParser.SetparameterContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GMSVParser#setvisitor}.
 	 * @param ctx the parse tree
 	 */
@@ -999,26 +909,6 @@ public interface GMSVListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitShapenext(GMSVParser.ShapenextContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GMSVParser#shapeoff}.
-	 * @param ctx the parse tree
-	 */
-	void enterShapeoff(GMSVParser.ShapeoffContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GMSVParser#shapeoff}.
-	 * @param ctx the parse tree
-	 */
-	void exitShapeoff(GMSVParser.ShapeoffContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GMSVParser#shapeon}.
-	 * @param ctx the parse tree
-	 */
-	void enterShapeon(GMSVParser.ShapeonContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GMSVParser#shapeon}.
-	 * @param ctx the parse tree
-	 */
-	void exitShapeon(GMSVParser.ShapeonContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GMSVParser#shipchardown}.
 	 * @param ctx the parse tree
@@ -1099,16 +989,6 @@ public interface GMSVListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSystemmessage(GMSVParser.SystemmessageContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link GMSVParser#tglobalflag}.
-	 * @param ctx the parse tree
-	 */
-	void enterTglobalflag(GMSVParser.TglobalflagContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GMSVParser#tglobalflag}.
-	 * @param ctx the parse tree
-	 */
-	void exitTglobalflag(GMSVParser.TglobalflagContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GMSVParser#trueimage}.
 	 * @param ctx the parse tree

@@ -102,30 +102,6 @@ public class GMSVBaseListener implements GMSVListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAlbumitemflg(GMSVParser.AlbumitemflgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAlbumitemflg(GMSVParser.AlbumitemflgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBankitem(GMSVParser.BankitemContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBankitem(GMSVParser.BankitemContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterBimage(GMSVParser.BimageContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -234,18 +210,6 @@ public class GMSVBaseListener implements GMSVListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEndblock(GMSVParser.EndblockContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitEndblock(GMSVParser.EndblockContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterEndevent(GMSVParser.EndeventContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -330,18 +294,6 @@ public class GMSVBaseListener implements GMSVListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterGaglobalflag(GMSVParser.GaglobalflagContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitGaglobalflag(GMSVParser.GaglobalflagContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterGawindow(GMSVParser.GawindowContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -349,18 +301,6 @@ public class GMSVBaseListener implements GMSVListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitGawindow(GMSVParser.GawindowContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterGetalbumflgtotal(GMSVParser.GetalbumflgtotalContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitGetalbumflgtotal(GMSVParser.GetalbumflgtotalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -505,18 +445,6 @@ public class GMSVBaseListener implements GMSVListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitGroup(GMSVParser.GroupContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterGuildmember(GMSVParser.GuildmemberContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitGuildmember(GMSVParser.GuildmemberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -894,18 +822,6 @@ public class GMSVBaseListener implements GMSVListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMoveto(GMSVParser.MovetoContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMoveto(GMSVParser.MovetoContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterNext(GMSVParser.NextContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1009,18 +925,6 @@ public class GMSVBaseListener implements GMSVListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPhitem(GMSVParser.PhitemContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPlay_se(GMSVParser.Play_seContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPlay_se(GMSVParser.Play_seContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1170,18 +1074,6 @@ public class GMSVBaseListener implements GMSVListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSetparameter(GMSVParser.SetparameterContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSetparameter(GMSVParser.SetparameterContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterSetvisitor(GMSVParser.SetvisitorContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1201,30 +1093,6 @@ public class GMSVBaseListener implements GMSVListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitShapenext(GMSVParser.ShapenextContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterShapeoff(GMSVParser.ShapeoffContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitShapeoff(GMSVParser.ShapeoffContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterShapeon(GMSVParser.ShapeonContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitShapeon(GMSVParser.ShapeonContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1321,18 +1189,6 @@ public class GMSVBaseListener implements GMSVListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSystemmessage(GMSVParser.SystemmessageContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTglobalflag(GMSVParser.TglobalflagContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTglobalflag(GMSVParser.TglobalflagContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
