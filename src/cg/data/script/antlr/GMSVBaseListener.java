@@ -30,6 +30,42 @@ public class GMSVBaseListener implements GMSVListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBooleanRule(GMSVParser.BooleanRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBooleanRule(GMSVParser.BooleanRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIntRule(GMSVParser.IntRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIntRule(GMSVParser.IntRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStringRule(GMSVParser.StringRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStringRule(GMSVParser.StringRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAddfeversec(GMSVParser.AddfeversecContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1273,6 +1309,30 @@ public class GMSVBaseListener implements GMSVListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitYes(GMSVParser.YesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMutilBOOLEAN(GMSVParser.MutilBOOLEANContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMutilBOOLEAN(GMSVParser.MutilBOOLEANContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMutilINT(GMSVParser.MutilINTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMutilINT(GMSVParser.MutilINTContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

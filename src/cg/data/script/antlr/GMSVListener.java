@@ -20,6 +20,36 @@ public interface GMSVListener extends ParseTreeListener {
 	 */
 	void exitR(GMSVParser.RContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GMSVParser#booleanRule}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanRule(GMSVParser.BooleanRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GMSVParser#booleanRule}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanRule(GMSVParser.BooleanRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GMSVParser#intRule}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntRule(GMSVParser.IntRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GMSVParser#intRule}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntRule(GMSVParser.IntRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GMSVParser#stringRule}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringRule(GMSVParser.StringRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GMSVParser#stringRule}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringRule(GMSVParser.StringRuleContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GMSVParser#addfeversec}.
 	 * @param ctx the parse tree
 	 */
@@ -1059,4 +1089,24 @@ public interface GMSVListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitYes(GMSVParser.YesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GMSVParser#mutilBOOLEAN}.
+	 * @param ctx the parse tree
+	 */
+	void enterMutilBOOLEAN(GMSVParser.MutilBOOLEANContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GMSVParser#mutilBOOLEAN}.
+	 * @param ctx the parse tree
+	 */
+	void exitMutilBOOLEAN(GMSVParser.MutilBOOLEANContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GMSVParser#mutilINT}.
+	 * @param ctx the parse tree
+	 */
+	void enterMutilINT(GMSVParser.MutilINTContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GMSVParser#mutilINT}.
+	 * @param ctx the parse tree
+	 */
+	void exitMutilINT(GMSVParser.MutilINTContext ctx);
 }
