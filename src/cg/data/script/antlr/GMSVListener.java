@@ -50,6 +50,26 @@ public interface GMSVListener extends ParseTreeListener {
 	 */
 	void exitStringRule(GMSVParser.StringRuleContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GMSVParser#startRule}.
+	 * @param ctx the parse tree
+	 */
+	void enterStartRule(GMSVParser.StartRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GMSVParser#startRule}.
+	 * @param ctx the parse tree
+	 */
+	void exitStartRule(GMSVParser.StartRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GMSVParser#commonRule}.
+	 * @param ctx the parse tree
+	 */
+	void enterCommonRule(GMSVParser.CommonRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GMSVParser#commonRule}.
+	 * @param ctx the parse tree
+	 */
+	void exitCommonRule(GMSVParser.CommonRuleContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link GMSVParser#addfeversec}.
 	 * @param ctx the parse tree
 	 */
@@ -1109,4 +1129,14 @@ public interface GMSVListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMutilINT(GMSVParser.MutilINTContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GMSVParser#mutilCOMMON}.
+	 * @param ctx the parse tree
+	 */
+	void enterMutilCOMMON(GMSVParser.MutilCOMMONContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GMSVParser#mutilCOMMON}.
+	 * @param ctx the parse tree
+	 */
+	void exitMutilCOMMON(GMSVParser.MutilCOMMONContext ctx);
 }

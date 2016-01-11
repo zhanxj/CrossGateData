@@ -66,6 +66,30 @@ public class GMSVBaseListener implements GMSVListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStartRule(GMSVParser.StartRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStartRule(GMSVParser.StartRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCommonRule(GMSVParser.CommonRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCommonRule(GMSVParser.CommonRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAddfeversec(GMSVParser.AddfeversecContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1333,6 +1357,18 @@ public class GMSVBaseListener implements GMSVListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMutilINT(GMSVParser.MutilINTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMutilCOMMON(GMSVParser.MutilCOMMONContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMutilCOMMON(GMSVParser.MutilCOMMONContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
